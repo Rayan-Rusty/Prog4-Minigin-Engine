@@ -2,6 +2,7 @@
 #include <string>
 #include <functional>
 #include <filesystem>
+#include <SDL3/SDL.h>
 
 namespace dae
 {
@@ -18,5 +19,8 @@ namespace dae
 		Minigin(Minigin&& other) = delete;
 		Minigin& operator=(const Minigin& other) = delete;
 		Minigin& operator=(Minigin&& other) = delete;
+
+		// Student functions
+		static float GetFrameTime();
 	};
 }

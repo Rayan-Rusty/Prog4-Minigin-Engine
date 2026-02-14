@@ -32,6 +32,11 @@ static void load()
 	to->SetColor({ 255, 255, 0, 255 });
 	to->SetPosition(292, 20);
 	scene.Add(std::move(to));
+
+	auto textObj = std::make_unique<dae::TextObject>("FPS" , font);
+	textObj->SetColor({ 255, 255, 0, 255 });
+	textObj->SetPosition(10, 20);
+	scene.Add(std::move(textObj));
 }
 
 int main(int, char*[]) {

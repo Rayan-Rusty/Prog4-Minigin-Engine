@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <string>
+//#include <string>
 #include <memory>
 #include "Scene.h"
 #include "Singleton.h"
@@ -13,7 +13,7 @@ namespace dae
 	public:
 		Scene& CreateScene();
 
-		void Update();
+		void Update(float deltaTime) const;
 		void Render();
 	private:
 		friend class Singleton<SceneManager>;

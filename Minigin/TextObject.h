@@ -11,7 +11,7 @@ namespace dae
 	class TextObject final : public GameObject
 	{
 	public:
-		void Update() override;
+		void Update(float deltaTime) override;
 		void Render() const override;
 
 		void SetText(const std::string& text);
@@ -19,6 +19,8 @@ namespace dae
 		void SetColor(const SDL_Color& color);
 
 		TextObject(const std::string& text, std::shared_ptr<Font> font, const SDL_Color& color = { 255, 255, 255, 255 });
+
+		// ReSharper disable once CppEnforceOverridingDestructorStyle
 		virtual ~TextObject() = default;
 		TextObject(const TextObject& other) = delete;
 		TextObject(TextObject&& other) = delete;

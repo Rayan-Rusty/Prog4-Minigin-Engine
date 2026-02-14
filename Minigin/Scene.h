@@ -6,6 +6,7 @@
 
 namespace dae
 {
+	class TextObject;
 	class Scene final
 	{
 	public:
@@ -13,7 +14,7 @@ namespace dae
 		void Remove(const GameObject& object);
 		void RemoveAll();
 
-		void Update();
+		void Update(float deltaTime);
 		void Render() const;
 
 		~Scene() = default;
@@ -27,6 +28,8 @@ namespace dae
 		explicit Scene() = default;
 
 		std::vector < std::unique_ptr<GameObject>> m_objects{};
+
+
 	};
 
 }

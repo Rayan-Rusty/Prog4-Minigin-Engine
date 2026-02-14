@@ -101,6 +101,16 @@ void dae::Minigin::Run(const std::function<void()>& load)
 void dae::Minigin::RunOneFrame()
 {
 	m_quit = !InputManager::GetInstance().ProcessInput();
-	SceneManager::GetInstance().Update();
+	float deltaTime{GetFrameTime()};
+	SceneManager::GetInstance().Update(deltaTime);
 	Renderer::GetInstance().Render();
+}
+
+float dae::Minigin::GetFrameTime()
+{
+	static uint64_t lastTime = SDL_GetTicks();
+	uint64_t currentTime = SDL_GetTicks();
+	float deltaTime =static_cast<float>(currentTime - lastTime) / 1000.0f; // this way its in seconds
+	lastTime = currentTime;
+	return deltaTime;
 }
