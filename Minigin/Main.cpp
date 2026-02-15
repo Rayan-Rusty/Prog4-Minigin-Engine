@@ -9,6 +9,7 @@
 #include "SceneManager.h"
 #include "ResourceManager.h"
 #include "TextObject.h"
+#include "FPSComponent.h"
 #include "Scene.h"
 
 #include <filesystem>
@@ -33,10 +34,11 @@ static void load()
 	to->SetPosition(292, 20);
 	scene.Add(std::move(to));
 
-	auto textObj = std::make_unique<dae::TextObject>("FPS" , font);
-	textObj->SetColor({ 255, 255, 0, 255 });
-	textObj->SetPosition(10, 20);
-	scene.Add(std::move(textObj));
+	auto fpsText = std::make_unique<dae::TextObject>("FPS: 0", font);
+	fpsText->SetPosition(10, 10);
+	fpsText->SetColor({ 255, 255, 0, 255 });
+	fpsText->SetFPSComponent();
+	scene.Add(std::move(fpsText));
 }
 
 int main(int, char*[]) {

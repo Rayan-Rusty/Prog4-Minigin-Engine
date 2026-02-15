@@ -4,6 +4,7 @@
 #include "Renderer.h"
 #include "Font.h"
 #include "Texture2D.h"
+#include "FPSCOmponent.h"
 
 dae::TextObject::TextObject(const std::string& text, std::shared_ptr<Font> font, const SDL_Color& color)
 	: m_needsUpdate(true), m_text(text), m_color(color), m_font(std::move(font)), m_textTexture(nullptr)
@@ -11,6 +12,8 @@ dae::TextObject::TextObject(const std::string& text, std::shared_ptr<Font> font,
 
 void dae::TextObject::Update(float deltaTime)
 {
+	if(m_hasFPSComponent)
+		m_fpsComponent.Update(deltaTime);
 	if (m_needsUpdate)
 	{
 		const auto surf = TTF_RenderText_Blended(m_font->GetFont(), m_text.c_str(), m_text.length(), m_color);
@@ -53,6 +56,11 @@ void dae::TextObject::SetColor(const SDL_Color& color)
 {
 	m_color = color;
 	m_needsUpdate = true;
+}
+
+void dae::TextObject::SetFPSComponent()
+{
+	m_hasFPSComponent = true;
 }
 
 

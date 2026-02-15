@@ -3,9 +3,11 @@
 #include <memory>
 #include "GameObject.h"
 #include "Transform.h"
-
+#include <SDL3/SDL.h>
+#include "FPSComponent.h"
 namespace dae
 {
+
 	class Font;
 	class Texture2D;
 	class TextObject final : public GameObject
@@ -26,6 +28,9 @@ namespace dae
 		TextObject(TextObject&& other) = delete;
 		TextObject& operator=(const TextObject& other) = delete;
 		TextObject& operator=(TextObject&& other) = delete;
+
+		//Exercise week 1
+		void SetFPSComponent();
 	private:
 		bool m_needsUpdate{};
 		std::string m_text{};
@@ -33,5 +38,7 @@ namespace dae
 		Transform m_transform{};
 		std::shared_ptr<Font> m_font{};
 		std::shared_ptr<Texture2D> m_textTexture{};
+		FPSComponent m_fpsComponent{this};
+		bool m_hasFPSComponent{false};
 	};
 }

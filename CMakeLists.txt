@@ -13,8 +13,8 @@ else()
   set(TARGET_PARAM WIN32
           Minigin/Game.cpp
           Minigin/Game.h
-          Minigin/FPSObject.cpp
-          Minigin/FPSObject.h)
+          Minigin/FPSCOmponent.cpp
+          Minigin/FPSCOmponent.h)
 endif()
 
 # list source files here
