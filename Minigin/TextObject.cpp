@@ -4,7 +4,7 @@
 #include "Renderer.h"
 #include "Font.h"
 #include "Texture2D.h"
-#include "FPSCOmponent.h"
+#include "FPSComponent.h"
 
 dae::TextObject::TextObject(const std::string& text, std::shared_ptr<Font> font, const SDL_Color& color)
 	: m_needsUpdate(true), m_text(text), m_color(color), m_font(std::move(font)), m_textTexture(nullptr)
