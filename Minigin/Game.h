@@ -1,19 +1,22 @@
-//
-// Created by omen on 14/02/2026.
-//
-
 #pragma once
 
 
-class Game
+
+
+#include <memory>
+#include "Scene.h"
+namespace dae
 {
-public:
-    Game() = default;
-    ~Game() = default;
+        class Game
+        {
+        public:
+            Game(dae::Scene& scene);
+            ~Game() = default;
 
-    static void init() ;
-    static void Update(float deltaTime);
-    static void Draw() ;
-private:
-
-};
+            void init() ;
+            void Update(float deltaTime);
+            void Draw() const ;
+        private:
+            Scene& m_Scene;
+        };
+}

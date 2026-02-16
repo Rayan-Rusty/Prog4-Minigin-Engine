@@ -27,6 +27,7 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
   Minigin/Texture2D.cpp
   Minigin/Transform.cpp
   Minigin/FPSComponent.cpp
+  Minigin/Game.cpp
 )
 
 # enable c++20 features
