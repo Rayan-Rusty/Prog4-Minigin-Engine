@@ -232,3 +232,7 @@ else()
   )
 endif()
 
+find_package(VLD CONFIG)
+target_include_directories(${TARGET_NAME} PRIVATE ${VLD_INCLUDE_DIRS})
+target_link_libraries(${TARGET_NAME} PRIVATE ${VLD_LIBRARIES})
+
