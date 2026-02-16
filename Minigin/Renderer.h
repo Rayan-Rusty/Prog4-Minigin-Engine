@@ -26,6 +26,9 @@ namespace dae
 
 		const SDL_Color& GetBackgroundColor() const { return m_clearColor; }
 		void SetBackgroundColor(const SDL_Color& color) { m_clearColor = color; }
+
+		//student functions
+		void Clear() const;
 	};
 }
 

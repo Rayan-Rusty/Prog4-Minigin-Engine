@@ -51,5 +51,5 @@ void dae::Game::Update(float deltaTime)
 
 void dae::Game::Draw() const
 {
-
+    m_Scene.Render();
 }

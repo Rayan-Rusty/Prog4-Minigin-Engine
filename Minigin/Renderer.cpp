@@ -24,14 +24,10 @@ void dae::Renderer::Init(SDL_Window* window)
 	}
 }
 
+
+
 void dae::Renderer::Render() const
 {
-	const auto& color = GetBackgroundColor();
-	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
-	SDL_RenderClear(m_renderer);
-
-	SceneManager::GetInstance().Render();
-
 	SDL_RenderPresent(m_renderer);
 }
 
@@ -64,3 +60,10 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const
 }
 
 SDL_Renderer* dae::Renderer::GetSDLRenderer() const { return m_renderer; }
+
+void dae::Renderer::Clear() const
+{
+	const auto& color = GetBackgroundColor();
+	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
+	SDL_RenderClear(m_renderer);
+}

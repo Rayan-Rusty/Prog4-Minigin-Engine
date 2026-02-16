@@ -19,6 +19,8 @@ void dae::SceneManager::Render()
 
 dae::Scene& dae::SceneManager::CreateScene()
 {
+
 	m_scenes.emplace_back(new Scene());
+
 	return *m_scenes.back();
 }
