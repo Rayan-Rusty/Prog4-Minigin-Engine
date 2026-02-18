@@ -29,9 +29,9 @@ namespace dae
 		template<typename T>
 		T* GetComponent()
 		{
-			for (auto& c : m_components)
-				if (auto ptr = dynamic_cast<T*>(c.get()))
-					return ptr;
+			for (auto& component : m_components)
+				if (component->GetType() == typeid(T))
+					return static_cast<T*>(component.get());
 			return nullptr;
 		}
 

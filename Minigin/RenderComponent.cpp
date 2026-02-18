@@ -24,3 +24,8 @@ void dae::RenderComponent::Render() const
         Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
     }
 }
+
+std::type_index dae::RenderComponent::GetType() const
+{
+    return typeid(RenderComponent);
+}

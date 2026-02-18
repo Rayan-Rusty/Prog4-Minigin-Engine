@@ -12,7 +12,6 @@
 #include "FPSComponent.h"
 #include "RenderComponent.h"
 
-
 dae::Game::Game(dae::Scene& scene)
     :m_Scene(scene)
 {
@@ -59,8 +58,10 @@ void dae::Game::init()
     TextComp->AddFPSComponent();
 
     FpsGameObject->AddComponent(std::move(TextComp));
-    m_Scene.Add(std::move(FpsGameObject));
 
+
+
+    m_Scene.Add(std::move(FpsGameObject));
 
 
 }

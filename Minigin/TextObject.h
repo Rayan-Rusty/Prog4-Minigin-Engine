@@ -25,7 +25,7 @@ namespace dae
 		void SetText(const std::string& text);
 		void SetColor(const SDL_Color& color);
 
-
+		std::type_index GetType() const override;
 		TextObject(const TextObject& other) = delete;
 		TextObject(TextObject&& other) = delete;
 		TextObject& operator=(const TextObject& other) = delete;

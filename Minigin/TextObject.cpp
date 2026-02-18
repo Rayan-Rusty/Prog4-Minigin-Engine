@@ -72,4 +72,7 @@ void dae::TextObject::RemoveFPSComponent()
 		m_fpsComponent.reset();
 }
 
-
+std::type_index dae::TextObject::GetType() const
+{
+	return typeid(TextObject);
+}
