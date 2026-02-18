@@ -13,7 +13,7 @@ dae::TextComponent::TextComponent(GameObject* owner, const std::string& text, st
 void dae::TextComponent::Update(float deltaTime)
 {
 
-	if(m_hasFPSComponent && m_fpsComponent)
+	if( m_fpsComponent)
 		m_fpsComponent->Update(deltaTime);
 	if (m_needsUpdate)
 	{
@@ -60,10 +60,10 @@ void dae::TextComponent::SetColor(const SDL_Color& color)
 
 void dae::TextComponent::AddFPSComponent()
 {
-	if (!m_hasFPSComponent)
+	if (!m_fpsComponent)
 	{
 		m_fpsComponent = std::make_unique<FPSComponent>(this);
-		m_hasFPSComponent = true;
+
 	}
 }
 

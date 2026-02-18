@@ -17,7 +17,7 @@ namespace dae
         //using type_index bc you cant compare two type_info
         virtual std::type_index GetType() const = 0;
     protected:
-        GameObject* m_owner;
+        GameObject* m_owner{nullptr};
     };
 
 }

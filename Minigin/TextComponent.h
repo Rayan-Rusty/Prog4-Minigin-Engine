@@ -41,8 +41,8 @@ namespace dae
 		SDL_Color m_color{ 255, 255, 255, 255 };
 
 		std::shared_ptr<Font> m_font{};
-		std::shared_ptr<Texture2D> m_textTexture{};
-		std::unique_ptr<FPSComponent> m_fpsComponent;
-		bool m_hasFPSComponent{false};
+		std::shared_ptr<Texture2D> m_textTexture{nullptr};
+		std::unique_ptr<FPSComponent> m_fpsComponent{nullptr};
+
 	};
 }

@@ -20,7 +20,7 @@ namespace dae
 
         virtual void Update(float deltaTime);
     private:
-        TextComponent* m_textObject;
+        TextComponent* m_textObject{nullptr};
     };
 
 }
