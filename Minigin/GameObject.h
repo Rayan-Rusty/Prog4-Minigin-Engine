@@ -5,6 +5,8 @@
 #include "Component.h"
 #include <format>
 #include <iostream>
+#include <type_traits>
+
 namespace dae
 {
 
@@ -26,6 +28,18 @@ namespace dae
 		template<typename T>
 		void AddComponent(std::unique_ptr<T>&& component)
 		{
+			//safety checks
+			//https://en.cppreference.com/w/cpp/types/is_base_of.html
+			// a helper function for checking wether its the derived class of a base class in this case Component
+			static_assert(std::is_base_of_v<Component, T>, "T needs to inherit from component"); //compile time
+
+			if (!component)
+			{
+				std::cout << "GameObject::AddComponent: Component is a nullptr." << std::endl;
+				return;
+			}
+
+
 			m_components.push_back(std::move(component));
 			std::cout << std::format("The following component was added: {}\n", typeid(T).name());
 		}
