@@ -10,6 +10,7 @@
 #include "GameObject.h"
 #include "TextObject.h"
 #include "FPSComponent.h"
+#include "RenderComponent.h"
 
 
 dae::Game::Game(dae::Scene& scene)
@@ -22,13 +23,23 @@ void dae::Game::init()
 {
 
     auto go = std::make_unique<dae::GameObject>();
-    go->SetTexture("background.png");
+    auto RenderBackground = std::make_unique<RenderComponent>(go.get());
+
+    RenderBackground->SetTextureFile("background.png");
+    go->AddComponent(std::move(RenderBackground));
     m_Scene.Add(std::move(go));
 
     go = std::make_unique<dae::GameObject>();
-    go->SetTexture("logo.png");
     go->SetPosition(358, 180);
+    RenderBackground =  std::make_unique<RenderComponent>(go.get());
+
+    RenderBackground->SetTextureFile("logo.png");
+    go->AddComponent(std::move(RenderBackground));
     m_Scene.Add(std::move(go));
+
+
+
+
 
     auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
     auto textGO = std::make_unique<dae::GameObject>();

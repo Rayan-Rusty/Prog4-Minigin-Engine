@@ -103,6 +103,8 @@ void dae::Minigin::Run()
 
 void dae::Minigin::RunOneFrame()
 {
+
+
 	m_quit = !InputManager::GetInstance().ProcessInput();
 	float deltaTime{GetFrameTime()};
 	Renderer::GetInstance().Clear();

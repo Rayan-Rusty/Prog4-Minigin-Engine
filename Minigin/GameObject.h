@@ -7,22 +7,20 @@ namespace dae
 {
 
 	class Texture2D;
+	class TextObject;
 	class GameObject final
 	{
-		Transform m_transform{};
-		std::shared_ptr<Texture2D> m_texture{};
-		std::vector<std::unique_ptr<Component>> m_components;
+
 
 	public:
-		virtual void Update(float deltaTime);
-		virtual void Render() const;
+		void Update(float deltaTime);
+		void Render() const;
 
-		void SetTexture(const std::string& filename);
 		void SetPosition(float x, float y);
 
 		Transform& GetTransform();
 
-		//component Functions they have to be
+		//component Functions they have to be - if necessary to have two of the same components maybe use pairs to ID them?
 		template<typename T>
 		void AddComponent(std::unique_ptr<T>&& component)
 		{
@@ -38,10 +36,14 @@ namespace dae
 		}
 
 		GameObject() = default;
-		virtual ~GameObject();
+		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
+	private:
+		Transform m_transform{};
+
+		std::vector<std::unique_ptr<Component>> m_components;
 	};
 }

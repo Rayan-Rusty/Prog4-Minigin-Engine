@@ -7,7 +7,8 @@ endif()
 
 if(EMSCRIPTEN)
   set(TARGET_NAME minigin_web)
-  set(TARGET_PARAM )
+  set(TARGET_PARAM)
+
 else()
   set(TARGET_NAME minigin)
 endif()
@@ -28,9 +29,10 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
   Minigin/Transform.cpp
   Minigin/FPSComponent.cpp
   Minigin/Game.cpp
-        Minigin/Component.cpp
-        Minigin/Component.h
-)
+  Minigin/Component.cpp
+  Minigin/Component.h
+  Minigin/RenderComponent.cpp
+  )
 
 # enable c++20 features
 target_compile_features(${TARGET_NAME} PUBLIC cxx_std_20)
