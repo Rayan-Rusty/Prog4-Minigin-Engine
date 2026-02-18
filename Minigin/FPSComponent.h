@@ -8,19 +8,19 @@
 
 namespace dae
 {
-    class TextObject;
+    class TextComponent;
 
     class FPSComponent
     {
     public:
-        explicit FPSComponent(TextObject* textObject);
+        explicit FPSComponent(TextComponent* textObject);
         FPSComponent(const FPSComponent&) = delete;
         ~FPSComponent() = default;
         FPSComponent& operator=(const FPSComponent&) = delete;
 
         virtual void Update(float deltaTime);
     private:
-        TextObject* m_textObject;
+        TextComponent* m_textObject;
     };
 
 }

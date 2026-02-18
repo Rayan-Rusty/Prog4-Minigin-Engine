@@ -3,9 +3,9 @@
 //
 
 #include "FPSComponent.h"
-#include "TextObject.h"
+#include "TextComponent.h"
 #include <format>
-dae::FPSComponent::FPSComponent(TextObject* textObject)
+dae::FPSComponent::FPSComponent(TextComponent* textObject)
     : m_textObject(textObject)
 {
 

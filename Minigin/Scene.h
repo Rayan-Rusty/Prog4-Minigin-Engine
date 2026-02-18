@@ -6,7 +6,7 @@
 
 namespace dae
 {
-	class TextObject;
+	class TextComponent;
 	class Scene final
 	{
 	public:

@@ -7,7 +7,7 @@ namespace dae
 {
 
 	class Texture2D;
-	class TextObject;
+	class TextComponent;
 	class GameObject final
 	{
 
@@ -35,7 +35,22 @@ namespace dae
 			return nullptr;
 		}
 
+		//https://www.geeksforgeeks.org/cpp/std-remove-if-algorithm-in-cpp-stl/
+		// this is an example I found of std::remove-if in which it uses a lambda too
 
+		template<typename T>
+		void RemoveComponent()
+		{
+			//removes components that are the same type as the given one
+			auto iteration = std::remove_if(m_components.begin(), m_components.end(),
+				[](const std::unique_ptr<T>& component)
+				{
+					return component->GetType() == typeid(T);
+				});
+
+			m_components.erase(iteration, m_components.end()); // now it removes it from the vector
+
+		}
 
 		GameObject() = default;
 		~GameObject();
@@ -45,7 +60,6 @@ namespace dae
 		GameObject& operator=(GameObject&& other) = delete;
 	private:
 		Transform m_transform{};
-
 		std::vector<std::unique_ptr<Component>> m_components;
 	};
 }

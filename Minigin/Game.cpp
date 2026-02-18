@@ -8,7 +8,7 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 #include "GameObject.h"
-#include "TextObject.h"
+#include "TextComponent.h"
 #include "FPSComponent.h"
 #include "RenderComponent.h"
 
@@ -44,7 +44,7 @@ void dae::Game::init()
     auto textGO {std::make_unique<dae::GameObject>()};
     textGO->SetPosition(292, 20);
 
-    auto textComp { std::make_unique<dae::TextObject>(textGO.get(), "Programming 4 Assignment", font)};
+    auto textComp { std::make_unique<dae::TextComponent>(textGO.get(), "Programming 4 Assignment", font)};
     textComp->SetColor({255, 255, 255, 255});
 
     textGO->AddComponent(std::move(textComp));
@@ -53,7 +53,7 @@ void dae::Game::init()
     //fps Counter
     auto FpsGameObject {std::make_unique<dae::GameObject>()};
     FpsGameObject->SetPosition(10, 10);
-    auto TextComp {std::make_unique<dae::TextObject>(FpsGameObject.get(), "FPS : 0", font)};
+    auto TextComp {std::make_unique<dae::TextComponent>(FpsGameObject.get(), "FPS : 0", font)};
     TextComp->SetColor({255, 255, 255, 255});
     TextComp->AddFPSComponent();
 

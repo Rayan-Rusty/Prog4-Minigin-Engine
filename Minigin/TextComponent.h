@@ -12,12 +12,12 @@ namespace dae
 	class FPSComponent;
 	class Font;
 	class Texture2D;
-	class TextObject final : public Component
+	class TextComponent final : public Component
 	{
 	public:
 
-		TextObject(GameObject* owner ,const std::string& text, std::shared_ptr<Font> font, const SDL_Color& color = { 255, 255, 255, 255 });
-		virtual ~TextObject() = default;
+		TextComponent(GameObject* owner ,const std::string& text, std::shared_ptr<Font> font, const SDL_Color& color = { 255, 255, 255, 255 });
+
 
 		void Update(float deltaTime) override;
 		void Render() const override;
@@ -26,10 +26,10 @@ namespace dae
 		void SetColor(const SDL_Color& color);
 
 		std::type_index GetType() const override;
-		TextObject(const TextObject& other) = delete;
-		TextObject(TextObject&& other) = delete;
-		TextObject& operator=(const TextObject& other) = delete;
-		TextObject& operator=(TextObject&& other) = delete;
+		TextComponent(const TextComponent& other) = delete;
+		TextComponent(TextComponent&& other) = delete;
+		TextComponent& operator=(const TextComponent& other) = delete;
+		TextComponent& operator=(TextComponent&& other) = delete;
 
 		//Exercise week 1
 

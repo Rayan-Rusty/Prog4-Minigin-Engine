@@ -8,7 +8,7 @@
 #include "Minigin.h"
 #include "SceneManager.h"
 #include "ResourceManager.h"
-#include "TextObject.h"
+#include "TextComponent.h"
 #include "FPSComponent.h"
 #include "Scene.h"
 #include "Game.h"

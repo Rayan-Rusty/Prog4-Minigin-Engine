@@ -1,16 +1,16 @@
 ﻿#include <stdexcept>
 #include <SDL3_ttf/SDL_ttf.h>
-#include "TextObject.h"
+#include "TextComponent.h"
 #include "Renderer.h"
 #include "Font.h"
 #include "Texture2D.h"
 #include "FPSComponent.h"
 
-dae::TextObject::TextObject(GameObject* owner, const std::string& text, std::shared_ptr<Font> font, const SDL_Color& color)
+dae::TextComponent::TextComponent(GameObject* owner, const std::string& text, std::shared_ptr<Font> font, const SDL_Color& color)
 	: Component(owner), m_needsUpdate(true), m_text(text), m_color(color), m_font(std::move(font)), m_textTexture(nullptr)
 { }
 
-void dae::TextObject::Update(float deltaTime)
+void dae::TextComponent::Update(float deltaTime)
 {
 
 	if(m_hasFPSComponent && m_fpsComponent)
@@ -33,7 +33,7 @@ void dae::TextObject::Update(float deltaTime)
 	}
 }
 
-void dae::TextObject::Render() const
+void dae::TextComponent::Render() const
 {
 	if (m_textTexture != nullptr)
 	{
@@ -42,7 +42,7 @@ void dae::TextObject::Render() const
 	}
 }
 
-void dae::TextObject::SetText(const std::string& text)
+void dae::TextComponent::SetText(const std::string& text)
 {
 	m_text = text;
 	m_needsUpdate = true;
@@ -50,7 +50,7 @@ void dae::TextObject::SetText(const std::string& text)
 
 
 
-void dae::TextObject::SetColor(const SDL_Color& color)
+void dae::TextComponent::SetColor(const SDL_Color& color)
 {
 	m_color = color;
 	m_needsUpdate = true;
@@ -58,7 +58,7 @@ void dae::TextObject::SetColor(const SDL_Color& color)
 
 
 
-void dae::TextObject::AddFPSComponent()
+void dae::TextComponent::AddFPSComponent()
 {
 	if (!m_hasFPSComponent)
 	{
@@ -67,12 +67,12 @@ void dae::TextObject::AddFPSComponent()
 	}
 }
 
-void dae::TextObject::RemoveFPSComponent()
+void dae::TextComponent::RemoveFPSComponent()
 {
 		m_fpsComponent.reset();
 }
 
-std::type_index dae::TextObject::GetType() const
+std::type_index dae::TextComponent::GetType() const
 {
-	return typeid(TextObject);
+	return typeid(TextComponent);
 }
