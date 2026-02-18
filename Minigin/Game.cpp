@@ -32,12 +32,24 @@ void dae::Game::init()
 
     auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
     auto textGO = std::make_unique<dae::GameObject>();
-    textGO->GetTransform().SetPosition(292, 20);
+    textGO->SetPosition(292, 20);
 
     auto textComp = std::make_unique<dae::TextObject>(textGO.get(), "Programming 4 Assignment", font);
     textComp->SetColor({255, 255, 0, 255});
+
     textGO->AddComponent(std::move(textComp));
     m_Scene.Add(std::move(textGO));
+
+    //fps Counter
+    auto FpsGameObject = std::make_unique<dae::GameObject>();
+    FpsGameObject->SetPosition(10, 10);
+    auto TextComp = std::make_unique<dae::TextObject>(FpsGameObject.get(), "FPS : 0", font);
+    TextComp->SetColor({255, 255, 0, 255});
+    TextComp->AddFPSComponent();
+
+    FpsGameObject->AddComponent(std::move(TextComp));
+    m_Scene.Add(std::move(FpsGameObject));
+
 
 
 }

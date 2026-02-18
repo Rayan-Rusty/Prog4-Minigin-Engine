@@ -12,6 +12,7 @@ dae::TextObject::TextObject(GameObject* owner, const std::string& text, std::sha
 
 void dae::TextObject::Update(float deltaTime)
 {
+
 	if(m_hasFPSComponent && m_fpsComponent)
 		m_fpsComponent->Update(deltaTime);
 	if (m_needsUpdate)
