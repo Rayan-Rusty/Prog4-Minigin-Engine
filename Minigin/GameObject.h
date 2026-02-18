@@ -24,7 +24,7 @@ namespace dae
 
 		Transform& GetTransform();
 
-		//component Functions they have to be - if necessary to have two of the same components maybe use pairs to ID them?
+		//component Functions - if necessary to have two of the same components maybe use pairs to ID them not sure if i should do this yet?
 		template<typename T>
 		void AddComponent(std::unique_ptr<T>&& component)
 		{
