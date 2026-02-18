@@ -48,7 +48,7 @@ namespace dae
 					return component->GetType() == typeid(T);
 				});
 
-			m_components.erase(iteration, m_components.end()); // now it removes it from the vector
+			m_components.erase(iteration, m_components.end()); // now it removes every similar type from the vector
 
 		}
 
