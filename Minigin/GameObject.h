@@ -30,10 +30,12 @@ namespace dae
 		T* GetComponent()
 		{
 			for (auto& component : m_components)
-				if (component->GetType() == typeid(T))
+				if (component->GetType() == typeid(T)) //this way i avoid a dynamic cast
 					return static_cast<T*>(component.get());
 			return nullptr;
 		}
+
+
 
 		GameObject() = default;
 		~GameObject();
