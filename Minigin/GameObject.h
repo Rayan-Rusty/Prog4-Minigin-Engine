@@ -3,6 +3,8 @@
 #include <memory>
 #include "Transform.h"
 #include "Component.h"
+#include <format>
+#include <iostream>
 namespace dae
 {
 
@@ -25,6 +27,7 @@ namespace dae
 		void AddComponent(std::unique_ptr<T>&& component)
 		{
 			m_components.push_back(std::move(component));
+			std::cout << std::format("The following component was added: {}\n", typeid(T).name());
 		}
 		template<typename T>
 		T* GetComponent()
