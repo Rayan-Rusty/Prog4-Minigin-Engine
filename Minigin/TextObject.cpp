@@ -6,14 +6,14 @@
 #include "Texture2D.h"
 #include "FPSComponent.h"
 
-dae::TextObject::TextObject(const std::string& text, std::shared_ptr<Font> font, const SDL_Color& color)
-	: m_needsUpdate(true), m_text(text), m_color(color), m_font(std::move(font)), m_textTexture(nullptr)
+dae::TextObject::TextObject(GameObject* owner, const std::string& text, std::shared_ptr<Font> font, const SDL_Color& color)
+	: Component(owner), m_needsUpdate(true), m_text(text), m_color(color), m_font(std::move(font)), m_textTexture(nullptr)
 { }
 
 void dae::TextObject::Update(float deltaTime)
 {
-	if(m_hasFPSComponent)
-		m_fpsComponent.Update(deltaTime);
+	if(m_hasFPSComponent && m_fpsComponent)
+		m_fpsComponent->Update(deltaTime);
 	if (m_needsUpdate)
 	{
 		const auto surf = TTF_RenderText_Blended(m_font->GetFont(), m_text.c_str(), m_text.length(), m_color);
@@ -36,7 +36,7 @@ void dae::TextObject::Render() const
 {
 	if (m_textTexture != nullptr)
 	{
-		const auto& pos = m_transform.GetPosition();
+		const auto& pos = m_owner->GetTransform().GetPosition();
 		Renderer::GetInstance().RenderTexture(*m_textTexture, pos.x, pos.y);
 	}
 }
@@ -47,10 +47,7 @@ void dae::TextObject::SetText(const std::string& text)
 	m_needsUpdate = true;
 }
 
-void dae::TextObject::SetPosition(const float x, const float y)
-{
-	m_transform.SetPosition(x, y);
-}
+
 
 void dae::TextObject::SetColor(const SDL_Color& color)
 {
@@ -58,9 +55,20 @@ void dae::TextObject::SetColor(const SDL_Color& color)
 	m_needsUpdate = true;
 }
 
-void dae::TextObject::SetFPSComponent()
+
+
+void dae::TextObject::AddFPSComponent()
 {
-	m_hasFPSComponent = true;
+	if (!m_hasFPSComponent)
+	{
+		m_fpsComponent = std::make_unique<FPSComponent>(this);
+		m_hasFPSComponent = true;
+	}
+}
+
+void dae::TextObject::RemoveFPSComponent()
+{
+		m_fpsComponent.reset();
 }
 
 

@@ -4,7 +4,7 @@
 
 #pragma once
 #include <string>
-
+#include "FPSComponent.h"
 
 namespace dae
 {
@@ -15,6 +15,7 @@ namespace dae
     public:
         explicit FPSComponent(TextObject* textObject);
         FPSComponent(const FPSComponent&) = delete;
+        ~FPSComponent() = default;
         FPSComponent& operator=(const FPSComponent&) = delete;
 
         virtual void Update(float deltaTime);

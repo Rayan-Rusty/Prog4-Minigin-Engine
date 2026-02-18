@@ -31,16 +31,15 @@ void dae::Game::init()
     m_Scene.Add(std::move(go));
 
     auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-    auto to = std::make_unique<dae::TextObject>("Programming 4 Assignment", font);
-    to->SetColor({ 255, 255, 0, 255 });
-    to->SetPosition(292, 20);
-    m_Scene.Add(std::move(to));
+    auto textGO = std::make_unique<dae::GameObject>();
+    textGO->GetTransform().SetPosition(292, 20);
 
-    auto fpsText = std::make_unique<dae::TextObject>("FPS: 0", font);
-    fpsText->SetPosition(10, 10);
-    fpsText->SetColor({ 255, 255, 0, 255 });
-    fpsText->SetFPSComponent();
-    m_Scene.Add(std::move(fpsText));
+    auto textComp = std::make_unique<dae::TextObject>(textGO.get(), "Programming 4 Assignment", font);
+    textComp->SetColor({255, 255, 0, 255});
+    textGO->AddComponent(std::move(textComp));
+    m_Scene.Add(std::move(textGO));
+
+
 }
 
 void dae::Game::Update(float deltaTime)
