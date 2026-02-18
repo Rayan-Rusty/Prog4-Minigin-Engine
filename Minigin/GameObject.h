@@ -43,7 +43,7 @@ namespace dae
 		{
 			//removes components that are the same type as the given one
 			auto iteration = std::remove_if(m_components.begin(), m_components.end(),
-				[](const std::unique_ptr<T>& component)
+				[](const std::unique_ptr<Component>& component)
 				{
 					return component->GetType() == typeid(T);
 				});

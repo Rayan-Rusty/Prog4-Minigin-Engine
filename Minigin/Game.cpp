@@ -58,6 +58,7 @@ void dae::Game::init()
     TextComp->AddFPSComponent();
 
     FpsGameObject->AddComponent(std::move(TextComp));
+
     m_Scene.Add(std::move(FpsGameObject));
 
 
