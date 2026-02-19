@@ -43,6 +43,8 @@ namespace dae
 			m_components.emplace_back(std::move(component));
 			std::cout << std::format("The following component was added: {}\n", typeid(T).name());
 		}
+
+		//cash it with an ID so you dotn need to iterate constantly
 		template<typename T>
 		T* GetComponent()
 		{

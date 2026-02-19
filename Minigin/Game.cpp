@@ -55,10 +55,10 @@ void dae::Game::init()
     FpsGameObject->SetPosition(10, 10);
     auto TextComp {std::make_unique<dae::TextComponent>(FpsGameObject.get(), "FPS : 0", font)};
     TextComp->SetColor({255, 255, 255, 255});
-    TextComp->AddFPSComponent();
+
 
     FpsGameObject->AddComponent(std::move(TextComp));
-
+    FpsGameObject->AddComponent(std::make_unique<dae::FPSComponent>(FpsGameObject.get()));
     m_Scene.Add(std::move(FpsGameObject));
 
 
@@ -66,7 +66,7 @@ void dae::Game::init()
 
 void dae::Game::Update(float deltaTime)
 {
-    //TODO DeltaTime should be asingleton so i dont have to give it in as a parameter in every function
+    //TODO DeltaTime should be a singleton so i dont have to give it in as a parameter in every function
     m_Scene.Update(deltaTime);
 
 }
