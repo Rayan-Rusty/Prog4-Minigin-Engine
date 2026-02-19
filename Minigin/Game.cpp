@@ -66,6 +66,7 @@ void dae::Game::init()
 
 void dae::Game::Update(float deltaTime)
 {
+    //TODO DeltaTime should be asingleton so i dont have to give it in as a parameter in every function
     m_Scene.Update(deltaTime);
 
 }

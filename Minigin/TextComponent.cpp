@@ -37,6 +37,8 @@ void dae::TextComponent::Render() const
 {
 	if (m_textTexture != nullptr)
 	{
+		//TODO make it so that this is done in the rendercomponent itself
+		//TextComponent would have a reference to rendercomponent
 		const auto& pos = m_owner->GetTransform().GetPosition();
 		Renderer::GetInstance().RenderTexture(*m_textTexture, pos.x, pos.y);
 	}

@@ -18,5 +18,6 @@ void dae::FPSComponent::Update(float deltaTime)
 
     float fps { 1.f / deltaTime};
     m_textObject->SetText(std::format("FPS: {:.1f}" , fps ));
+    //TODO checkout wether its correctly doing the fps
 
 }
