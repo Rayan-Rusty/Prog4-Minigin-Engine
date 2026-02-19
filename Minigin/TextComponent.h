@@ -16,7 +16,7 @@ namespace dae
 	{
 	public:
 
-		TextComponent(GameObject* owner ,const std::string& text, std::shared_ptr<Font> font, const SDL_Color& color = { 255, 255, 255, 255 });
+		TextComponent(GameObject* owner ,std::string  text, std::shared_ptr<Font> font, const SDL_Color& color = { 255, 255, 255, 255 });
 
 
 		void Update(float deltaTime) override;
@@ -33,8 +33,7 @@ namespace dae
 
 		//Exercise week 1
 
-		void AddFPSComponent();
-		void RemoveFPSComponent();
+
 	private:
 		bool m_needsUpdate{};
 		std::string m_text{};
@@ -42,7 +41,7 @@ namespace dae
 
 		std::shared_ptr<Font> m_font{};
 		std::shared_ptr<Texture2D> m_textTexture{nullptr};
-		std::unique_ptr<FPSComponent> m_fpsComponent{nullptr};
+
 
 	};
 }
