@@ -15,9 +15,10 @@ namespace dae
 
         //this is way I dont have to dynamic cast in GetComponent in GameObject
         //using type_index bc you cant compare two type_info
+        GameObject* GetOwner() const { return m_owner; }
+
         virtual std::type_index GetType() const = 0;
         //TODO rule of five
-        //TODO fix the issue with the owner being in private at the current moment
     private:
         GameObject* m_owner{nullptr};
     };
