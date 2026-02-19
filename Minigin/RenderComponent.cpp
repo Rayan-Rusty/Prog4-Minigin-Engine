@@ -21,7 +21,7 @@ void dae::RenderComponent::Render() const
     if (m_Texture)
     {
         //TODO Needs to be done in here instead of TextComponent
-        const auto& pos {m_owner->GetTransform().GetPosition()};
+        const auto& pos {GetOwner()->GetTransform().GetPosition()};
         Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
     }
 }
