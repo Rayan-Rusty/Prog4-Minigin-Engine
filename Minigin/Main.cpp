@@ -27,10 +27,10 @@ int main(int, char*[]) {
 #endif
 	dae::Minigin engine(data_location);
 	auto& scene = dae::SceneManager::GetInstance().CreateScene();
-	std::shared_ptr<dae::Game> game = std::make_shared<dae::Game>(scene); //TODO see if this can be a unique pointer being moved
+	std::unique_ptr<dae::Game> game = std::make_unique<dae::Game>(scene);
 	game->init();
 
-	engine.SetGame(game);
+	engine.SetGame(std::move(game));
 	engine.Run();
 
     return 0;
