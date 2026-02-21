@@ -1,16 +1,18 @@
 #pragma once
 #include "Component.h"
-#include "Texture2D.h"
+
 #include "Renderer.h"
 #include "ResourceManager.h"
 
 namespace dae
 {
+    class Texture2D;
     class RenderComponent : public Component
     {
     public:
         RenderComponent(GameObject* owner);
-        void SetTextureFile(const std::string& TextureFile);
+        void SetTextureFilePath(const std::string& TextureFile);
+        void SetTexture(std::shared_ptr<Texture2D> Texture);
         void Render() const override;
 
         std::type_index GetType() const override;

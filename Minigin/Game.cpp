@@ -21,42 +21,50 @@ dae::Game::Game(dae::Scene& scene)
 void dae::Game::init()
 {
 
+    //init variables
     auto go{ std::make_unique<dae::GameObject>()};
     auto RenderBackground {std::make_unique<RenderComponent>(go.get())};
 
-    RenderBackground->SetTextureFile("background.png");
+
+    //---------Background-------------
+    RenderBackground->SetTextureFilePath("background.png");
     go->AddComponent(std::move(RenderBackground));
     m_Scene.Add(std::move(go));
 
+    //---------Logo-------------
     go = std::make_unique<dae::GameObject>();
     go->SetPosition(358, 180);
     RenderBackground =  std::make_unique<RenderComponent>(go.get());
 
-    RenderBackground->SetTextureFile("logo.png");
+    RenderBackground->SetTextureFilePath("logo.png");
     go->AddComponent(std::move(RenderBackground));
     m_Scene.Add(std::move(go));
 
 
 
 
-
+    //---------Texts-------------
     auto font {dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36)};
     auto textGO {std::make_unique<dae::GameObject>()};
     textGO->SetPosition(292, 20);
 
     auto textComp { std::make_unique<dae::TextComponent>(textGO.get(), "Programming 4 Assignment", font)};
+    RenderBackground =  std::make_unique<RenderComponent>(textGO.get());
     textComp->SetColor({255, 255, 255, 255});
-
+    textGO->AddComponent(std::move(RenderBackground));
     textGO->AddComponent(std::move(textComp));
     m_Scene.Add(std::move(textGO));
 
     //fps Counter
+
     auto FpsGameObject {std::make_unique<dae::GameObject>()};
     FpsGameObject->SetPosition(10, 10);
+
     auto TextComp {std::make_unique<dae::TextComponent>(FpsGameObject.get(), "FPS : 0", font)};
     TextComp->SetColor({255, 255, 255, 255});
+    RenderBackground =  std::make_unique<RenderComponent>(FpsGameObject.get());
 
-
+    FpsGameObject->AddComponent(std::move(RenderBackground));
     FpsGameObject->AddComponent(std::move(TextComp));
     FpsGameObject->AddComponent(std::make_unique<dae::FPSComponent>(FpsGameObject.get()));
     m_Scene.Add(std::move(FpsGameObject));

@@ -6,6 +6,7 @@
 #include "Font.h"
 #include "Texture2D.h"
 #include "FPSComponent.h"
+#include "RenderComponent.h"
 
 dae::TextComponent::TextComponent(GameObject* owner, std::string  text, std::shared_ptr<Font> font, const SDL_Color& color)
 	: Component(owner), m_needsUpdate(true), m_text(std::move(text)), m_color(color), m_font(std::move(font)), m_textTexture(nullptr)
@@ -30,18 +31,20 @@ void dae::TextComponent::Update(float )
 		SDL_DestroySurface(surf);
 		m_textTexture = std::make_shared<Texture2D>(texture);
 		m_needsUpdate = false;
+		if (auto renderComp = GetOwner()->GetComponent<RenderComponent>())
+		{
+			renderComp->SetTexture(m_textTexture);
+		}
+		else
+		{
+			std::cerr << "RenderComponent could not be created." << std::endl;
+		}
 	}
+
 }
 
 void dae::TextComponent::Render() const
 {
-	if (m_textTexture != nullptr)
-	{
-		//TODO make it so that this is done in the rendercomponent itself
-		//TextComponent would have a reference to rendercomponent
-		const auto& pos = GetOwner()->GetTransform().GetPosition();
-		Renderer::GetInstance().RenderTexture(*m_textTexture, pos.x, pos.y);
-	}
 }
 
 void dae::TextComponent::SetText(const std::string& text)

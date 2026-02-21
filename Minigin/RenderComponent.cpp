@@ -10,10 +10,16 @@ dae::RenderComponent::RenderComponent(GameObject *owner)
 }
 
 
-void dae::RenderComponent::SetTextureFile(const std::string &TextureFile)
+void dae::RenderComponent::SetTextureFilePath(const std::string &TextureFile)
 {
     m_Texture = ResourceManager::GetInstance().LoadTexture(TextureFile) ;
 }
+
+void dae::RenderComponent::SetTexture(std::shared_ptr<Texture2D> Texture)
+{
+    m_Texture = Texture;
+}
+
 
 void dae::RenderComponent::Render() const
 {
