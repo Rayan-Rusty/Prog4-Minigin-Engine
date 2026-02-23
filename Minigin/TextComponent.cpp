@@ -5,12 +5,19 @@
 #include "Renderer.h"
 #include "Font.h"
 #include "Texture2D.h"
-#include "FPSComponent.h"
 #include "RenderComponent.h"
 
 dae::TextComponent::TextComponent(GameObject* owner, std::string  text, std::shared_ptr<Font> font, const SDL_Color& color)
 	: Component(owner), m_needsUpdate(true), m_text(std::move(text)), m_color(color), m_font(std::move(font)), m_textTexture(nullptr)
 { }
+
+dae::TextComponent::TextComponent(GameObject *owner)
+	: Component(owner) , m_needsUpdate(true), m_color({255, 255, 255, 255}) ,
+m_font(dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36)), m_textTexture(nullptr)
+{
+	std::string text {"template text"};
+	m_text = std::move(text);
+}
 
 void dae::TextComponent::Update(float )
 {

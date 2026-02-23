@@ -9,7 +9,13 @@ dae::FPSComponent::FPSComponent(GameObject* pOwner)
     : Component(pOwner)
 {
     m_textObject = GetOwner()->GetComponent<TextComponent>();
-    if (!m_textObject) GetOwner()->AddComponent(std::unique_ptr<TextComponent>());
+    if (!m_textObject)
+    {
+        std::cerr << "FPSComponent : Component not found making a new TextComponent" << std::endl;
+        auto newTextComponent = std::make_unique<TextComponent>(GetOwner());
+        GetOwner()->AddComponent(std::move(newTextComponent));
+        m_textObject = GetOwner()->GetComponent<TextComponent>();
+    }
 }
 
 void dae::FPSComponent::Update(float deltaTime)
