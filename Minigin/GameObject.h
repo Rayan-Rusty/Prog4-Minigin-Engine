@@ -20,10 +20,12 @@ namespace dae
 		void Update(float deltaTime);
 		void Render() const;
 
+		//Setters
 		void SetPosition(float x, float y);
-
+		void SetDeletion(bool value);
+		//getters
 		Transform& GetTransform();
-
+		bool GetShouldDelete();
 		//component Functions - if necessary to have two of the same components maybe use pairs to ID them not sure if i should do this yet?
 		template<typename T>
 		void AddComponent(std::unique_ptr<T>&& component)
@@ -80,5 +82,6 @@ namespace dae
 	private:
 		Transform m_transform{};
 		std::vector<std::unique_ptr<Component>> m_components;
+		bool m_ShouldDelete{ false };
 	};
 }

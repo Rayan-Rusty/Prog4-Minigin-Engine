@@ -28,3 +28,13 @@ dae::Transform &dae::GameObject::GetTransform()
 	return m_transform;
 }
 
+bool dae::GameObject::GetShouldDelete()
+{
+	return m_ShouldDelete;
+}
+
+void dae::GameObject::SetDeletion(bool value)
+{
+	m_ShouldDelete = value;
+}
+
