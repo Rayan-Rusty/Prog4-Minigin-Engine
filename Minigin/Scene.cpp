@@ -37,7 +37,7 @@ void Scene::Update(float deltaTime)
 	m_objects.erase(std::remove_if(m_objects.begin(), m_objects.end(),
 		[](const std::unique_ptr<GameObject>& object)
 		{
-			return object->GetClearObject();
+			return object->GetShouldDelete();
 		}
 	),
 	m_objects.end());
