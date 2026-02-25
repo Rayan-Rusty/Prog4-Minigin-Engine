@@ -6,7 +6,8 @@
 #include <format>
 #include <iostream>
 #include <type_traits>
-
+#include <vector>
+#include <algorithm>
 namespace dae
 {
 
@@ -21,21 +22,22 @@ namespace dae
 		void Render() const;
 
 		//Setters
-		void SetPosition(float x, float y);
+
 		void SetDeletion(bool value);
 		//getters
-		Transform& GetTransform();
+
 		bool GetShouldDelete();
 		//component Functions - if necessary to have two of the same components maybe use pairs to ID them not sure if i should do this yet?
 		template<typename T>
 		void AddComponent(std::unique_ptr<T>&& component)
 		{
+
 			//safety checks
 			//https://en.cppreference.com/w/cpp/types/is_base_of.html
 			// a helper function for checking wether its the derived class of a base class in this case Component
 			static_assert(std::is_base_of_v<Component, T>, "T needs to inherit from component"); //compile time
 
-			if (!component)
+			if (!component) // check owner is this
 			{
 				std::cout << "GameObject::AddComponent: Component is a nullptr." << std::endl;
 				return;
@@ -57,7 +59,7 @@ namespace dae
 		}
 
 		//https://www.geeksforgeeks.org/cpp/std-remove-if-algorithm-in-cpp-stl/
-		// this is an example I found of std::remove-if in which it uses a lambda too
+		// this is an example I found of std::remove_if in which it uses a lambda too
 
 		template<typename T>
 		void RemoveComponent()
@@ -73,6 +75,18 @@ namespace dae
 
 		}
 
+		//parent functions
+		void SetParent(GameObject* parent, bool keepWorldPosition);
+		bool IsChild(GameObject* parent);
+		//WorldPosition functions
+		void UpdateWorldPosition();
+		glm::vec3 GetWorldPosition();
+		void SetLocalPosition(const glm::vec3& loc);
+		void SetPositionDirty();
+		glm::vec3 GetLocalPosition() const;
+
+
+		std::vector<GameObject*>& GetChildren();
 		GameObject() = default;
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
@@ -80,8 +94,19 @@ namespace dae
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
 	private:
-		Transform m_transform{};
+		//private functions
+		void AddChild(GameObject* child);
+		void RemoveChild(GameObject* child);
+
+		GameObject* m_parent{nullptr};
+		std::vector<GameObject*> m_Children;
+
+
+		//
+		Transform m_localTransform{};
+		Transform m_worldTransform{};
 		std::vector<std::unique_ptr<Component>> m_components;
 		bool m_ShouldDelete{ false };
+		bool m_PositionDirty {false};
 	};
 }
