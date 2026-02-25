@@ -7,12 +7,14 @@
 
 dae::RotationComponent::RotationComponent(GameObject* pOwner, const glm::vec3& pivot, float clockwiseDirection)
     : Component(pOwner)
-    , m_pivot(pivot), m_clockwiseDirection(clockwiseDirection), m_distance(static_cast<float>(glm::length((GetOwner()->GetLocalPosition() - m_pivot))))
+    , m_pivot(pivot), m_clockwiseDirection(clockwiseDirection)
 {
+    m_distance = static_cast<float>(glm::length((GetOwner()->GetLocalPosition() - m_pivot)));
 }
 
 void dae::RotationComponent::Update(float deltaTime)
 {
+
     //increase angle
     m_angle += deltaTime * m_clockwiseDirection;
 
