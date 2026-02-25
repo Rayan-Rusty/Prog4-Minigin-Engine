@@ -104,9 +104,9 @@ void dae::Minigin::Run()
 void dae::Minigin::RunOneFrame()
 {
 
-
-	m_quit = !InputManager::GetInstance().ProcessInput();
 	float deltaTime{GetFrameTime()};
+	m_quit = !InputManager::GetInstance().ProcessInput(deltaTime);
+
 	Renderer::GetInstance().Clear(); // clears up the last things drawn
 	if (m_Game)
 	{
