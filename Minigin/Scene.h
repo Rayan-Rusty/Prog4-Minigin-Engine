@@ -15,6 +15,7 @@ namespace dae
 		void RemoveAll();
 
 		void Update(float deltaTime);
+		void RemoveGameObject();
 		void Render() const;
 
 		~Scene() = default;

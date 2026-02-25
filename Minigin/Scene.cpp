@@ -33,6 +33,10 @@ void Scene::Update(float deltaTime)
 		object->Update(deltaTime);
 	}
 
+}
+
+void Scene::RemoveGameObject()
+{
 	//erasing objects correctly
 	m_objects.erase(std::remove_if(m_objects.begin(), m_objects.end(),
 		[](const std::unique_ptr<GameObject>& object)
@@ -41,8 +45,6 @@ void Scene::Update(float deltaTime)
 		}
 	),
 	m_objects.end());
-
-
 }
 
 void Scene::Render() const
