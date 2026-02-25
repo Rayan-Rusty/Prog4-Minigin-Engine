@@ -6,7 +6,7 @@ namespace dae
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
-		static bool ProcessInput() ;
+		static bool ProcessInput(float DeltaTime) ;
 	};
 
 }
