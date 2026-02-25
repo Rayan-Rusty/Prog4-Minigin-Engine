@@ -7,7 +7,7 @@
 
 dae::RotationComponent::RotationComponent(GameObject* pOwner, const glm::vec3& pivot, float clockwiseDirection)
     : Component(pOwner)
-    , m_pivot(pivot), m_clockwiseDirection(clockwiseDirection)
+    , m_clockwiseDirection(clockwiseDirection) , m_pivot(pivot)
 {
     m_distance = static_cast<float>(glm::length((GetOwner()->GetLocalPosition() - m_pivot)));
 }
