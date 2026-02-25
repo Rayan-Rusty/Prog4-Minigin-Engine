@@ -20,7 +20,7 @@ namespace dae
         ~FPSComponent() = default;
         FPSComponent& operator=(const FPSComponent&) = delete;
 
-        virtual void Update(float deltaTime);
+        void Update(float deltaTime) override;
 
         std::type_index GetType() const override;
     private:
