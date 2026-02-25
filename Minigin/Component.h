@@ -7,7 +7,7 @@ namespace dae
     class Component
     {
     public:
-        explicit Component(GameObject* owner);
+
         virtual ~Component() = default;
 
         virtual void Update(float deltaTime);
@@ -18,7 +18,12 @@ namespace dae
         GameObject* GetOwner() const { return m_owner; }
 
         virtual std::type_index GetType() const = 0;
-        //TODO rule of five
+        Component(const Component& other) = delete;
+        Component(Component&& other) = delete;
+        Component& operator=(const Component& other) = delete;
+        Component& operator=(Component&& other) = delete;
+    protected:
+        explicit Component(GameObject* owner);
     private:
         GameObject* m_owner{nullptr};
     };
