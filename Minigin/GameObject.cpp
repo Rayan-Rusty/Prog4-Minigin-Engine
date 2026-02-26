@@ -82,7 +82,7 @@ void dae::GameObject::SetParent(GameObject* parent , bool keepWorldPosition)
 {
 	if(IsChild(parent) || parent == this || m_parent == parent)
 		return;
-	if (parent == nullptr)
+	if (!parent)
 		SetLocalPosition(GetWorldPosition());
 	else
 	{
@@ -90,9 +90,11 @@ void dae::GameObject::SetParent(GameObject* parent , bool keepWorldPosition)
 			SetLocalPosition(GetWorldPosition() - parent->GetWorldPosition());
 		SetPositionDirty();
 	}
-	if(m_parent) m_parent->RemoveChild(this);
+	if(m_parent)
+		m_parent->RemoveChild(this);
+
 	m_parent = parent;
-	if(m_parent) m_parent->AddChild(this);
+	m_parent->AddChild(this);
 }
 
 std::vector<dae::GameObject*>& dae::GameObject::GetChildren()
@@ -119,42 +121,14 @@ bool dae::GameObject::IsChild(GameObject* parent)
 //############################
 void dae::GameObject::AddChild(GameObject* child)
 {
-	//1. check if the new child is valid
-	if (!child)
-	{
-		std::cerr << "AddChild: Child pointer is null.\n";
-		return;
-	}
-
-	//2.add child to the children list
 	m_Children.push_back(child);
-	//3. update position and scale and rotation
-
 }
 
 void dae::GameObject::RemoveChild(GameObject* child)
 {
-	//1. check if the new child is valid
-	if (!child)
-	{
-		std::cerr << "RemoveChild: Child pointer is null.\n";
-		return;
-	}
-	//2.remove the given child from the children list
 
-	auto it = std::find(m_Children.begin(), m_Children.end(), child);
-	//3.
-
-
-	if (it != m_Children.end())
-	{
-		(*it)->m_parent = nullptr;
-		m_Children.erase(it);
-	}
-	else
-	{
-		std::cerr << "RemoveChild: Child not found.\n";
-	}
+	auto iteration = std::find(m_Children.begin(), m_Children.end(), child);
+	m_Children.erase(iteration);
 
 }
 
