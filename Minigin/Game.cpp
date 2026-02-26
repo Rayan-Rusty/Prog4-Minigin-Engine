@@ -30,7 +30,7 @@ void dae::Game::init() {
 
     //---------Logo-------------
     go = std::make_unique<dae::GameObject>();
-    go->SetLocalPosition(glm::vec3{358, 180,0});
+    go->GetTransform().SetLocalPosition(glm::vec3{358, 180,0});
     RenderComp = std::make_unique<RenderComponent>(go.get());
 
     RenderComp->SetTextureFilePath("logo.png");
@@ -41,7 +41,7 @@ void dae::Game::init() {
     //---------Texts-------------
     auto font{dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36)};
     auto textGO{std::make_unique<dae::GameObject>()};
-    textGO->SetLocalPosition(glm::vec3{292, 20 ,0});
+    textGO->GetTransform().SetLocalPosition(glm::vec3{292, 20 ,0});
 
     auto textComp{std::make_unique<dae::TextComponent>(textGO.get(), "Programming 4 Assignment", font)};
     RenderComp = std::make_unique<RenderComponent>(textGO.get());
@@ -53,7 +53,7 @@ void dae::Game::init() {
     //fps Counter
 
     auto FpsGameObject{std::make_unique<dae::GameObject>()};
-    FpsGameObject->SetLocalPosition(glm::vec3{10,10,0});
+    FpsGameObject->GetTransform().SetLocalPosition(glm::vec3{10,10,0});
 
     auto TextComp{std::make_unique<dae::TextComponent>(FpsGameObject.get(), "FPS : 0", font)};
     TextComp->SetColor({255, 255, 255, 255});
@@ -71,7 +71,7 @@ void dae::Game::init() {
     auto parentObject{std::make_unique<dae::GameObject>()};
 
 
-    parentObject->SetLocalPosition(glm::vec3{250,250,0});
+    parentObject->GetTransform().SetLocalPosition(glm::vec3{250,250,0});
 
     RenderComp = std::make_unique<RenderComponent>(parentObject.get());
     RenderComp->SetTextureFilePath("Dragon.png");
@@ -83,7 +83,7 @@ void dae::Game::init() {
     parentObject->AddComponent(std::move(RenderComp));
 
     auto child {std::make_unique<dae::GameObject>()};
-    child->SetLocalPosition(glm::vec3{20,20,0});
+    child->GetTransform().SetLocalPosition(glm::vec3{20,20,0});
 
     child->SetParent(parentObject.get() , false);
     RenderComp= std::make_unique<RenderComponent>(child.get());

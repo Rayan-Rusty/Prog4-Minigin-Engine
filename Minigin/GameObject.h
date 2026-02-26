@@ -22,10 +22,10 @@ namespace dae
 		void Render() const;
 
 		//Setters
+		Transform& GetTransform() { return m_Transform; }
 
 		void SetDeletion(bool value);
 		//getters
-
 		bool GetShouldDelete();
 		//component Functions - if necessary to have two of the same components maybe use pairs to ID them not sure if i should do this yet?
 		template<typename T>
@@ -79,14 +79,11 @@ namespace dae
 		void SetParent(GameObject* parent, bool keepWorldPosition);
 		bool IsChild(GameObject* parent);
 		//WorldPosition functions
-		void UpdateWorldPosition();
-		glm::vec3 GetWorldPosition();
-		void SetLocalPosition(const glm::vec3& loc);
+		void UpdateWorldPosition();  // computes world = parent world + local
 		void SetPositionDirty();
-		glm::vec3 GetLocalPosition() const;
+		const glm::vec3& GetWorldPosition();
 
-
-		std::vector<GameObject*>& GetChildren();
+		const std::vector<GameObject*>& GetChildren();
 		GameObject() = default;
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
@@ -104,10 +101,9 @@ namespace dae
 
 
 		//TODO these should be one transform, the world an dlocal functions should be in transform.h
-		Transform m_localTransform{};
-		Transform m_worldTransform{};
+		Transform m_Transform{this};
 		std::vector<std::unique_ptr<Component>> m_components;
 		bool m_ShouldDelete{ false };
-		bool m_PositionDirty {false};
+		bool m_positionIsDirty {false};
 	};
 }

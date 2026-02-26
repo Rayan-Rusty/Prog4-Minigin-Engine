@@ -29,6 +29,8 @@ bool dae::GameObject::GetShouldDelete()
 	return m_ShouldDelete;
 }
 
+
+
 void dae::GameObject::SetDeletion(bool value)
 {
 	m_ShouldDelete = value;
@@ -36,45 +38,35 @@ void dae::GameObject::SetDeletion(bool value)
 
 
 
-void dae::GameObject::SetLocalPosition(const glm::vec3& pos)
-{
-	m_localTransform.SetPosition(pos);
-	SetPositionDirty();
-}
-
-glm::vec3 dae::GameObject::GetLocalPosition() const
-{
-	return m_localTransform.GetPosition();
-}
-
-glm::vec3 dae::GameObject::GetWorldPosition()
-{
-	if (m_PositionDirty)
-		UpdateWorldPosition();
-	return m_worldTransform.GetPosition();
-}
 
 void dae::GameObject::SetPositionDirty() {
-	m_PositionDirty  = true;
+	m_positionIsDirty  = true;
 	for (auto& child : m_Children)
 	{
 		child->SetPositionDirty();
 	}
 }
 
+const glm::vec3& dae::GameObject::GetWorldPosition() {
+	if (m_positionIsDirty) {
+		UpdateWorldPosition();
+	}
+	return m_Transform.GetWorldPosition();
+}
+
 void dae::GameObject::UpdateWorldPosition()
 {
-	if (m_PositionDirty) {
+	if (m_positionIsDirty) {
 
 		if(!m_parent) {
-			m_worldTransform = m_localTransform;
+			m_Transform.SetWorldPosition( m_Transform.GetLocalPosition());
 		}
 		else {
-			m_worldTransform.SetPosition( m_parent->GetWorldPosition() + m_localTransform.GetPosition());
+			m_Transform.SetWorldPosition( m_parent->GetWorldPosition() + m_Transform.GetLocalPosition());
 		}
 
 	}
-	m_PositionDirty = false;
+	m_positionIsDirty = false;
 }
 
 
@@ -83,11 +75,14 @@ void dae::GameObject::SetParent(GameObject* parent , bool keepWorldPosition)
 	if(IsChild(parent) || parent == this || m_parent == parent)
 		return;
 	if (!parent)
-		SetLocalPosition(GetWorldPosition());
+	{
+		m_Transform.SetLocalPosition(m_Transform.GetWorldPosition());
+
+	}
 	else
 	{
 		if (keepWorldPosition)
-			SetLocalPosition(GetWorldPosition() - parent->GetWorldPosition());
+			m_Transform.SetLocalPosition(m_Transform.GetWorldPosition() - parent->m_Transform.GetWorldPosition());
 		SetPositionDirty();
 	}
 	if(m_parent)
@@ -97,7 +92,7 @@ void dae::GameObject::SetParent(GameObject* parent , bool keepWorldPosition)
 	m_parent->AddChild(this);
 }
 
-std::vector<dae::GameObject*>& dae::GameObject::GetChildren()
+const std::vector<dae::GameObject*>& dae::GameObject::GetChildren()
 {
 	return m_Children;
 }

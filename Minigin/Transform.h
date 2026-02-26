@@ -1,17 +1,22 @@
 #pragma once
 #include <glm/glm.hpp>
-
+#include "Component.h"
 namespace dae
 {
-	class Transform final
+	class GameObject;
+	class Transform final : public Component
 	{
 	public:
-		const glm::vec3& GetPosition() const { return m_position; }
-		//TODO the World and Local transforms in GameObject need to be in here
-		void SetPosition(float x, float y, float z = 0);
-		void SetPosition(const glm::vec3& position);
+		Transform(GameObject* owner);
+		void SetLocalPosition(const glm::vec3& pos);
+		const glm::vec3& GetLocalPosition() const;
+		const glm::vec3& GetWorldPosition();
 
+		void SetWorldPosition(const glm::vec3& pos);
+		std::type_index GetType() const override;
 	private:
-		glm::vec3 m_position;
+
+		glm::vec3 m_localPosition{};
+		glm::vec3 m_worldPosition{};
 	};
 }

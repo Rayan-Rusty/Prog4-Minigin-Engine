@@ -9,7 +9,7 @@ dae::RotationComponent::RotationComponent(GameObject* pOwner, const glm::vec3& p
     : Component(pOwner)
     , m_clockwiseDirection(clockwiseDirection) , m_pivot(pivot)
 {
-    m_distance = static_cast<float>(glm::length((GetOwner()->GetLocalPosition() - m_pivot)));
+    m_distance = static_cast<float>(glm::length((GetOwner()->GetTransform().GetLocalPosition() - m_pivot)));
 }
 
 void dae::RotationComponent::Update(float deltaTime)
@@ -21,7 +21,7 @@ void dae::RotationComponent::Update(float deltaTime)
     glm::vec2 angles {cos(m_angle) * m_distance , sin(m_angle) * m_distance};
 
     glm::vec3 newPos{ m_pivot + glm::vec3{angles , 0 } };
-    GetOwner()->SetLocalPosition(newPos);
+    GetOwner()->GetTransform().SetLocalPosition(newPos);
 }
 
 std::type_index dae::RotationComponent::GetType() const
