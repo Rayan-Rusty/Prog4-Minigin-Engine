@@ -96,11 +96,11 @@ namespace dae
 		void RemoveChild(GameObject* child);
 
 		GameObject* m_parent{nullptr};
-		//TODO preferrably its allowed to have a parent own its children which I want to do
+
 		std::vector<GameObject*> m_Children;
 
 
-		//TODO these should be one transform, the world an dlocal functions should be in transform.h
+
 		Transform m_Transform{this};
 		std::vector<std::unique_ptr<Component>> m_components;
 		bool m_ShouldDelete{ false };
