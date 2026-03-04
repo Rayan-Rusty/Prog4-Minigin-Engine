@@ -5,7 +5,13 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 
-dae::GameObject::~GameObject() = default;
+dae::GameObject::~GameObject()
+{
+	for (auto* child : m_Children)
+	{
+		child->SetParent(nullptr, true);
+	}
+};
 
 void dae::GameObject::Update(float deltaTime)
 {
@@ -85,11 +91,14 @@ void dae::GameObject::SetParent(GameObject* parent , bool keepWorldPosition)
 			m_Transform.SetLocalPosition(m_Transform.GetWorldPosition() - parent->m_Transform.GetWorldPosition());
 		SetPositionDirty();
 	}
+
 	if(m_parent)
 		m_parent->RemoveChild(this);
 
 	m_parent = parent;
-	m_parent->AddChild(this);
+
+	if (m_parent)
+		m_parent->AddChild(this);
 }
 
 const std::vector<dae::GameObject*>& dae::GameObject::GetChildren()
