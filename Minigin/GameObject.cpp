@@ -7,6 +7,7 @@
 
 dae::GameObject::~GameObject()
 {
+
 	for (auto* child : m_Children)
 	{
 		child->SetParent(nullptr, true);
