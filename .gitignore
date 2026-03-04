@@ -399,7 +399,6 @@ FodyWeavers.xsd
 
 #cmake output
 build
-docs
 
 # Dear Imgui settings file
 imgui.ini
