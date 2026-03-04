@@ -84,6 +84,7 @@ dae::Minigin::~Minigin()
 {
 
 	m_Game = nullptr;
+	Renderer::GetInstance().Shutdown();
 	Renderer::GetInstance().Destroy();
 	SDL_DestroyWindow(g_window);
 	g_window = nullptr;

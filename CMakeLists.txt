@@ -7,7 +7,8 @@ endif()
 
 if(EMSCRIPTEN)
   set(TARGET_NAME minigin_web)
-  set(TARGET_PARAM)
+  set(TARGET_PARAM
+          Minigin/imgui_plot.cpp)
 
 else()
   set(TARGET_NAME minigin)
@@ -34,6 +35,7 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
         Minigin/Components/RenderComponent.cpp
         Minigin/Components/RotationComponent.cpp
         Minigin/Components/RotationComponent.h
+        Minigin/imgui_plot.cpp
 )
 
 # enable c++20 features
