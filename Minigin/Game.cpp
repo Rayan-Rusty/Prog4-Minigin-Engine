@@ -52,7 +52,8 @@ void dae::Game::WindowIntBenchmark()
     ImGui::InputInt("##SampleInput", &m_sampleCountInt);
     m_sampleCountInt = std::clamp(m_sampleCountInt, minSamples, maxSamples);
     ImGui::PopItemWidth();
-
+    ImGui::SameLine();
+    ImGui::Text("# Samples");
 
 
     if (ImGui::Button("Run Int Benchmark"))
@@ -91,6 +92,8 @@ void dae::Game::WindowGameObjectWindow()
     ImGui::InputInt("##SampleInput", &m_sampleCountGameObject);
     m_sampleCountGameObject = std::clamp(m_sampleCountGameObject, minSamples, maxSamples);
     ImGui::PopItemWidth();
+    ImGui::SameLine();
+    ImGui::Text("# Samples");
 
     if (ImGui::Button("Trash the cache with GameObject3D"))
         RunGameObject3DBenchmark();
@@ -100,7 +103,7 @@ void dae::Game::WindowGameObjectWindow()
     if (!m_GameObject3D.empty())
     {
         ImGui::PushStyleColor(ImGuiCol_PlotLines, IM_COL32(0, 255, 0, 255));
-        ImGui::Text("Object benchmark timings (ms):");
+        ImGui::Text("GameObject:");
         ImGui::PlotLines(
             "object benchmark",
             m_GameObject3D.data(),
@@ -117,7 +120,7 @@ void dae::Game::WindowGameObjectWindow()
     if (!m_GameObject3DAlt.empty())
     {
         ImGui::PushStyleColor(ImGuiCol_PlotLines, IM_COL32(0, 0, 255, 255));
-        ImGui::Text("Object benchmark timings (ms):");
+        ImGui::Text("GameObjectAlt:");
         ImGui::PlotLines(
             "object benchmark",
             m_GameObject3DAlt.data(),
