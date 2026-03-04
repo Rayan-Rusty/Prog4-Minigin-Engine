@@ -8,16 +8,33 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 #include "GameObject.h"
+#include "Scene.h"
 #include "Components/TextComponent.h"
 #include "Components/FPSComponent.h"
 #include "Components/RenderComponent.h"
 #include "Components/RotationComponent.h"
 
-dae::Game::Game(dae::Scene &scene)
-    : m_Scene(scene) {
+dae::Game::Game(dae::Scene* scene)
+    : m_CurrentScene(scene) {
 }
 
-void dae::Game::init() {
+void dae::Game::init()
+{
+    InitializeIMGUIScene();
+}
+
+void dae::Game::Update(float deltaTime) {
+    //TODO DeltaTime should be a singleton so i dont have to give it in as a parameter in every function
+    m_CurrentScene->Update(deltaTime);
+}
+
+void dae::Game::Draw() const {
+    m_CurrentScene->Render();
+}
+
+
+void dae::Game::InitializeGame() {
+
     //init variables
     auto go{std::make_unique<dae::GameObject>()};
     auto RenderComp{std::make_unique<RenderComponent>(go.get())};
@@ -26,7 +43,7 @@ void dae::Game::init() {
     //---------Background-------------
     RenderComp->SetTextureFilePath("background.png");
     go->AddComponent(std::move(RenderComp));
-    m_Scene.Add(std::move(go));
+    m_CurrentScene->Add(std::move(go));
 
     //---------Logo-------------
     go = std::make_unique<dae::GameObject>();
@@ -35,7 +52,7 @@ void dae::Game::init() {
 
     RenderComp->SetTextureFilePath("logo.png");
     go->AddComponent(std::move(RenderComp));
-    m_Scene.Add(std::move(go));
+    m_CurrentScene->Add(std::move(go));
 
 
     //---------Texts-------------
@@ -48,7 +65,7 @@ void dae::Game::init() {
     textComp->SetColor({255, 255, 255, 255});
     textGO->AddComponent(std::move(RenderComp));
     textGO->AddComponent(std::move(textComp));
-    m_Scene.Add(std::move(textGO));
+    m_CurrentScene->Add(std::move(textGO));
 
     //fps Counter
 
@@ -62,7 +79,7 @@ void dae::Game::init() {
     FpsGameObject->AddComponent(std::move(RenderComp));
     FpsGameObject->AddComponent(std::move(TextComp));
     FpsGameObject->AddComponent(std::make_unique<dae::FPSComponent>(FpsGameObject.get()));
-    m_Scene.Add(std::move(FpsGameObject));
+    m_CurrentScene->Add(std::move(FpsGameObject));
 
 
     //##########################################################
@@ -94,15 +111,27 @@ void dae::Game::init() {
     child->AddComponent(std::move(rotationComponent));
     child->AddComponent(std::move(RenderComp));
 
-    m_Scene.Add(std::move(parentObject));
-    m_Scene.Add(std::move(child));
+    m_CurrentScene->Add(std::move(parentObject));
+    m_CurrentScene->Add(std::move(child));
 }
 
-void dae::Game::Update(float deltaTime) {
-    //TODO DeltaTime should be a singleton so i dont have to give it in as a parameter in every function
-    m_Scene.Update(deltaTime);
-}
+void dae::Game::InitializeIMGUIScene()
+{
+    auto go{std::make_unique<dae::GameObject>()};
+    auto RenderComp{std::make_unique<RenderComponent>(go.get())};
 
-void dae::Game::Draw() const {
-    m_Scene.Render();
+
+    //---------Background-------------
+    RenderComp->SetTextureFilePath("background.png");
+    go->AddComponent(std::move(RenderComp));
+    m_CurrentScene->Add(std::move(go));
+
+    //---------Logo-------------
+    go = std::make_unique<dae::GameObject>();
+    go->GetTransform().SetLocalPosition(glm::vec3{358, 180,0});
+    RenderComp = std::make_unique<RenderComponent>(go.get());
+
+    RenderComp->SetTextureFilePath("logo.png");
+    go->AddComponent(std::move(RenderComp));
+    m_CurrentScene->Add(std::move(go));
 }

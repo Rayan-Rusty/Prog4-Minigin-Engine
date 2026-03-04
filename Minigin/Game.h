@@ -1,8 +1,4 @@
 #pragma once
-
-
-
-
 #include <memory>
 #include "Scene.h"
 namespace dae
@@ -10,13 +6,17 @@ namespace dae
         class Game
         {
         public:
-            Game(dae::Scene& scene);
+            Game(dae::Scene* scene);
             ~Game() = default;
 
             void init() ;
             void Update(float deltaTime);
             void Draw() const ;
         private:
-            Scene& m_Scene;
+
+            void InitializeGame();
+            void InitializeIMGUIScene();
+
+            Scene* m_CurrentScene{ nullptr };
         };
 }
