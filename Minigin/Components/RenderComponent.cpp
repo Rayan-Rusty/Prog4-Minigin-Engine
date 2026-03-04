@@ -1,5 +1,5 @@
 
-#include "../RenderComponent.h"
+#include "RenderComponent.h"
 
 #include "../GameObject.h"
 

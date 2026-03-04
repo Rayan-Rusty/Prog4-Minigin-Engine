@@ -1,7 +1,7 @@
 ﻿#include <stdexcept>
 #include <utility>
 #include <SDL3_ttf/SDL_ttf.h>
-#include "../TextComponent.h"
+#include "TextComponent.h"
 #include "../Renderer.h"
 #include "../Font.h"
 #include "../Texture2D.h"
