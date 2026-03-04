@@ -8,10 +8,10 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 #include "GameObject.h"
-#include "TextComponent.h"
-#include "FPSComponent.h"
-#include "RenderComponent.h"
-#include "RotationComponent.h"
+#include "Components/TextComponent.h"
+#include "Components/FPSComponent.h"
+#include "Components/RenderComponent.h"
+#include "Components/RotationComponent.h"
 
 dae::Game::Game(dae::Scene &scene)
     : m_Scene(scene) {

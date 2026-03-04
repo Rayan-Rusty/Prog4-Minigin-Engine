@@ -3,7 +3,7 @@
 //
 
 #include "RotationComponent.h"
-#include "GameObject.h"
+#include "../GameObject.h"
 
 dae::RotationComponent::RotationComponent(GameObject* pOwner, const glm::vec3& pivot, float clockwiseDirection)
     : Component(pOwner)

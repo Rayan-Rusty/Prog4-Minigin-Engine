@@ -1,7 +1,7 @@
 
-#include "RenderComponent.h"
+#include "../RenderComponent.h"
 
-#include "GameObject.h"
+#include "../GameObject.h"
 
 
 dae::RenderComponent::RenderComponent(GameObject *owner)

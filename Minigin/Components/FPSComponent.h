@@ -6,7 +6,6 @@
 #include <string>
 
 #include "Component.h"
-#include "FPSComponent.h"
 
 namespace dae
 {
