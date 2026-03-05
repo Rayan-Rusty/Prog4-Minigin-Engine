@@ -8,7 +8,9 @@ endif()
 if(EMSCRIPTEN)
   set(TARGET_NAME minigin_web)
   set(TARGET_PARAM
-          Minigin/imgui_plot.cpp)
+          Minigin/imgui_plot.cpp
+          Minigin/Components/DebugComponent.cpp
+          Minigin/Components/DebugComponent.h)
 
 else()
   set(TARGET_NAME minigin)
