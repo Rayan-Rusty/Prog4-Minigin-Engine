@@ -13,9 +13,10 @@ namespace dae
     {
     public:
         GameActorCommand(GameObject* actor);
-        virtual ~GameActorCommand();
+        virtual ~GameActorCommand() = default;
     protected:
         GameObject* GetGameActor() const { return this->m_GameActor; }
+
     private:
         GameObject* m_GameActor;
     };
