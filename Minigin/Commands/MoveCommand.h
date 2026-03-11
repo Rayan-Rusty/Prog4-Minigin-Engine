@@ -8,13 +8,15 @@
 
 namespace dae
 {
-    class MoveLeftCommand final : public GameActorCommand
+    class MoveCommand final : public GameActorCommand
     {
     public:
-        MoveLeftCommand(GameObject* actor);
+        MoveCommand(GameObject* actor , glm::vec3 direction);
         void Execute() override;
-
+    private:
+        glm::vec3 m_direction;
     };
+
 }
 
 

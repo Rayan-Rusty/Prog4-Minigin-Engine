@@ -17,7 +17,7 @@
 #include <algorithm>
 
 #include "InputManager.h"
-#include "Commands/MoveLeftCommand.h"
+#include "Commands/MoveCommand.h"
 #include "Components/MovementComponent.h"
 
 dae::Game::Game(dae::Scene* scene)
@@ -113,9 +113,13 @@ void dae::Game::InitializeGame() {
 
 
 
-    auto moveLeft = std::make_unique<dae::MoveLeftCommand>(parentObject.get());
+    auto moveLeft = std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{-1,0,0});
 
-    InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_A, std::move(moveLeft));
+    InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_A, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{-1,0,0}));
+    InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_D,std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{1,0,0}));
+    InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_W, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,1,0}));
+    InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_S, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,-1,0}));
+
     m_CurrentScene->Add(std::move(parentObject));
     //m_CurrentScene->Add(std::move(child));
 

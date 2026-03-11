@@ -40,7 +40,7 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
         Minigin/Commands/GameActorCommand.h
         Minigin/Components/MovementComponent.cpp
         Minigin/Commands/Command.cpp
-        Minigin/Commands/MoveLeftCommand.cpp
+        Minigin/Commands/MoveCommand.cpp
 )
 
 # enable c++20 features
