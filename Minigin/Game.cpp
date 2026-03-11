@@ -13,13 +13,13 @@
 #include "Components/FPSComponent.h"
 #include "Components/RenderComponent.h"
 #include "Components/RotationComponent.h"
-#include <imgui.h>
-#include <chrono>
+
 #include <algorithm>
-#include <iostream>
-#include <imgui.h>
-#include <imgui_internal.h>
-#include <imgui_plot.h>
+
+#include "InputManager.h"
+#include "Commands/MoveLeftCommand.h"
+#include "Components/MovementComponent.h"
+
 dae::Game::Game(dae::Scene* scene)
     : m_CurrentScene(scene) {
 }
@@ -94,7 +94,7 @@ void dae::Game::InitializeGame() {
 
 
     //##########################################################
-    //                  objects with children
+    //                  Moving Objects
     //##########################################################
     auto parentObject{std::make_unique<dae::GameObject>()};
 
@@ -103,27 +103,23 @@ void dae::Game::InitializeGame() {
 
     RenderComp = std::make_unique<RenderComponent>(parentObject.get());
     RenderComp->SetTextureFilePath("Dragon.png");
+    auto movementComponent{std::make_unique<dae::MovementComponent>(parentObject.get() , 50.f)};
+    parentObject->AddComponent(std::move(movementComponent));
 
-    auto rotationComponent {std::make_unique<dae::RotationComponent>(parentObject.get(),glm::vec3{270,270,0}, 1.f)};
 
 
-    parentObject->AddComponent(std::move(rotationComponent));
     parentObject->AddComponent(std::move(RenderComp));
 
-    auto child {std::make_unique<dae::GameObject>()};
-    child->GetTransform().SetLocalPosition(glm::vec3{20,20,0});
-
-    child->SetParent(parentObject.get() , false);
-    RenderComp= std::make_unique<RenderComponent>(child.get());
-    RenderComp->SetTextureFilePath("Player.png");
 
 
-    rotationComponent = std::make_unique<dae::RotationComponent>(child.get(),glm::vec3{0,0,0}, -1.f);
-    child->AddComponent(std::move(rotationComponent));
-    child->AddComponent(std::move(RenderComp));
 
+    auto moveLeft = std::make_unique<dae::MoveLeftCommand>(parentObject.get());
+
+    InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_A, std::move(moveLeft));
     m_CurrentScene->Add(std::move(parentObject));
-    m_CurrentScene->Add(std::move(child));
+    //m_CurrentScene->Add(std::move(child));
+
+    //InputManager::GetInstance().bind
 }
 
 void dae::Game::InitializeIMGUIScene()
