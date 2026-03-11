@@ -8,11 +8,7 @@ endif()
 if(EMSCRIPTEN)
   set(TARGET_NAME minigin_web)
   set(TARGET_PARAM
-          Minigin/imgui_plot.cpp
-          Minigin/Components/DebugComponent.cpp
-          Minigin/Components/DebugComponent.h
-          Minigin/Commands/Command.cpp
-          Minigin/Commands/Command.h)
+          Minigin/imgui_plot.cpp)
 
 else()
   set(TARGET_NAME minigin)
@@ -42,6 +38,9 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
         Minigin/imgui_plot.cpp
         Minigin/Commands/GameActorCommand.cpp
         Minigin/Commands/GameActorCommand.h
+        Minigin/Components/MovementComponent.cpp
+        Minigin/Commands/Command.cpp
+        Minigin/Commands/MoveLeftCommand.cpp
 )
 
 # enable c++20 features
@@ -192,6 +191,7 @@ if(EMSCRIPTEN)
   set(CMAKE_EXECUTABLE_SUFFIX ".html")
 
 elseif(WIN32)
+  target_link_libraries(${TARGET_NAME} PRIVATE xinput.lib)
   # Set minigin as the default startup project
   set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${TARGET_NAME})
   # Set working directory to output folder
