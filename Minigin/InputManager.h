@@ -3,7 +3,6 @@
 
 #include "Singleton.h"
 #include "Commands/Command.h"
-#include <Windows.h>
 #include "InputDevice.h"
 namespace dae
 {
@@ -23,6 +22,7 @@ namespace dae
 
 		struct CommandBinding
 		{
+			//https://en.cppreference.com/w/cpp/utility/variant.html
 			std::variant<SDL_Scancode, int> keyOrButton; //lets it switch depending on which value you give it!
 			std::unique_ptr<Command> command;
 		};

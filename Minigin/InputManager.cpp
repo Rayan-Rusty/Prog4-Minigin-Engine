@@ -31,7 +31,6 @@ bool dae::InputManager::ProcessInput(float)
 		if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
 			
 		}
-		// etc...
 		ImGui_ImplSDL3_ProcessEvent(&e);
 	}
 
