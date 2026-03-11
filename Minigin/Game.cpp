@@ -19,6 +19,8 @@
 #include "InputManager.h"
 #include "Commands/MoveCommand.h"
 #include "Components/MovementComponent.h"
+#include "Gamepad.h"
+#include <Xinput.h>
 
 dae::Game::Game(dae::Scene* scene)
     : m_CurrentScene(scene) {
@@ -105,13 +107,21 @@ void dae::Game::InitializeGame() {
     RenderComp->SetTextureFilePath("Dragon.png");
     auto movementComponent{std::make_unique<dae::MovementComponent>(parentObject.get() , 50.f)};
     parentObject->AddComponent(std::move(movementComponent));
-
-
-
     parentObject->AddComponent(std::move(RenderComp));
 
 
+    auto SecondPlayerObject{std::make_unique<dae::GameObject>()};
+    SecondPlayerObject->GetTransform().SetLocalPosition(glm::vec3{280,250,0});
+    RenderComp = std::make_unique<RenderComponent>(SecondPlayerObject.get());
+    RenderComp->SetTextureFilePath("Player.png");
+    auto movementCompon{std::make_unique<dae::MovementComponent>(SecondPlayerObject.get() , 100.f)};
+    SecondPlayerObject->AddComponent(std::move(movementCompon));
+    SecondPlayerObject->AddComponent(std::move(RenderComp));
 
+
+
+    auto gamepad = std::make_unique<dae::Gamepad>(0);
+    dae::InputManager::GetInstance().AddDevice(std::move(gamepad));
 
     auto moveLeft = std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{-1,0,0});
 
@@ -119,8 +129,13 @@ void dae::Game::InitializeGame() {
     InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_D,std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{1,0,0}));
     InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_W, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,1,0}));
     InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_S, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,-1,0}));
+    InputManager::GetInstance().AddCommandBinding(XINPUT_GAMEPAD_DPAD_DOWN, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{0,1,0}));
+    InputManager::GetInstance().AddCommandBinding(XINPUT_GAMEPAD_DPAD_UP, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{0,-1,0}));
+    InputManager::GetInstance().AddCommandBinding(XINPUT_GAMEPAD_DPAD_LEFT, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{-1,0,0}));
+    InputManager::GetInstance().AddCommandBinding(XINPUT_GAMEPAD_DPAD_RIGHT, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{1,0,0}));
 
     m_CurrentScene->Add(std::move(parentObject));
+    m_CurrentScene->Add(std::move(SecondPlayerObject));
     //m_CurrentScene->Add(std::move(child));
 
     //InputManager::GetInstance().bind

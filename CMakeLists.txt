@@ -8,7 +8,9 @@ endif()
 if(EMSCRIPTEN)
   set(TARGET_NAME minigin_web)
   set(TARGET_PARAM
-          Minigin/imgui_plot.cpp)
+          Minigin/imgui_plot.cpp
+          Minigin/InputDevice.cpp
+          Minigin/InputDevice.h)
 
 else()
   set(TARGET_NAME minigin)
@@ -41,6 +43,10 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
         Minigin/Components/MovementComponent.cpp
         Minigin/Commands/Command.cpp
         Minigin/Commands/MoveCommand.cpp
+        Minigin/Gamepad.cpp
+        Minigin/Gamepad.h
+        Minigin/Keyboard.cpp
+        Minigin/Keyboard.h
 )
 
 # enable c++20 features
