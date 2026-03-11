@@ -10,7 +10,9 @@ if(EMSCRIPTEN)
   set(TARGET_PARAM
           Minigin/imgui_plot.cpp
           Minigin/Components/DebugComponent.cpp
-          Minigin/Components/DebugComponent.h)
+          Minigin/Components/DebugComponent.h
+          Minigin/Commands/Command.cpp
+          Minigin/Commands/Command.h)
 
 else()
   set(TARGET_NAME minigin)
@@ -38,6 +40,8 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
         Minigin/Components/RotationComponent.cpp
         Minigin/Components/RotationComponent.h
         Minigin/imgui_plot.cpp
+        Minigin/Commands/GameActorCommand.cpp
+        Minigin/Commands/GameActorCommand.h
 )
 
 # enable c++20 features
