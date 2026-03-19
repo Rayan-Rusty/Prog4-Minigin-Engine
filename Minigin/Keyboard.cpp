@@ -9,7 +9,7 @@ class dae::Keyboard::Impl
 public:
     Impl()
     {
-        keyState = SDL_GetKeyboardState(&numKeys); // returns const Uint8*
+        keyState = SDL_GetKeyboardState(&numKeys);
     }
 
     void Update()

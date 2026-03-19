@@ -3,7 +3,7 @@
 
 #include "Singleton.h"
 #include "Commands/Command.h"
-#include <Windows.h>
+
 #include "InputDevice.h"
 namespace dae
 {
@@ -17,6 +17,7 @@ namespace dae
 		void AddCommandBinding(std::variant<SDL_Scancode,int> keyOrButton,
 							   std::unique_ptr<Command> command);
 
+		void RemoveCommandBinding(std::variant<SDL_Scancode, int> keyOrButton);
 
 	private:
 

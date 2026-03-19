@@ -4,7 +4,7 @@
 
 #ifndef MINIGIN_INPUTDEVICE_H
 #define MINIGIN_INPUTDEVICE_H
-#include <Windows.h>
+
 #include <variant>
 #include <SDL3/SDL.h>
 namespace dae

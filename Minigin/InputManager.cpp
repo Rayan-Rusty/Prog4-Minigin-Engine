@@ -1,7 +1,7 @@
 #include <SDL3/SDL.h>
 #include <backends/imgui_impl_sdl3.h>
 #include "InputManager.h"
-
+#include "Gamepad.h"
 
 
 bool dae::InputManager::ProcessInput(float)
@@ -15,7 +15,7 @@ bool dae::InputManager::ProcessInput(float)
 		}
 
 
-
+		//TODO Automatic detection Gamepads
 		if (e.type == SDL_EVENT_KEY_DOWN) {
 			SDL_Scancode sc = e.key.scancode;
 			for (auto& binding : m_Commands)
@@ -35,6 +35,7 @@ bool dae::InputManager::ProcessInput(float)
 		ImGui_ImplSDL3_ProcessEvent(&e);
 	}
 
+
 	for (auto& device : m_Devices)
 		device->Update();
 
@@ -51,6 +52,8 @@ bool dae::InputManager::ProcessInput(float)
 
 
 	return true;
+
+
 }
 
 void dae::InputManager::AddDevice(std::unique_ptr<InputDevice> device)
@@ -61,4 +64,14 @@ void dae::InputManager::AddDevice(std::unique_ptr<InputDevice> device)
 void dae::InputManager::AddCommandBinding(std::variant<SDL_Scancode, int> keyOrButton, std::unique_ptr<Command> command)
 {
 	m_Commands.emplace_back(keyOrButton , std::move(command));
+}
+void dae::InputManager::RemoveCommandBinding(std::variant<SDL_Scancode, int> keyOrButton)
+{
+	auto it = std::remove_if(m_Commands.begin(), m_Commands.end(),
+		[&](const CommandBinding& binding)
+		{
+			return binding.keyOrButton == keyOrButton;
+		});
+
+	m_Commands.erase(it, m_Commands.end());
 }

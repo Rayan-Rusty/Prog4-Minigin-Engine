@@ -5,7 +5,6 @@
 #ifndef MINIGIN_GAMEPAD_H
 #define MINIGIN_GAMEPAD_H
 #include <memory>
-
 #include "InputDevice.h"
 
 namespace dae

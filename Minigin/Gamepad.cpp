@@ -8,24 +8,29 @@
 
 class dae::Gamepad::ImplGamePad
 {
+public:
+    void SetIndex(int index) { m_index = index; }
 
+    bool IsConnected() const { return m_isConnected; }
 
+    void Update()
+    {
+        m_isConnected = (XInputGetState(m_index, &m_state) == ERROR_SUCCESS);
+    }
 
-    public:
-        void Setindex(int index){m_index = index;}
-        int Getindex() const {return m_index;}
-        XINPUT_STATE& GetState(){return m_state;}
+    bool IsButtonPressed(int button) const
+    {
+        return (m_state.Gamepad.wButtons & button) != 0;
+    }
 
-        bool IsConnected(){return XInputGetState(Getindex(), &GetState()) == ERROR_SUCCESS;}
-        void Update(){ XInputGetState(Getindex() ,  &GetState());}
-        bool IsButtonPressed(int button){ return (GetState().Gamepad.wButtons & button) != 0;}
-    private:
+private:
     int m_index{};
     XINPUT_STATE m_state{};
+    bool m_isConnected{ false };
 };
 
 dae::Gamepad::Gamepad(int index) : pImpl(std::make_unique<ImplGamePad>()) {
-    pImpl->Setindex(index);
+    pImpl->SetIndex(index);
 }
 
 

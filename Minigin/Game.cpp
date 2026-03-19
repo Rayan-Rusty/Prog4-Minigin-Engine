@@ -20,6 +20,8 @@
 #include "Commands/MoveCommand.h"
 #include "Components/MovementComponent.h"
 #include "Gamepad.h"
+//TODO Macro ifdef this
+#include <Windows.h>
 #include <Xinput.h>
 
 dae::Game::Game(dae::Scene* scene)
@@ -120,8 +122,8 @@ void dae::Game::InitializeGame() {
 
 
 
-    auto gamepad = std::make_unique<dae::Gamepad>(0);
-    dae::InputManager::GetInstance().AddDevice(std::move(gamepad));
+    // auto gamepad = std::make_unique<dae::Gamepad>(0);
+    // dae::InputManager::GetInstance().AddDevice(std::move(gamepad));
 
     auto moveLeft = std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{-1,0,0});
 
