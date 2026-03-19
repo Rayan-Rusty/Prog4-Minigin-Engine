@@ -5,9 +5,24 @@
 #ifndef MINIGIN_IOBSERVER_H
 #define MINIGIN_IOBSERVER_H
 
+namespace dae
+{
+    class GameActor;
+    class IObserver
+    {
+    public:
+        virtual ~IObserver() = default;
 
-class IObserver {
-};
+        enum class Event
+        {
+            ActorDied,
+            ActorFell
+        };
+        virtual void Notify(Event event, GameActor* actor) = 0;
+    private:
+    };
+}
+
 
 
 #endif //MINIGIN_IOBSERVER_H

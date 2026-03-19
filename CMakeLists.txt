@@ -10,7 +10,9 @@ if(EMSCRIPTEN)
   set(TARGET_PARAM
           Minigin/imgui_plot.cpp
           Minigin/InputDevice.cpp
-          Minigin/InputDevice.h)
+          Minigin/InputDevice.h
+          Minigin/Observers/GameActor.cpp
+          Minigin/Observers/GameActor.h)
 
 else()
   set(TARGET_NAME minigin)
@@ -51,6 +53,8 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
         Minigin/Observers/ObserverManager.h
         Minigin/Observers/IObserver.cpp
         Minigin/Observers/IObserver.h
+        Minigin/Observers/Achievement.cpp
+        Minigin/Observers/Achievement.h
 )
 
 # enable c++20 features

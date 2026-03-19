@@ -4,10 +4,20 @@
 
 #ifndef MINIGIN_OBSERVERMANAGER_H
 #define MINIGIN_OBSERVERMANAGER_H
+#include "Singleton.h"
 
+namespace dae
+{
+    class ObserverManager : public Singleton<ObserverManager>
+    {
+    public:
+        ObserverManager();
+        ~ObserverManager();
+    private:
 
-class ObserverManager {
-};
+    };
+
+}
 
 
 #endif //MINIGIN_OBSERVERMANAGER_H
