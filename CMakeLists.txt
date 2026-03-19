@@ -47,6 +47,10 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
         Minigin/Gamepad.h
         Minigin/Keyboard.cpp
         Minigin/Keyboard.h
+        Minigin/Observers/ObserverManager.cpp
+        Minigin/Observers/ObserverManager.h
+        Minigin/Observers/IObserver.cpp
+        Minigin/Observers/IObserver.h
 )
 
 # enable c++20 features
