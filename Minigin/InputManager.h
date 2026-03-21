@@ -30,6 +30,9 @@ namespace dae
 
 		std::vector<CommandBinding> m_Commands;
 		std::vector<std::unique_ptr<InputDevice>> m_Devices;
+
+
+		void DetectGamePads();
 	};
 
 }

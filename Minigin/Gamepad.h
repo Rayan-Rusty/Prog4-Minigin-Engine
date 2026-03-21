@@ -6,7 +6,7 @@
 #define MINIGIN_GAMEPAD_H
 #include <memory>
 #include "InputDevice.h"
-
+#include <vector>
 namespace dae
 {
     class Gamepad : public InputDevice
@@ -17,10 +17,15 @@ namespace dae
         void Update();
         bool IsButtonPressed(int button) const;
         bool IsPressed(std::variant<SDL_Scancode, int> keyOrButton) const override;
+        static std::vector<int> GetConnectedDevices();
+
+        int GetDeviceID() const override;
+
 
     private:
         class ImplGamePad;
         std::unique_ptr<ImplGamePad> pImpl;
+
     };
 }
 

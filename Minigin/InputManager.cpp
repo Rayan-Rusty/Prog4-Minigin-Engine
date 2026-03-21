@@ -75,3 +75,37 @@ void dae::InputManager::RemoveCommandBinding(std::variant<SDL_Scancode, int> key
 
 	m_Commands.erase(it, m_Commands.end());
 }
+
+void dae::InputManager::DetectGamePads()
+{
+	auto indices = Gamepad::GetConnectedDevices();
+	for (int index : indices)
+	{
+		bool exists = false;
+
+		for (const auto& device : m_Devices)
+		{
+			if (device->GetDeviceID() == index)
+			{
+				exists = true;
+				break;
+			}
+		}
+
+		if (!exists)
+		{
+			AddDevice(std::make_unique<Gamepad>(index));
+		}
+	}
+
+	m_Devices.erase(
+		std::remove_if(m_Devices.begin(), m_Devices.end(),
+			[&](const std::unique_ptr<InputDevice>& device)
+			{
+				return std::find(indices.begin(), indices.end(),
+								 device->GetDeviceID()) == indices.end();
+			}),
+		m_Devices.end()
+	);
+
+}

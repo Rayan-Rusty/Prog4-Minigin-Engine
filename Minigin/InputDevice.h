@@ -17,7 +17,7 @@ namespace dae
         enum class InputState { Down, Up, Pressed };
 
         virtual void Update() = 0;
-
+        virtual int GetDeviceID() const = 0;
         virtual bool IsPressed(std::variant<SDL_Scancode, int> keyOrButton) const = 0;
     };
 }
