@@ -2,7 +2,7 @@
 #include "Components/Component.h"
 
 #include "Renderer.h"
-#include "ResourceManager.h"
+#include "../Managers/ResourceManager.h"
 
 namespace dae
 {

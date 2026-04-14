@@ -11,10 +11,10 @@
 //#include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include "Minigin.h"
-#include "InputManager.h"
-#include "SceneManager.h"
+#include "Managers/InputManager.h"
+#include "Managers/SceneManager.h"
 #include "Renderer.h"
-#include "ResourceManager.h"
+#include "Managers/ResourceManager.h"
 #include "Game.h"
 
 SDL_Window* g_window{};
@@ -106,6 +106,9 @@ void dae::Minigin::RunOneFrame()
 {
 
 	float deltaTime{GetFrameTime()};
+
+
+
 	m_quit = !InputManager::GetInstance().ProcessInput(deltaTime);
 
 	Renderer::GetInstance().Clear(); // clears up the last things drawn

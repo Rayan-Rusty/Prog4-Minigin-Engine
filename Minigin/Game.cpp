@@ -4,8 +4,8 @@
 
 #include "Game.h"
 
-#include "SceneManager.h"
-#include "ResourceManager.h"
+#include "Managers/SceneManager.h"
+#include "Managers/ResourceManager.h"
 
 #include "GameObject.h"
 #include "Scene.h"
@@ -16,7 +16,7 @@
 
 #include <algorithm>
 
-#include "InputManager.h"
+#include "Managers/InputManager.h"
 #include "Commands/MoveCommand.h"
 #include "Components/MovementComponent.h"
 #include "Gamepad.h"

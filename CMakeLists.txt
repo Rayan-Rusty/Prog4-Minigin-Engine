@@ -22,13 +22,13 @@ endif()
 add_executable(${TARGET_NAME} ${TARGET_PARAM}
   Minigin/Font.cpp
   Minigin/GameObject.cpp
-  Minigin/InputManager.cpp
+        Minigin/Managers/InputManager.cpp
   Minigin/Main.cpp
   Minigin/Minigin.cpp
   Minigin/Renderer.cpp
-  Minigin/ResourceManager.cpp
+        Minigin/Managers/ResourceManager.cpp
   Minigin/Scene.cpp
-  Minigin/SceneManager.cpp
+        Minigin/Managers/SceneManager.cpp
         Minigin/Components/TextComponent.cpp
   Minigin/Texture2D.cpp
   Minigin/Transform.cpp

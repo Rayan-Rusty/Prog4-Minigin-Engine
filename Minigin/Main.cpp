@@ -6,8 +6,8 @@
 #endif
 
 #include "Minigin.h"
-#include "SceneManager.h"
-#include "ResourceManager.h"
+#include "Managers/SceneManager.h"
+#include "Managers/ResourceManager.h"
 #include "Components/TextComponent.h"
 #include "Scene.h"
 #include "Game.h"

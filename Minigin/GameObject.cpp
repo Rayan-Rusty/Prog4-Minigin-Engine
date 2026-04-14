@@ -2,7 +2,7 @@
 #include "GameObject.h"
 
 
-#include "ResourceManager.h"
+#include "Managers/ResourceManager.h"
 #include "Renderer.h"
 
 dae::GameObject::~GameObject()
