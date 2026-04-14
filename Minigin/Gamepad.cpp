@@ -3,6 +3,8 @@
 //
 
 #include "Gamepad.h"
+
+#include <vector>
 #include <Windows.h>
 #include <XInput.h>
 
@@ -10,7 +12,7 @@ class dae::Gamepad::ImplGamePad
 {
 public:
     void SetIndex(int index) { m_index = index; }
-
+    int Getindex() const { return m_index; }
     bool IsConnected() const { return m_isConnected; }
 
     void Update()
@@ -60,3 +62,26 @@ bool dae::Gamepad::IsPressed(std::variant<SDL_Scancode, int> keyOrButton) const
     return false; // ignore keyboard keys
 }
 
+
+std::vector<int> dae::Gamepad::GetConnectedDevices()
+{
+    std::vector<int> indices;
+
+    for (int i = 0; i < XUSER_MAX_COUNT; ++i)
+    {
+        XINPUT_STATE state{};
+        if (XInputGetState(i, &state) == ERROR_SUCCESS)
+        {
+            indices.push_back(i);
+        }
+    }
+
+    return indices;
+
+}
+
+
+int dae::Gamepad::GetDeviceID() const
+{
+    return pImpl->Getindex();
+}

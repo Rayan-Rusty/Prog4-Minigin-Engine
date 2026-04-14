@@ -22,6 +22,7 @@
 #include "Gamepad.h"
 //TODO Macro ifdef this
 #include <Windows.h>
+//TODO REMOVE this to make sure it only is int he gamepad.cpp file
 #include <Xinput.h>
 
 dae::Game::Game(dae::Scene* scene)
@@ -129,8 +130,8 @@ void dae::Game::InitializeGame() {
 
     InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_A, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{-1,0,0}));
     InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_D,std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{1,0,0}));
-    InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_W, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,1,0}));
-    InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_S, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,-1,0}));
+    InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_W, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,-1,0}));
+    InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_S, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,1,0}));
     InputManager::GetInstance().AddCommandBinding(XINPUT_GAMEPAD_DPAD_DOWN, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{0,1,0}));
     InputManager::GetInstance().AddCommandBinding(XINPUT_GAMEPAD_DPAD_UP, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{0,-1,0}));
     InputManager::GetInstance().AddCommandBinding(XINPUT_GAMEPAD_DPAD_LEFT, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{-1,0,0}));

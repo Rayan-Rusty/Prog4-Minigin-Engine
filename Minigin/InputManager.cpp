@@ -65,6 +65,8 @@ void dae::InputManager::AddCommandBinding(std::variant<SDL_Scancode, int> keyOrB
 {
 	m_Commands.emplace_back(keyOrButton , std::move(command));
 }
+
+//TODO can you unbind stuff?
 void dae::InputManager::RemoveCommandBinding(std::variant<SDL_Scancode, int> keyOrButton)
 {
 	auto it = std::remove_if(m_Commands.begin(), m_Commands.end(),
