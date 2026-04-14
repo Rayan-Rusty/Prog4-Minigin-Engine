@@ -1,10 +1,10 @@
 #pragma once
 #include <variant>
 
-#include "Singleton.h"
-#include "Commands/Command.h"
+#include "../Singleton.h"
+#include "../Commands/Command.h"
 
-#include "InputDevice.h"
+#include "../InputDevice.h"
 namespace dae
 {
 	class InputManager final : public Singleton<InputManager>

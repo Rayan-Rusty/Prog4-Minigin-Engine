@@ -1,5 +1,5 @@
 #include "SceneManager.h"
-#include "Scene.h"
+#include "../Scene.h"
 
 void dae::SceneManager::Update(float deltaTime) const
 {
