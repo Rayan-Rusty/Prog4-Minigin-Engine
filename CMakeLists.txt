@@ -55,6 +55,7 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
         Minigin/Observers/IObserver.h
         Minigin/Observers/Achievement.cpp
         Minigin/Observers/Achievement.h
+        Minigin/DataTypes.h
 )
 
 # enable c++20 features
