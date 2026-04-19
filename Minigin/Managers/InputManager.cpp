@@ -15,7 +15,6 @@ bool dae::InputManager::ProcessInput(float)
 		}
 
 
-		//TODO Automatic detection Gamepads
 		if (e.type == SDL_EVENT_KEY_DOWN) {
 			SDL_Scancode sc = e.key.scancode;
 			for (auto& binding : m_Commands)
@@ -65,8 +64,6 @@ void dae::InputManager::AddCommandBinding(std::variant<GamepadButton, SDL_Scanco
 {
 	m_Commands.emplace_back(keyOrButton , std::move(command));
 }
-
-//TODO can you unbind stuff?
 void dae::InputManager::RemoveCommandBinding(std::variant<GamepadButton, SDL_Scancode> keyOrButton)
 {
 	auto it = std::remove_if(m_Commands.begin(), m_Commands.end(),
