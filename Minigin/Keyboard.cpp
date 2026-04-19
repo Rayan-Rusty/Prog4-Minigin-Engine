@@ -38,14 +38,14 @@ void dae::Keyboard::Update() {
     pImpl->Update();
 }
 
-bool dae::Keyboard::IsPressed(std::variant<SDL_Scancode, int> keyOrButton) const
-{
+
+
+bool dae::Keyboard::IsPressed(std::variant<GamepadButton, SDL_Scancode> keyOrButton) const {
+
     if (std::holds_alternative<SDL_Scancode>(keyOrButton))
     {
         return pImpl->IsPressed(std::get<SDL_Scancode>(keyOrButton));
     }
     return false; //ignore Xinputkeys
 }
-
-
 

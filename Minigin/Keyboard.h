@@ -5,9 +5,9 @@
 #ifndef MINIGIN_KEYBOARD_H
 #define MINIGIN_KEYBOARD_H
 #include "InputDevice.h"
-#include <SDL3/SDL.h>
 #include <memory>
 #include <variant>
+#include "DataTypes.h"
 namespace dae
 {
     class Keyboard final : public InputDevice
@@ -15,7 +15,7 @@ namespace dae
     public:
         Keyboard();
         void Update() override;
-        bool IsPressed(std::variant<SDL_Scancode, int> keyOrButton) const override;
+        bool IsPressed(std::variant<GamepadButton, SDL_Scancode> keyOrButton) const override;
 
     private:
         class Impl;

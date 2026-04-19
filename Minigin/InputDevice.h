@@ -6,7 +6,9 @@
 #define MINIGIN_INPUTDEVICE_H
 
 #include <variant>
+#include "DataTypes.h"
 #include <SDL3/SDL.h>
+
 namespace dae
 {
     class InputDevice
@@ -18,7 +20,7 @@ namespace dae
 
         virtual void Update() = 0;
         virtual int GetDeviceID() const = 0;
-        virtual bool IsPressed(std::variant<SDL_Scancode, int> keyOrButton) const = 0;
+        virtual bool IsPressed(std::variant<GamepadButton, SDL_Scancode> keyOrButton) const = 0;
     };
 }
 

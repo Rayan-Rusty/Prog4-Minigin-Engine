@@ -7,6 +7,7 @@
 #include <memory>
 #include "InputDevice.h"
 #include <vector>
+#include "DataTypes.h"
 namespace dae
 {
     class Gamepad : public InputDevice
@@ -15,8 +16,8 @@ namespace dae
         Gamepad(int index);
         bool IsConnected();
         void Update();
-        bool IsButtonPressed(int button) const;
-        bool IsPressed(std::variant<SDL_Scancode, int> keyOrButton) const override;
+        bool IsButtonPressed(GamepadButton button) const;
+        bool IsPressed(std::variant<GamepadButton, SDL_Scancode> keyOrButton) const override;
         static std::vector<int> GetConnectedDevices();
 
         int GetDeviceID() const override;

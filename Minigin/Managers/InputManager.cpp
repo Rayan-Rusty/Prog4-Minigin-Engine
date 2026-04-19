@@ -6,7 +6,7 @@
 
 bool dae::InputManager::ProcessInput(float)
 {
-
+	DetectGamePads();
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
 		if (e.type == SDL_EVENT_QUIT)
@@ -61,13 +61,13 @@ void dae::InputManager::AddDevice(std::unique_ptr<InputDevice> device)
 	m_Devices.push_back(std::move(device));
 }
 
-void dae::InputManager::AddCommandBinding(std::variant<SDL_Scancode, int> keyOrButton, std::unique_ptr<Command> command)
+void dae::InputManager::AddCommandBinding(std::variant<GamepadButton, SDL_Scancode> keyOrButton, std::unique_ptr<Command> command)
 {
 	m_Commands.emplace_back(keyOrButton , std::move(command));
 }
 
 //TODO can you unbind stuff?
-void dae::InputManager::RemoveCommandBinding(std::variant<SDL_Scancode, int> keyOrButton)
+void dae::InputManager::RemoveCommandBinding(std::variant<GamepadButton, SDL_Scancode> keyOrButton)
 {
 	auto it = std::remove_if(m_Commands.begin(), m_Commands.end(),
 		[&](const CommandBinding& binding)

@@ -7,6 +7,7 @@
 #include <vector>
 #include <Windows.h>
 #include <XInput.h>
+#include "Managers/InputManager.h"
 
 class dae::Gamepad::ImplGamePad
 {
@@ -20,10 +21,37 @@ public:
         m_isConnected = (XInputGetState(m_index, &m_state) == ERROR_SUCCESS);
     }
 
-    bool IsButtonPressed(int button) const
+    bool IsButtonPressed(GamepadButton button) const
     {
-        return (m_state.Gamepad.wButtons & button) != 0;
+        return (m_state.Gamepad.wButtons & ToXInput(button)) != 0;
     }
+
+    WORD ToXInput(GamepadButton button) const
+    {
+        switch (button)
+        {
+            case GamepadButton::A: return XINPUT_GAMEPAD_A;
+            case GamepadButton::B: return XINPUT_GAMEPAD_B;
+            case GamepadButton::X: return XINPUT_GAMEPAD_X;
+            case GamepadButton::Y: return XINPUT_GAMEPAD_Y;
+
+            case GamepadButton::DPadUp: return XINPUT_GAMEPAD_DPAD_UP;
+            case GamepadButton::DPadDown: return XINPUT_GAMEPAD_DPAD_DOWN;
+
+            case GamepadButton::DPadLeft: return XINPUT_GAMEPAD_DPAD_LEFT;
+            case GamepadButton::DPadRight: return XINPUT_GAMEPAD_DPAD_RIGHT;
+
+            case GamepadButton::Start: return XINPUT_GAMEPAD_START;
+            case GamepadButton::Back: return XINPUT_GAMEPAD_BACK;
+
+            case GamepadButton::LeftShoulder: return XINPUT_GAMEPAD_LEFT_SHOULDER;
+            case GamepadButton::RightShoulder: return XINPUT_GAMEPAD_RIGHT_SHOULDER;
+            default:
+                assert(false && "Unknown GamepadButton!");
+                return 0;
+        }
+    }
+
 
 private:
     int m_index{};
@@ -46,17 +74,17 @@ void dae::Gamepad::Update()
     pImpl->Update();
 }
 
-bool dae::Gamepad::IsButtonPressed(int button) const
+bool dae::Gamepad::IsButtonPressed(GamepadButton button) const
 {
     return  pImpl->IsButtonPressed(button);
 }
 
-bool dae::Gamepad::IsPressed(std::variant<SDL_Scancode, int> keyOrButton) const
+bool dae::Gamepad::IsPressed(std::variant<GamepadButton , SDL_Scancode> keyOrButton) const
 {
 
-    if (std::holds_alternative<int>(keyOrButton))
+    if (std::holds_alternative<GamepadButton>(keyOrButton))
     {
-        int button = std::get<int>(keyOrButton);
+        GamepadButton button = std::get<GamepadButton>(keyOrButton);
         return pImpl->IsButtonPressed(button);
     }
     return false; // ignore keyboard keys
