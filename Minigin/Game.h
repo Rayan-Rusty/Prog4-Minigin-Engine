@@ -7,7 +7,7 @@ namespace dae
     class Game
     {
     public:
-        Game(dae::Scene* scene);
+        Game();
         ~Game() = default;
 
         void init() ;
@@ -18,8 +18,6 @@ namespace dae
         void InitializeGame();
         void InitializeIMGUIScene();
 
-
-        Scene* m_CurrentScene{ nullptr };
 
 
     };

@@ -25,8 +25,8 @@ int main(int, char*[]) {
 		data_location = "../Data/";
 #endif
 	dae::Minigin engine(data_location);
-	auto* scene = &dae::SceneManager::GetInstance().CreateScene();
-	std::unique_ptr<dae::Game> game = std::make_unique<dae::Game>(scene);
+
+	std::unique_ptr<dae::Game> game = std::make_unique<dae::Game>();
 	game->init();
 
 	engine.SetGame(std::move(game));

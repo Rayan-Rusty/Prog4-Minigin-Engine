@@ -20,11 +20,11 @@
 #include "Commands/MoveCommand.h"
 #include "Components/MovementComponent.h"
 #include "Gamepad.h"
-#include "DataTypes.h"
+#include "GamepadDataStructs.h"
 
 
-dae::Game::Game(dae::Scene* scene)
-    : m_CurrentScene(scene) {
+dae::Game::Game()
+{
 }
 
 void dae::Game::init()
@@ -35,19 +35,22 @@ void dae::Game::init()
 void dae::Game::Update(float deltaTime)
 {
 
-    m_CurrentScene->Update(deltaTime);
+    SceneManager::GetInstance().Update(deltaTime);
+
 }
 
 void dae::Game::Draw()
 {
-    m_CurrentScene->Render();
-
+    SceneManager::GetInstance().Render();
 }
 
 
 
 
 void dae::Game::InitializeGame() {
+
+    auto scene = &dae::SceneManager::GetInstance().CreateScene();
+
 
     //init variables
     auto go{std::make_unique<dae::GameObject>()};
@@ -57,7 +60,7 @@ void dae::Game::InitializeGame() {
     //---------Background-------------
     RenderComp->SetTextureFilePath("background.png");
     go->AddComponent(std::move(RenderComp));
-    m_CurrentScene->Add(std::move(go));
+    scene->Add(std::move(go));
 
     //---------Logo-------------
     go = std::make_unique<dae::GameObject>();
@@ -66,7 +69,7 @@ void dae::Game::InitializeGame() {
 
     RenderComp->SetTextureFilePath("logo.png");
     go->AddComponent(std::move(RenderComp));
-    m_CurrentScene->Add(std::move(go));
+    scene->Add(std::move(go));
 
 
     //---------Texts-------------
@@ -79,7 +82,7 @@ void dae::Game::InitializeGame() {
     textComp->SetColor({255, 255, 255, 255});
     textGO->AddComponent(std::move(RenderComp));
     textGO->AddComponent(std::move(textComp));
-    m_CurrentScene->Add(std::move(textGO));
+    scene->Add(std::move(textGO));
 
     //fps Counter
 
@@ -93,7 +96,7 @@ void dae::Game::InitializeGame() {
     FpsGameObject->AddComponent(std::move(RenderComp));
     FpsGameObject->AddComponent(std::move(TextComp));
     FpsGameObject->AddComponent(std::make_unique<dae::FPSComponent>(FpsGameObject.get()));
-    m_CurrentScene->Add(std::move(FpsGameObject));
+    scene->Add(std::move(FpsGameObject));
 
 
     //##########################################################
@@ -106,7 +109,7 @@ void dae::Game::InitializeGame() {
 
     RenderComp = std::make_unique<RenderComponent>(parentObject.get());
     RenderComp->SetTextureFilePath("Dragon.png");
-    auto movementComponent{std::make_unique<dae::MovementComponent>(parentObject.get() , 50.f)};
+    auto movementComponent{std::make_unique<dae::MovementComponent>(parentObject.get() , 200.f)};
     parentObject->AddComponent(std::move(movementComponent));
     parentObject->AddComponent(std::move(RenderComp));
 
@@ -140,8 +143,8 @@ void dae::Game::InitializeGame() {
     InputManager::GetInstance().AddCommandBinding(GamepadButton::DPadLeft, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{-1,0,0}));
     InputManager::GetInstance().AddCommandBinding(GamepadButton::DPadRight, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{1,0,0}));
 
-    m_CurrentScene->Add(std::move(parentObject));
-    m_CurrentScene->Add(std::move(SecondPlayerObject));
+    scene->Add(std::move(parentObject));
+    scene->Add(std::move(SecondPlayerObject));
     //m_CurrentScene->Add(std::move(child));
 
     //InputManager::GetInstance().bind
@@ -149,6 +152,7 @@ void dae::Game::InitializeGame() {
 
 void dae::Game::InitializeIMGUIScene()
 {
+    auto scene = &dae::SceneManager::GetInstance().CreateScene();
     auto go{std::make_unique<dae::GameObject>()};
     auto RenderComp{std::make_unique<RenderComponent>(go.get())};
 
@@ -156,7 +160,7 @@ void dae::Game::InitializeIMGUIScene()
     //---------Background-------------
     RenderComp->SetTextureFilePath("background.png");
     go->AddComponent(std::move(RenderComp));
-    m_CurrentScene->Add(std::move(go));
+    scene->Add(std::move(go));
 
     //---------Logo-------------
     go = std::make_unique<dae::GameObject>();
@@ -165,7 +169,7 @@ void dae::Game::InitializeIMGUIScene()
 
     RenderComp->SetTextureFilePath("logo.png");
     go->AddComponent(std::move(RenderComp));
-    m_CurrentScene->Add(std::move(go));
+    scene->Add(std::move(go));
 
 
 

@@ -3,18 +3,12 @@
 
 void dae::SceneManager::Update(float deltaTime) const
 {
-	for(auto& scene : m_scenes)
-	{
-		scene->Update(deltaTime);
-	}
+	GetActiveScene()->Update(deltaTime);
 }
 
 void dae::SceneManager::Render()
 {
-	for (const auto& scene : m_scenes)
-	{
-		scene->Render();
-	}
+	GetActiveScene()->Render();
 }
 
 dae::Scene& dae::SceneManager::CreateScene()
@@ -23,4 +17,14 @@ dae::Scene& dae::SceneManager::CreateScene()
 	m_scenes.emplace_back(new Scene());
 
 	return *m_scenes.back();
+}
+
+void dae::SceneManager::SetActiveScene(size_t index)
+{
+	m_activeSceneIndex = index;
+}
+
+dae::Scene* dae::SceneManager::GetActiveScene() const
+{
+	return m_scenes[m_activeSceneIndex].get();
 }

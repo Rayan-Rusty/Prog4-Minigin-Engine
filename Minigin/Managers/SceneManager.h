@@ -16,10 +16,17 @@ namespace dae
 		void Update(float deltaTime) const;
 		void Render();
 
+		// this way the game can switch scenes
+		void SetActiveScene(size_t index);
+
+		Scene* GetActiveScene() const;
+
+
+
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;
 		std::vector<std::unique_ptr<Scene>> m_scenes{};
-
+		size_t m_activeSceneIndex{0}; // cant go below 0
 	};
 }
