@@ -55,6 +55,9 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
         Minigin/Observers/IObserver.h
         Minigin/Observers/Achievement.cpp
         Minigin/Observers/Achievement.h
+        Minigin/GamepadDataStructs.h
+        Minigin/HelperFunctions/Utils.cpp
+        Minigin/HelperFunctions/Utils.h
         Minigin/DataTypes.h
 )
 
