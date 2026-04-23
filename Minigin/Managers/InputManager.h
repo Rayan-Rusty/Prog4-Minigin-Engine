@@ -5,14 +5,14 @@
 #include "../Commands/Command.h"
 
 #include "../InputDevice.h"
-#include "DataTypes.h"
+#include "GamepadDataStructs.h"
 namespace dae
 {
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
 
-		bool ProcessInput(float DeltaTime) ;
+		bool ProcessInput(float DeltaTime);
 
 		void AddDevice(std::unique_ptr<InputDevice> device);
 
@@ -28,6 +28,7 @@ namespace dae
 		{
 			std::variant<GamepadButton, SDL_Scancode> keyOrButton; //lets it switch depending on which value you give it!
 			std::unique_ptr<Command> command;
+
 		};
 
 		std::vector<CommandBinding> m_Commands;
