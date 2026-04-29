@@ -13,7 +13,7 @@ namespace dae
     class Achievement final : public IObserver
     {
     public:
-        void Notify(Event event, GameActor* actor) override;
+        void Notify(Event event,  GameActor* actor) override;
     private:
 
         void unlock(Achievement achievement);

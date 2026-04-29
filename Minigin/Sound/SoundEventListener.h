@@ -1,0 +1,19 @@
+//
+// Created by omen on 29/04/2026.
+//
+
+#ifndef MINIGIN_SOUNDEVENTLISTENER_H
+#define MINIGIN_SOUNDEVENTLISTENER_H
+#include "../EventQueue/IEventListener.h"
+
+
+namespace dae
+{
+    class SoundEventListener : public IEventListener
+    {
+    public:
+        void OnEvent(const Event& e) override;
+    };
+}
+
+#endif //MINIGIN_SOUNDEVENTLISTENER_H

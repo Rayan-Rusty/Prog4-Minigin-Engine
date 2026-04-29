@@ -5,7 +5,7 @@
 #include "Achievement.h"
 
 
-void dae::Achievement::Notify(Event event, GameActor *actor)
+void dae::Achievement::Notify(Event event, GameActor* )
 {
     switch (event)
     {
