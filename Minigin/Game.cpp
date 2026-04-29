@@ -21,11 +21,12 @@
 #include "Components/MovementComponent.h"
 #include "Gamepad.h"
 #include "GamepadDataStructs.h"
+#include "EventQueue/EventsIds.h"
+#include "Sound/Decorator.h"
+#include "Sound/ServiceLocator.h"
+#include "Sound/SoundEventListener.h"
+#include "Systems/DebugSystem.h"
 
-
-dae::Game::Game()
-{
-}
 
 void dae::Game::init()
 {
@@ -50,6 +51,21 @@ void dae::Game::Draw()
 void dae::Game::InitializeGame() {
 
     auto scene = &dae::SceneManager::GetInstance().CreateScene();
+
+    auto& sound = ServiceLocator::get_sound_system();
+    sound.load_sound(1, "Data/Sound/pickupCoin.wav");
+    auto soundListener = std::make_unique<dae::SoundEventListener>();
+    scene->StoreSystem(std::move(soundListener));
+    //-------------------------- Event Queues ---------------------------------------
+
+
+    auto DebugSystem = std::make_unique<dae::DebugSystem>();
+    scene->StoreSystem(std::move(DebugSystem));
+
+    Event e(LEVEL_STARTED);
+    scene->GetEventBus().QueueEvent(e);
+
+    //-------------------------- Event Queues ---------------------------------------
 
 
     //init variables

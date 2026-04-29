@@ -7,7 +7,7 @@ namespace dae
     class Game
     {
     public:
-        Game();
+        Game() = default;
         ~Game() = default;
 
         void init() ;
