@@ -59,6 +59,30 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
         Minigin/HelperFunctions/Utils.cpp
         Minigin/HelperFunctions/Utils.h
         Minigin/DataTypes.h
+        Minigin/Components/SpriteAnimationComponent.cpp
+        Minigin/Components/SpriteAnimationComponent.h
+        Minigin/EventQueue/Event.h
+        Minigin/EventQueue/EventsIds.h
+        Minigin/EventQueue/EventBus.cpp
+        Minigin/EventQueue/EventBus.h
+        Minigin/EventQueue/IEventListener.h
+        Minigin/EventQueue/EventHash.h
+        Minigin/Systems/ScoreSystem.cpp
+        Minigin/Systems/ScoreSystem.h
+        Minigin/Systems/DebugSystem.cpp
+        Minigin/Systems/DebugSystem.h
+        Minigin/Sound/SoundSystem.cpp
+        Minigin/Sound/SoundSystem.h
+        Minigin/Sound/ServiceLocator.h
+        Minigin/Sound/SoundEventListener.cpp
+        Minigin/Sound/SoundEventListener.h
+        Minigin/Sound/sdl_sound_system.cpp
+        Minigin/Sound/sdl_sound_system.h
+        Minigin/Sound/ServiceLocator.cpp
+        Minigin/Sound/null_sound_system.cpp
+        Minigin/Sound/null_sound_system.h
+        Minigin/Sound/Decorator.cpp
+        Minigin/Sound/Decorator.h
 )
 
 # enable c++20 features
@@ -166,6 +190,32 @@ if(NOT SDL3_ttf_FOUND)
   endif()
 endif()
 
+# Add SDL3_mixer
+find_package(SDL3_mixer CONFIG QUIET)
+if(NOT SDL3_mixer_FOUND)
+  if (WIN32)
+    FetchContent_Declare(
+            SDL3_mixer
+            URL https://www.libsdl.org/projects/SDL_mixer/release/SDL3_mixer-devel-3.2.0-VC.zip
+            DOWNLOAD_NO_PROGRESS ON
+            DOWNLOAD_DIR ${CMAKE_BINARY_DIR}/downloads
+    )
+    FetchContent_MakeAvailable(SDL3_mixer)
+    list(PREPEND CMAKE_PREFIX_PATH "${sdl3_mixer_SOURCE_DIR}")
+    find_package(SDL3_mixer CONFIG REQUIRED)
+  else()
+    FetchContent_Declare(
+            SDL3_mixer
+            GIT_REPOSITORY https://github.com/libsdl-org/SDL_mixer.git
+            GIT_TAG main
+            GIT_SHALLOW TRUE
+            GIT_PROGRESS TRUE
+    )
+    FetchContent_MakeAvailable(SDL3_mixer)
+  endif()
+endif()
+
+
 if (WIN32)
   # Add VLD (Visual Leak Detector) for memory leak detection on Windows
   find_package(VLD CONFIG)
@@ -183,6 +233,7 @@ target_include_directories("${TARGET_NAME}" PUBLIC
 target_link_libraries("${TARGET_NAME}" PUBLIC
   SDL3::SDL3
   SDL3_ttf::SDL3_ttf
+  SDL3_mixer::SDL3_mixer
   glm::glm
   ${VLD_LIBRARIES}
 )
@@ -218,6 +269,7 @@ elseif(WIN32)
   # Copy SDL dlls to output folder
   set(SDL_RUNTIME_DLLS
     SDL3::SDL3
+    SDL3_mixer::SDL3_mixer
     SDL3_ttf::SDL3_ttf
   )
 
