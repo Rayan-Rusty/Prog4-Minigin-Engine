@@ -16,7 +16,11 @@ namespace dae
         enum class Event
         {
             ActorDied,
-            ActorFell
+            ActorFell,
+            PointsScored,
+            ItemCollected,
+            LevelCompleted
+
         };
         virtual void Notify(Event event, GameActor* actor) = 0;
     private:

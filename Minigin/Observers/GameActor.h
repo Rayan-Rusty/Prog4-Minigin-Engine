@@ -10,17 +10,18 @@
 namespace dae
 {
     class IObserver;
+
     class GameActor
     {
     public:
         void AddObserver(IObserver* observer);
         void RemoveObserver(IObserver* observer);
-
     protected:
             void NotifyObservers(Event event);
-
     private:
-        std::vector<IObserver*> m_observers;
+        std::vector<IObserver*> m_Observers;
+
+
     };
 
 }
