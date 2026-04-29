@@ -28,3 +28,8 @@ dae::Scene* dae::SceneManager::GetActiveScene() const
 {
 	return m_scenes[m_activeSceneIndex].get();
 }
+
+dae::EventBus &dae::SceneManager::GetEventBus()
+{
+	return GetActiveScene()->GetEventBus();
+}

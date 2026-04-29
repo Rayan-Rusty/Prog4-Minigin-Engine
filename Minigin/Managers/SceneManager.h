@@ -21,6 +21,7 @@ namespace dae
 
 		Scene* GetActiveScene() const;
 
+		EventBus& GetEventBus();
 
 
 	private:
@@ -28,5 +29,6 @@ namespace dae
 		SceneManager() = default;
 		std::vector<std::unique_ptr<Scene>> m_scenes{};
 		size_t m_activeSceneIndex{0}; // cant go below 0
+
 	};
 }

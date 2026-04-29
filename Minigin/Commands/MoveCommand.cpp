@@ -4,6 +4,9 @@
 
 #include "MoveCommand.h"
 #include "Components/MovementComponent.h"
+#include "EventQueue/Event.h"
+#include "EventQueue/EventsIds.h"
+#include "Managers/SceneManager.h"
 
 dae::MoveCommand::MoveCommand(GameObject *actor , glm::vec3 direction)
     : GameActorCommand(actor), m_direction(direction)
@@ -17,4 +20,9 @@ void dae::MoveCommand::Execute()
     auto moveComp = GetGameActor()->GetComponent<MovementComponent>();
     if (moveComp)
         moveComp->Move(m_direction);
+
+    Event e(MOVED);
+    dae::SceneManager::GetInstance()
+        .GetEventBus()
+        .QueueEvent(e);
 }

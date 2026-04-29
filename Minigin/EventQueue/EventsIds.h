@@ -11,5 +11,5 @@
 
 constexpr dae::EventId PLAYER_DIED   = make_sdbm_hash("PlayerDied");
 constexpr dae::EventId LEVEL_STARTED = make_sdbm_hash("LevelStarted");
-constexpr dae::EventId BOMB_EXPLODED = make_sdbm_hash("BombExploded");
+constexpr dae::EventId MOVED = make_sdbm_hash("Moved");
 #endif //MINIGIN_EVENTSIDS_H

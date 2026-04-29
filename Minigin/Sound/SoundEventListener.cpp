@@ -10,8 +10,8 @@
 
 void dae::SoundEventListener::OnEvent(const Event &e)
 {
-    if (e.id == LEVEL_STARTED)
+    if (e.id == MOVED)
     {
-        ServiceLocator::get_sound_system().play(1, 100.0f);
+        ServiceLocator::get_sound_system().play(1, 0.8f);
     }
 }

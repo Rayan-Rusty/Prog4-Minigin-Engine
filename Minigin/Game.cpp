@@ -143,7 +143,22 @@ void dae::Game::InitializeGame() {
     SecondPlayerObject->AddComponent(std::move(RenderComp));
    // SecondPlayerObject->AddComponent(std::move());
 
+    auto hintGO{ std::make_unique<dae::GameObject>() };
+    hintGO->GetTransform().SetLocalPosition(glm::vec3{ 292, 80, 0 });
 
+    auto hintText{ std::make_unique<dae::TextComponent>(
+        hintGO.get(),
+        "Move around to make noise",
+        font
+    ) };
+
+    auto hintRender{ std::make_unique<RenderComponent>(hintGO.get()) };
+    hintText->SetColor({ 255, 255, 0, 255 }); // yellow so it's visible
+
+    hintGO->AddComponent(std::move(hintRender));
+    hintGO->AddComponent(std::move(hintText));
+
+    scene->Add(std::move(hintGO));
 
     // auto gamepad = std::make_unique<dae::Gamepad>(0);
     // dae::InputManager::GetInstance().AddDevice(std::move(gamepad));
