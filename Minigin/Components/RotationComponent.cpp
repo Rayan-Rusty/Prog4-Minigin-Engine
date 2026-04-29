@@ -6,11 +6,11 @@
 #include "../GameObject.h"
 //TODO REMOVE PIVOT , WRAP , ANGLE
 
-dae::RotationComponent::RotationComponent(GameObject* pOwner, const glm::vec3& pivot, float clockwiseDirection)
-    : Component(pOwner)
-    , m_clockwiseDirection(clockwiseDirection) , m_pivot(pivot)
+dae::RotationComponent::RotationComponent(GameObject* pOwner, float clockwiseDirection)
+    : Component(pOwner), m_clockwiseDirection(clockwiseDirection)
 {
-    m_distance = static_cast<float>(glm::length((GetOwner()->GetTransform().GetLocalPosition() - m_pivot)));
+    //TODO How does it know to rotate around an object
+    m_distance = static_cast<float>(glm::length((GetOwner()->GetTransform().GetLocalPosition() )));
 }
 
 void dae::RotationComponent::Update(float deltaTime)
@@ -21,7 +21,7 @@ void dae::RotationComponent::Update(float deltaTime)
 
     glm::vec2 angles {cos(m_angle) * m_distance , sin(m_angle) * m_distance};
 
-    glm::vec3 newPos{ m_pivot + glm::vec3{angles , 0 } };
+    glm::vec3 newPos{ glm::vec3{angles , 0 } };
     GetOwner()->GetTransform().SetLocalPosition(newPos);
 }
 

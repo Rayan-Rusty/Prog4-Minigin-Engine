@@ -13,7 +13,7 @@ namespace dae
     class RotationComponent final : public Component
     {
     public:
-        RotationComponent(GameObject* pOwner, const glm::vec3& pivot, float clockwiseDirection);
+        RotationComponent(GameObject* pOwner, float clockwiseDirection);
 
 
         void Update(float deltaTime) override;
@@ -29,7 +29,6 @@ namespace dae
         float m_clockwiseDirection;
         float m_angle{ 0.f };
         float m_distance;
-        glm::vec3 m_pivot;
     };
 }
 
