@@ -33,6 +33,7 @@ void Scene::Update(float deltaTime)
 		object->Update(deltaTime);
 	}
 
+	m_eventBus.ProcessEvents();
 }
 
 void Scene::RemoveGameObject()
@@ -55,3 +56,12 @@ void Scene::Render() const
 	}
 }
 
+EventBus &Scene::GetEventBus() {
+	return m_eventBus;
+}
+
+void Scene::StoreSystem(std::unique_ptr<IEventListener> system)
+{
+	m_eventBus.AddListener(system.get());
+	m_listeners.emplace_back(std::move(system));
+}

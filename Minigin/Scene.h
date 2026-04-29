@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "GameObject.h"
+#include "EventQueue/EventBus.h"
 
 namespace dae
 {
@@ -13,6 +14,10 @@ namespace dae
 		void Add(std::unique_ptr<GameObject> object);
 		void Remove(const GameObject& object);
 		void RemoveAll();
+
+		EventBus& GetEventBus();
+		void StoreSystem(std::unique_ptr<IEventListener> system);
+
 
 		void Update(float deltaTime);
 		void RemoveGameObject();
@@ -29,7 +34,8 @@ namespace dae
 		explicit Scene() = default;
 
 		std::vector < std::unique_ptr<GameObject>> m_objects{};
-
+		std::vector <std::unique_ptr<IEventListener>> m_listeners{};
+		EventBus m_eventBus;
 
 	};
 
