@@ -36,6 +36,10 @@ namespace dae
         void Update(float deltaTime);
         void Draw();
 
+        void BenchMark();
+
+        void Graph();
+
     private:
         void WindowIntBenchmark();
         void WindowGameObjectWindow();
