@@ -5,18 +5,16 @@
 #include <vld.h>
 #endif
 
-#include "Minigin.h"
-#include "Managers/SceneManager.h"
-#include "Managers/ResourceManager.h"
-#include "Components/TextComponent.h"
-#include "Scene.h"
+#include "../Minigin/Minigin.h"
+#include "../Minigin/Managers/SceneManager.h"
+#include "../Minigin/Components/TextComponent.h"
+
+#include "../Minigin/IGame.h"
 #include "Game.h"
-
 #include <filesystem>
-
-#include "Sound/Decorator.h"
-#include "Sound/sdl_sound_system.h"
-#include "Sound/ServiceLocator.h"
+#include "../Minigin/Sound/Decorator.h"
+#include "../Minigin/Sound/sdl_sound_system.h"
+#include "../Minigin/Sound/ServiceLocator.h"
 namespace fs = std::filesystem;
 
 
@@ -27,6 +25,8 @@ int main(int, char*[]) {
 	fs::path data_location = "./Data/";
 	if(!fs::exists(data_location))
 		data_location = "../Data/";
+	std::cout << "DATA ROOT = " << data_location << std::endl;
+	std::cout << "CWD = " << std::filesystem::current_path() << std::endl;
 #endif
 	dae::Minigin engine(data_location);
 
@@ -34,23 +34,22 @@ int main(int, char*[]) {
 	dae::ServiceLocator::register_sound_system(
 	std::make_unique<dae::logging_sound_system>(std::make_unique<dae::sdl_sound_system>()));
 #else
-	servicelocator::register_sound_system(std::make_unique<sdl_sound_system>());
+	dae::ServiceLocator::register_sound_system(std::make_unique<dae::sdl_sound_system>());
 #endif
 
 
 
-	dae::ServiceLocator::register_sound_system(std::make_unique<dae::sdl_sound_system>());
 
 	auto& ss = dae::ServiceLocator::get_sound_system();
-	ss.play(10, 1.f);
 
 
 
-	std::unique_ptr<dae::Game> game = std::make_unique<dae::Game>();
-	game->init();
+
+	std::unique_ptr<game::IGame> game = std::make_unique<game::Game>();
+	game->Init();
 
 	engine.SetGame(std::move(game));
 	engine.Run();
-
+	ss.play(10, 1.f);
     return 0;
 }

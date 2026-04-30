@@ -4,9 +4,10 @@
 #include <filesystem>
 #include <SDL3/SDL.h>
 
+#include "IGame.h"
+
 namespace dae
 {
-	class Game;
 	class Minigin final
 	{
 		bool m_quit{};
@@ -24,8 +25,8 @@ namespace dae
 		// Student functions
 		static float GetFrameTime();
 
-		void SetGame(std::shared_ptr<Game> game) { m_Game = game; }
+		void SetGame(std::unique_ptr<game::IGame> game) { m_Game = std::move(game); }
 	private:
-		std::shared_ptr<Game> m_Game;
+		std::unique_ptr<game::IGame> m_Game;
 	};
 }

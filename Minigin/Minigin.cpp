@@ -15,7 +15,7 @@
 #include "Managers/SceneManager.h"
 #include "Renderer.h"
 #include "Managers/ResourceManager.h"
-#include "Game.h"
+#include "IGame.h"
 
 SDL_Window* g_window{};
 
@@ -122,9 +122,10 @@ void dae::Minigin::RunOneFrame()
 
 float dae::Minigin::GetFrameTime()
 {
+	constexpr float secDivision{1000.0f};
 	static uint64_t lastTime = SDL_GetTicks();
 	uint64_t currentTime = SDL_GetTicks();
-	float deltaTime =static_cast<float>(currentTime - lastTime) / 1000.0f; // this way its in seconds
+	float deltaTime =static_cast<float>(currentTime - lastTime) / secDivision; // this way its in seconds
 	lastTime = currentTime;
 	return deltaTime;
 }
