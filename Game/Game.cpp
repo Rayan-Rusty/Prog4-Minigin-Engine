@@ -4,55 +4,54 @@
 
 #include "Game.h"
 
-#include "Managers/SceneManager.h"
-#include "Managers/ResourceManager.h"
+#include "../Minigin/Managers/SceneManager.h"
+#include "../Minigin/Managers/ResourceManager.h"
 
-#include "GameObject.h"
-#include "Scene.h"
-#include "Components/TextComponent.h"
-#include "Components/FPSComponent.h"
-#include "Components/RenderComponent.h"
-#include "Components/RotationComponent.h"
+#include "../Minigin/GameObject.h"
+#include "../Minigin/Scene.h"
+#include "../Minigin/Components/TextComponent.h"
+#include "../Minigin/Components/FPSComponent.h"
+#include "../Minigin/Components/RenderComponent.h"
+#include "../Minigin/Components/RotationComponent.h"
 
 #include <algorithm>
 
-#include "Managers/InputManager.h"
-#include "Commands/MoveCommand.h"
-#include "Components/MovementComponent.h"
-#include "Gamepad.h"
-#include "GamepadDataStructs.h"
-#include "EventQueue/EventsIds.h"
-#include "Sound/Decorator.h"
-#include "Sound/ServiceLocator.h"
-#include "Sound/SoundEventListener.h"
-#include "Systems/DebugSystem.h"
+#include "../Minigin/Managers/InputManager.h"
+#include "../Minigin/Commands/MoveCommand.h"
+#include "../Minigin/Components/MovementComponent.h"
+#include "../Minigin/Gamepad.h"
+#include "../Minigin/GamepadDataStructs.h"
+#include "../Minigin/EventQueue/EventsIds.h"
+#include "../Minigin/Sound/Decorator.h"
+#include "../Minigin/Sound/ServiceLocator.h"
+#include "../Minigin/Sound/SoundEventListener.h"
+#include "../Minigin/Systems/DebugSystem.h"
 
 
-void dae::Game::init()
+void game::Game::Init()
 {
     InitializeGame();
 }
 
-void dae::Game::Update(float deltaTime)
+void game::Game::Update(float deltaTime)
 {
-
-    SceneManager::GetInstance().Update(deltaTime);
+    dae::SceneManager::GetInstance().Update(deltaTime);
 
 }
 
-void dae::Game::Draw()
+void game::Game::Draw() const
 {
-    SceneManager::GetInstance().Render();
+    dae::SceneManager::GetInstance().Render();
 }
 
 
 
 
-void dae::Game::InitializeGame() {
+void game::Game::InitializeGame() {
 
     auto scene = &dae::SceneManager::GetInstance().CreateScene();
 
-    auto& sound = ServiceLocator::get_sound_system();
+    auto& sound = dae::ServiceLocator::get_sound_system();
     sound.load_sound(1, "Data/Sound/pickupCoin.wav");
     auto soundListener = std::make_unique<dae::SoundEventListener>();
     scene->StoreSystem(std::move(soundListener));
@@ -62,7 +61,7 @@ void dae::Game::InitializeGame() {
     auto DebugSystem = std::make_unique<dae::DebugSystem>();
     scene->StoreSystem(std::move(DebugSystem));
 
-    Event e(LEVEL_STARTED);
+    dae::Event e(LEVEL_STARTED);
     scene->GetEventBus().QueueEvent(e);
 
     //-------------------------- Event Queues ---------------------------------------
@@ -70,7 +69,7 @@ void dae::Game::InitializeGame() {
 
     //init variables
     auto go{std::make_unique<dae::GameObject>()};
-    auto RenderComp{std::make_unique<RenderComponent>(go.get())};
+    auto RenderComp{std::make_unique<dae::RenderComponent>(go.get())};
 
 
     //---------Background-------------
@@ -81,7 +80,7 @@ void dae::Game::InitializeGame() {
     //---------Logo-------------
     go = std::make_unique<dae::GameObject>();
     go->GetTransform().SetLocalPosition(glm::vec3{358, 180,0});
-    RenderComp = std::make_unique<RenderComponent>(go.get());
+    RenderComp = std::make_unique<dae::RenderComponent>(go.get());
 
     RenderComp->SetTextureFilePath("logo.png");
     go->AddComponent(std::move(RenderComp));
@@ -94,7 +93,7 @@ void dae::Game::InitializeGame() {
     textGO->GetTransform().SetLocalPosition(glm::vec3{292, 20 ,0});
 
     auto textComp{std::make_unique<dae::TextComponent>(textGO.get(), "Programming 4 Assignment", font)};
-    RenderComp = std::make_unique<RenderComponent>(textGO.get());
+    RenderComp = std::make_unique<dae::RenderComponent>(textGO.get());
     textComp->SetColor({255, 255, 255, 255});
     textGO->AddComponent(std::move(RenderComp));
     textGO->AddComponent(std::move(textComp));
@@ -107,7 +106,7 @@ void dae::Game::InitializeGame() {
 
     auto TextComp{std::make_unique<dae::TextComponent>(FpsGameObject.get(), "FPS : 0", font)};
     TextComp->SetColor({255, 255, 255, 255});
-    RenderComp = std::make_unique<RenderComponent>(FpsGameObject.get());
+    RenderComp = std::make_unique<dae::RenderComponent>(FpsGameObject.get());
 
     FpsGameObject->AddComponent(std::move(RenderComp));
     FpsGameObject->AddComponent(std::move(TextComp));
@@ -123,7 +122,7 @@ void dae::Game::InitializeGame() {
 
     parentObject->GetTransform().SetLocalPosition(glm::vec3{250,250,0});
 
-    RenderComp = std::make_unique<RenderComponent>(parentObject.get());
+    RenderComp = std::make_unique<dae::RenderComponent>(parentObject.get());
     RenderComp->SetTextureFilePath("Dragon.png");
     auto movementComponent{std::make_unique<dae::MovementComponent>(parentObject.get() , 200.f)};
     parentObject->AddComponent(std::move(movementComponent));
@@ -133,8 +132,8 @@ void dae::Game::InitializeGame() {
     auto SecondPlayerObject{std::make_unique<dae::GameObject>()};
     SecondPlayerObject->GetTransform().SetLocalPosition(glm::vec3{280,250,0});
 
-    auto rotateComp = std::make_unique<RotationComponent>(SecondPlayerObject.get(), 5.f);
-    RenderComp = std::make_unique<RenderComponent>(SecondPlayerObject.get());
+    auto rotateComp = std::make_unique<dae::RotationComponent>(SecondPlayerObject.get(), 5.f);
+    RenderComp = std::make_unique<dae::RenderComponent>(SecondPlayerObject.get());
 
     RenderComp->SetTextureFilePath("Player.png");
 
@@ -152,7 +151,7 @@ void dae::Game::InitializeGame() {
         font
     ) };
 
-    auto hintRender{ std::make_unique<RenderComponent>(hintGO.get()) };
+    auto hintRender{ std::make_unique<dae::RenderComponent>(hintGO.get()) };
     hintText->SetColor({ 255, 255, 0, 255 }); // yellow so it's visible
 
     hintGO->AddComponent(std::move(hintRender));
@@ -165,14 +164,14 @@ void dae::Game::InitializeGame() {
 
     auto moveLeft = std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{-1,0,0});
 
-    InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_A, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{-1,0,0}));
-    InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_D,std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{1,0,0}));
-    InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_W, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,-1,0}));
-    InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_S, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,1,0}));
-    InputManager::GetInstance().AddCommandBinding(GamepadButton::DPadDown, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{0,1,0}));
-    InputManager::GetInstance().AddCommandBinding(GamepadButton::DPadUp, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{0,-1,0}));
-    InputManager::GetInstance().AddCommandBinding(GamepadButton::DPadLeft, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{-1,0,0}));
-    InputManager::GetInstance().AddCommandBinding(GamepadButton::DPadRight, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{1,0,0}));
+    dae::InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_A, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{-1,0,0}));
+    dae::InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_D,std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{1,0,0}));
+    dae::InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_W, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,-1,0}));
+    dae::InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_S, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,1,0}));
+    dae::InputManager::GetInstance().AddCommandBinding(dae::GamepadButton::DPadDown, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{0,1,0}));
+    dae::InputManager::GetInstance().AddCommandBinding(dae::GamepadButton::DPadUp, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{0,-1,0}));
+    dae::InputManager::GetInstance().AddCommandBinding(dae::GamepadButton::DPadLeft, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{-1,0,0}));
+    dae::InputManager::GetInstance().AddCommandBinding(dae::GamepadButton::DPadRight, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{1,0,0}));
 
     scene->Add(std::move(parentObject));
     scene->Add(std::move(SecondPlayerObject));
@@ -181,11 +180,11 @@ void dae::Game::InitializeGame() {
     //InputManager::GetInstance().bind
 }
 
-void dae::Game::InitializeIMGUIScene()
+void game::Game::InitializeIMGUIScene()
 {
     auto scene = &dae::SceneManager::GetInstance().CreateScene();
     auto go{std::make_unique<dae::GameObject>()};
-    auto RenderComp{std::make_unique<RenderComponent>(go.get())};
+    auto RenderComp{std::make_unique<dae::RenderComponent>(go.get())};
 
 
     //---------Background-------------
@@ -196,7 +195,7 @@ void dae::Game::InitializeIMGUIScene()
     //---------Logo-------------
     go = std::make_unique<dae::GameObject>();
     go->GetTransform().SetLocalPosition(glm::vec3{358, 180,0});
-    RenderComp = std::make_unique<RenderComponent>(go.get());
+    RenderComp = std::make_unique<dae::RenderComponent>(go.get());
 
     RenderComp->SetTextureFilePath("logo.png");
     go->AddComponent(std::move(RenderComp));
