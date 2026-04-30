@@ -5,7 +5,7 @@
 #include "Utils.h"
 
 
-bool Utils::CheckOverlap(const dae::Rect& A, const dae::Rect& B)
+bool dae::CheckOverlap(const dae::Rect& A, const dae::Rect& B)
 {
     //AABB collisions for rectangles
     bool CollisionX{A.pos.x + A.size.x >= B.pos.x && B.pos.x + B.size.x >= A.pos.x};
@@ -13,7 +13,7 @@ bool Utils::CheckOverlap(const dae::Rect& A, const dae::Rect& B)
     return CollisionX && CollisionY;
 }
 
-bool Utils::CheckOverlap(const dae::Sphere& A, const dae::Rect& B)
+bool dae::CheckOverlap(const dae::Sphere& A, const dae::Rect& B)
 {
 
     glm::vec3 center{A.pos + A.radius};
