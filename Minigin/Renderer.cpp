@@ -10,8 +10,12 @@
 void dae::Renderer::Init(SDL_Window* window)
 {
 	m_window = window;
+
 	SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");
 	m_renderer = SDL_CreateRenderer(window, nullptr);
+
+
+
 	if (m_renderer == nullptr)
 	{
 		std::cout << "Failed to create the renderer: " << SDL_GetError() << "\n";
@@ -39,7 +43,7 @@ void dae::Renderer::Init(SDL_Window* window)
 
 
 
-void dae::Renderer::Render() const
+void dae::Renderer::Render()
 {
 
 	// Render your scene objects
@@ -47,7 +51,37 @@ void dae::Renderer::Render() const
 	ImGui::Render();
 	ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData() , m_renderer); // just 1 param in SDL3
 
+
+	SDL_SetRenderScale(m_renderer, 3.0f, 3.0f);
+
+	for (const auto& cmd : m_drawCommands)
+	{
+		if (!cmd.isUI)
+		{
+			SDL_SetTextureScaleMode(cmd.texture->GetSDLTexture(),
+				SDL_SCALEMODE_NEAREST);
+
+			RenderTexture(*cmd.texture, cmd.dst);
+		}
+	}
+
+	SDL_SetRenderScale(m_renderer, 1.0f, 1.0f);
+
+	for (const auto& cmd : m_drawCommands)
+	{
+		if (cmd.isUI)
+		{
+			SDL_SetTextureScaleMode(cmd.texture->GetSDLTexture(),
+				SDL_SCALEMODE_LINEAR);
+
+			RenderTexture(*cmd.texture, cmd.dst);
+		}
+	}
+
+
 	SDL_RenderPresent(m_renderer);
+	m_drawCommands.clear();
+
 }
 
 void dae::Renderer::Destroy()
@@ -74,6 +108,8 @@ void dae::Renderer::Shutdown()
 
 void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y) const
 {
+
+
 	SDL_FRect dst{};
 	dst.x = x;
 	dst.y = y;
@@ -91,6 +127,16 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const
 	SDL_RenderTexture(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
 }
 
+void dae::Renderer::RenderTexture(const Texture2D &texture, const SDL_FRect &dst) const
+{
+	SDL_RenderTexture(
+		m_renderer,
+		texture.GetSDLTexture(),
+		nullptr,
+		&dst
+	);
+}
+
 SDL_Renderer* dae::Renderer::GetSDLRenderer() const { return m_renderer; }
 
 void dae::Renderer::Clear() const
@@ -103,4 +149,10 @@ void dae::Renderer::Clear() const
 	const auto& color = GetBackgroundColor();
 	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderClear(m_renderer);
+}
+
+
+void dae::Renderer::Submit(const std::shared_ptr<Texture2D> &texture, const SDL_FRect &dst, bool isUI)
+{
+	m_drawCommands.push_back({texture , dst, isUI});
 }
