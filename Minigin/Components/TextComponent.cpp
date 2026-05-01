@@ -13,7 +13,7 @@ dae::TextComponent::TextComponent(GameObject* owner, std::string  text, std::sha
 
 dae::TextComponent::TextComponent(GameObject *owner)
 	: Component(owner) , m_needsUpdate(true), m_color({255, 255, 255, 255}) ,
-m_font(dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36)), m_textTexture(nullptr)
+m_font(dae::ResourceManager::GetInstance().LoadFont("Fonts/Emulogic-zrEw.ttf", 36)), m_textTexture(nullptr)
 {
 	std::string text {"template text"};
 	m_text = std::move(text);

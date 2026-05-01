@@ -34,6 +34,7 @@ dae::Texture2D::Texture2D(const std::string &fullPath)
         Renderer::GetInstance().GetSDLRenderer(),
         surface
     );
+    SDL_SetTextureScaleMode(m_texture, SDL_SCALEMODE_NEAREST);
 
     SDL_DestroySurface(surface);
 
