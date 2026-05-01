@@ -13,6 +13,7 @@ namespace dae
         RenderComponent(GameObject* owner);
         void SetTextureFilePath(const std::string& TextureFile);
         void SetTexture(std::shared_ptr<Texture2D> Texture);
+        void SetIsUI(bool isUI);
         void Render() const override;
 
         std::type_index GetType() const override;
@@ -23,6 +24,7 @@ namespace dae
         RenderComponent& operator=(RenderComponent&& other) = delete;
     private:
         std::shared_ptr<Texture2D> m_Texture{nullptr};
+        bool m_isUI{false};
     };
 }
 
