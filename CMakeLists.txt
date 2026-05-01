@@ -6,7 +6,7 @@ if(EMSCRIPTEN)
 endif()
 
 # =========================
-# TARGET NAMES
+# Names
 # =========================
 set(ENGINE_NAME Minigin)
 set(GAME_NAME Game)
@@ -16,7 +16,7 @@ if(EMSCRIPTEN)
 endif()
 
 # =========================
-# ENGINE (STATIC LIB)
+# engine :D!!
 # =========================
 add_library(${ENGINE_NAME} STATIC
         # Core engine
@@ -85,7 +85,7 @@ target_include_directories(${ENGINE_NAME} PUBLIC
 target_compile_features(${ENGINE_NAME} PUBLIC cxx_std_20)
 
 # =========================
-# GAME (EXECUTABLE)
+# Game
 # =========================
 add_executable(${GAME_NAME}
         Game/Main.cpp
@@ -98,7 +98,7 @@ target_link_libraries(${GAME_NAME} PRIVATE ${ENGINE_NAME})
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${GAME_NAME})
 
 # =========================
-# DEPENDENCIES
+# Dependencies
 # =========================
 include(FetchContent)
 
@@ -196,7 +196,7 @@ target_link_libraries(${ENGINE_NAME} PUBLIC
 )
 
 # =========================
-# STEAM (GAME ONLY)
+# Steam?
 # =========================
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/steam")
 find_package(Steamworks QUIET)
@@ -207,7 +207,7 @@ if(Steamworks_FOUND)
 endif()
 
 # =========================
-# PLATFORM: EMSCRIPTEN
+# Emscripten
 # =========================
 if(EMSCRIPTEN)
   set(CMAKE_EXECUTABLE_SUFFIX ".html")
@@ -267,7 +267,7 @@ elseif(APPLE)
 endif()
 
 # =========================
-# WARNINGS
+# Warnings
 # =========================
 if(MSVC)
   target_compile_options(${ENGINE_NAME} PRIVATE /W4 /WX)
