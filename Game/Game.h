@@ -18,6 +18,7 @@ namespace game
     private:
 
         void InitializeGame();
+        void InitializeMenuScreen();
         void InitializeIMGUIScene();
 
     };

@@ -30,7 +30,8 @@
 
 void game::Game::Init()
 {
-    InitializeGame();
+    InitializeMenuScreen();
+    //InitializeGame();
 }
 
 void game::Game::Update(float deltaTime)
@@ -45,6 +46,33 @@ void game::Game::Draw() const
 }
 
 
+void game::Game::InitializeMenuScreen()
+{
+    auto scene = &dae::SceneManager::GetInstance().CreateScene();
+
+
+    //---------Background-------------
+    auto go{std::make_unique<dae::GameObject>()};
+    auto RenderComp{std::make_unique<dae::RenderComponent>(go.get())};
+    RenderComp->SetTextureFilePath("Sprites/MenuScreen.png");
+    go->AddComponent(std::move(RenderComp));
+    scene->Add(std::move(go));
+
+
+    auto FpsGameObject{std::make_unique<dae::GameObject>()};
+    FpsGameObject->GetTransform().SetLocalPosition(glm::vec3{10,10,0});
+    auto font{dae::ResourceManager::GetInstance().LoadFont("Fonts/Emulogic-zrEw.ttf", 18)};
+    auto TextComp{std::make_unique<dae::TextComponent>(FpsGameObject.get(), "FPS : 0", font)};
+    TextComp->SetColor({255, 255, 255, 255});
+    RenderComp = std::make_unique<dae::RenderComponent>(FpsGameObject.get());
+
+    RenderComp->SetIsUI(true);
+    FpsGameObject->AddComponent(std::move(RenderComp));
+    FpsGameObject->AddComponent(std::move(TextComp));
+    FpsGameObject->AddComponent(std::make_unique<dae::FPSComponent>(FpsGameObject.get()));
+    scene->Add(std::move(FpsGameObject));
+
+}
 
 
 void game::Game::InitializeGame() {
@@ -88,7 +116,7 @@ void game::Game::InitializeGame() {
 
 
     //---------Texts-------------
-    auto font{dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36)};
+    auto font{dae::ResourceManager::GetInstance().LoadFont("Fonts/Emulogic-zrEw.ttf", 11)};
     auto textGO{std::make_unique<dae::GameObject>()};
     textGO->GetTransform().SetLocalPosition(glm::vec3{292, 20 ,0});
 
@@ -107,7 +135,6 @@ void game::Game::InitializeGame() {
     auto TextComp{std::make_unique<dae::TextComponent>(FpsGameObject.get(), "FPS : 0", font)};
     TextComp->SetColor({255, 255, 255, 255});
     RenderComp = std::make_unique<dae::RenderComponent>(FpsGameObject.get());
-
     FpsGameObject->AddComponent(std::move(RenderComp));
     FpsGameObject->AddComponent(std::move(TextComp));
     FpsGameObject->AddComponent(std::make_unique<dae::FPSComponent>(FpsGameObject.get()));
