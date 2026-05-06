@@ -203,28 +203,22 @@ endif()
 
 # ---- SDL3_mixer ----
 if(NOT EMSCRIPTEN)
+  FetchContent_Declare(
+          SDL3_mixer
+          GIT_REPOSITORY https://github.com/libsdl-org/SDL_mixer.git
+          GIT_TAG main
+  )
+  FetchContent_MakeAvailable(SDL3_mixer)
 
-  find_package(SDL3_mixer CONFIG QUIET)
-  if(NOT SDL3_mixer_FOUND)
-    set(SDL3MIXER_VENDORED ON CACHE BOOL "" FORCE)
-
-    # Disable these bc i dont need it
-    set(SDL3MIXER_MP3_MPG123 OFF CACHE BOOL "" FORCE)
-    set(SDL3MIXER_OPUS OFF CACHE BOOL "" FORCE)
-    set(SDL3MIXER_FLAC OFF CACHE BOOL "" FORCE)
-    set(SDL3MIXER_VORBIS OFF CACHE BOOL "" FORCE)
-    set(SDL3MIXER_WAVPACK OFF CACHE BOOL "" FORCE)
-    set(SDL3MIXER_GME OFF CACHE BOOL "" FORCE)
-    set(SDL3MIXER_MOD_XMP OFF CACHE BOOL "" FORCE)
-
-    FetchContent_Declare(
-            SDL3_mixer
-            GIT_REPOSITORY https://github.com/libsdl-org/SDL_mixer.git
-            GIT_TAG main
-    )
-    FetchContent_MakeAvailable(SDL3_mixer)
+  if(TARGET SDL3_mixer::SDL3_mixer)
+    target_link_libraries(${ENGINE_NAME} PUBLIC SDL3_mixer::SDL3_mixer)
+  elseif(TARGET SDL3_mixer)
+    target_link_libraries(${ENGINE_NAME} PUBLIC SDL3_mixer)
+  else()
+    message(FATAL_ERROR "SDL3_mixer target not found after FetchContent")
   endif()
-endif ()
+
+endif()
 # ---- VLD ----
 find_package(VLD CONFIG)
 
@@ -236,10 +230,11 @@ target_include_directories(${ENGINE_NAME} PUBLIC
 
 target_link_libraries(${ENGINE_NAME} PUBLIC
         SDL3::SDL3
-        SDL3_mixer::SDL3_mixer
         glm::glm
         ${VLD_LIBRARIES}
 )
+
+
 if(NOT EMSCRIPTEN)
   target_link_libraries(${ENGINE_NAME} PUBLIC SDL3_ttf::SDL3_ttf)
 endif()
