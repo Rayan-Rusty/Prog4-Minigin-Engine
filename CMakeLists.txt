@@ -6,7 +6,7 @@ if(EMSCRIPTEN)
 endif()
 
 # =========================
-# Names
+# TARGET NAMES
 # =========================
 set(ENGINE_NAME Minigin)
 set(GAME_NAME Game)
@@ -16,7 +16,7 @@ if(EMSCRIPTEN)
 endif()
 
 # =========================
-# engine :D!!
+# ENGINE (STATIC LIB)
 # =========================
 add_library(${ENGINE_NAME} STATIC
         # Core engine
@@ -85,11 +85,23 @@ target_include_directories(${ENGINE_NAME} PUBLIC
 target_compile_features(${ENGINE_NAME} PUBLIC cxx_std_20)
 
 # =========================
-# Game
+# GAME (EXECUTABLE)
 # =========================
 add_executable(${GAME_NAME}
         Game/Main.cpp
         Game/Game.cpp
+        Game/Player.cpp
+        Game/Player.h
+        Game/Utils.cpp
+        Game/Utils.h
+        Game/Enemies/Pooka.cpp
+        Game/Enemies/Pooka.h
+        Game/Enemies/States/PookaState.cpp
+        Game/Enemies/States/PookaState.h
+        Game/Enemies/States/PookaNormalState.cpp
+        Game/Enemies/States/PookaNormalState.h
+        Game/Enemies/States/PookaGhostState.cpp
+        Game/Enemies/States/PookaGhostState.h
 )
 
 target_compile_features(${GAME_NAME} PUBLIC cxx_std_20)
@@ -98,19 +110,22 @@ target_link_libraries(${GAME_NAME} PRIVATE ${ENGINE_NAME})
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${GAME_NAME})
 
 # =========================
-# Dependencies
+# DEPENDENCIES
 # =========================
 include(FetchContent)
 
 # ---- GLM ----
-find_package(glm CONFIG QUIET)
-if(NOT glm_FOUND)
-  FetchContent_Declare(
-          glm
-          URL https://github.com/g-truc/glm/releases/download/1.0.3/glm-1.0.3.zip
-  )
-  FetchContent_MakeAvailable(glm)
-endif()
+
+FetchContent_Declare(
+        glm
+        GIT_REPOSITORY https://github.com/g-truc/glm.git
+        GIT_TAG 1.0.3
+)
+
+set(GLM_BUILD_LIBRARY OFF CACHE BOOL "" FORCE)
+set(GLM_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+
+FetchContent_MakeAvailable(glm)
 
 # ---- SDL3 ----
 find_package(SDL3 3.4 CONFIG QUIET)
@@ -121,6 +136,8 @@ if(NOT SDL3_FOUND)
             URL https://www.libsdl.org/release/SDL3-devel-3.4.0-VC.zip
     )
     FetchContent_MakeAvailable(SDL3)
+    list(PREPEND CMAKE_PREFIX_PATH "${sdl3_SOURCE_DIR}")
+    find_package(SDL3 CONFIG REQUIRED)
   else()
     FetchContent_Declare(
             SDL3
@@ -153,23 +170,43 @@ target_include_directories(imgui PUBLIC ${imgui_SOURCE_DIR})
 target_link_libraries(imgui PUBLIC SDL3::SDL3)
 target_compile_features(imgui PUBLIC cxx_std_20)
 
-
 target_link_libraries(${ENGINE_NAME} PUBLIC imgui)
 
 # ---- SDL3_ttf ----
 find_package(SDL3_ttf 3.2.2 CONFIG QUIET)
 if(NOT SDL3_ttf_FOUND)
-  FetchContent_Declare(
-          SDL3_ttf
-          GIT_REPOSITORY https://github.com/libsdl-org/SDL_ttf.git
-          GIT_TAG release-3.2.2
-  )
-  FetchContent_MakeAvailable(SDL3_ttf)
+  if (WIN32)
+    FetchContent_Declare(
+            SDL3_ttf
+            URL https://www.libsdl.org/projects/SDL_ttf/release/SDL3_ttf-devel-3.2.2-VC.zip
+    )
+    FetchContent_MakeAvailable(SDL3_ttf)
+    list(PREPEND CMAKE_PREFIX_PATH "${sdl3_ttf_SOURCE_DIR}")
+    find_package(SDL3_ttf CONFIG REQUIRED)
+  else()
+    FetchContent_Declare(
+            SDL3_ttf
+            GIT_REPOSITORY https://github.com/libsdl-org/SDL_ttf.git
+            GIT_TAG release-3.2.2
+    )
+    FetchContent_MakeAvailable(SDL3_ttf)
+  endif()
 endif()
 
 # ---- SDL3_mixer ----
 find_package(SDL3_mixer CONFIG QUIET)
 if(NOT SDL3_mixer_FOUND)
+  set(SDL3MIXER_VENDORED ON CACHE BOOL "" FORCE)
+
+  # Disable these bc i dont need it
+  set(SDL3MIXER_MP3_MPG123 OFF CACHE BOOL "" FORCE)
+  set(SDL3MIXER_OPUS OFF CACHE BOOL "" FORCE)
+  set(SDL3MIXER_FLAC OFF CACHE BOOL "" FORCE)
+  set(SDL3MIXER_VORBIS OFF CACHE BOOL "" FORCE)
+  set(SDL3MIXER_WAVPACK OFF CACHE BOOL "" FORCE)
+  set(SDL3MIXER_GME OFF CACHE BOOL "" FORCE)
+  set(SDL3MIXER_MOD_XMP OFF CACHE BOOL "" FORCE)
+
   FetchContent_Declare(
           SDL3_mixer
           GIT_REPOSITORY https://github.com/libsdl-org/SDL_mixer.git
@@ -177,7 +214,6 @@ if(NOT SDL3_mixer_FOUND)
   )
   FetchContent_MakeAvailable(SDL3_mixer)
 endif()
-
 # ---- VLD ----
 find_package(VLD CONFIG)
 
@@ -196,7 +232,7 @@ target_link_libraries(${ENGINE_NAME} PUBLIC
 )
 
 # =========================
-# Steam?
+# STEAM (GAME ONLY)
 # =========================
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/steam")
 find_package(Steamworks QUIET)
@@ -207,7 +243,7 @@ if(Steamworks_FOUND)
 endif()
 
 # =========================
-# Emscripten
+# PLATFORM: EMSCRIPTEN
 # =========================
 if(EMSCRIPTEN)
   set(CMAKE_EXECUTABLE_SUFFIX ".html")
@@ -267,7 +303,7 @@ elseif(APPLE)
 endif()
 
 # =========================
-# Warnings
+# WARNINGS
 # =========================
 if(MSVC)
   target_compile_options(${ENGINE_NAME} PRIVATE /W4 /WX)
