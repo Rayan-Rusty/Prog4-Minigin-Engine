@@ -174,7 +174,7 @@ add_library(imgui STATIC
         ${imgui_SOURCE_DIR}/backends/imgui_impl_sdlrenderer3.cpp
 )
 
-target_include_directories(imgui PUBLIC ${imgui_SOURCE_DIR})
+target_include_directories(imgui PUBLIC ${imgui_SOURCE_DIR}/include)
 target_link_libraries(imgui PUBLIC SDL3::SDL3)
 target_compile_features(imgui PUBLIC cxx_std_20)
 
