@@ -4,16 +4,38 @@
 
 #include "Pooka.h"
 
+#include "States/PookaNormalState.h"
 #include "States/PookaState.h"
 
-
-void Pooka::Update(float dt )
+Pooka::Pooka(dae::GameObject* owner)
+    :Component(owner)
 {
-    if (m_state)
-        m_state->Update(*this);
+    ChangeState(std::make_unique<PookaNormalState>());
 }
 
-void Pooka::Draw()
-{
+Pooka::~Pooka() {
 
+}
+
+
+void Pooka::Update(float dt)
+{
+    if (m_state)
+        m_state->Update(*this , dt);
+}
+
+
+void Pooka::ChangeState(std::unique_ptr<PookaState> newState)
+{
+    if (m_state)
+        m_state->Exit(*this);
+
+    m_state = std::move(newState);
+    m_state->Enter(*this);
+}
+
+
+std::type_index Pooka::GetType() const
+{
+    return typeid(Pooka);
 }

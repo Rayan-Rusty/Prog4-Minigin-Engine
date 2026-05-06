@@ -6,18 +6,24 @@
 #define MINIGIN_POOKA_H
 #include <memory>
 
+#include "GameObject.h"
+
 
 class PookaState;
-
-class Pooka
+class GameObject;
+class Pooka : public dae::Component
 {
 public:
-    Pooka() = default;
-    ~Pooka() = default;
+    Pooka(dae::GameObject* owner);
+    ~Pooka();
+
+
     void Update(float dt);
-    void Draw();
+    void ChangeState(std::unique_ptr<PookaState> newState);
+    std::type_index GetType() const override;
 private:
     std::unique_ptr<PookaState> m_state;
+
 };
 
 

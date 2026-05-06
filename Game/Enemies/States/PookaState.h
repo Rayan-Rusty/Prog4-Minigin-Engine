@@ -9,10 +9,10 @@ class Pooka;
 class PookaState
 {
 public:
-    virtual ~PookaState();
+    virtual ~PookaState() = default;
 
     virtual void Enter(Pooka& pooka);
-    virtual void Update(Pooka& pooka) = 0;
+    virtual void Update(Pooka& pooka , float dt) = 0;
     virtual void Exit(Pooka& pooka);
 
 };

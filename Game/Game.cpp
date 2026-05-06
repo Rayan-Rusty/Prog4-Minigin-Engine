@@ -26,12 +26,13 @@
 #include "../Minigin/Sound/ServiceLocator.h"
 #include "../Minigin/Sound/SoundEventListener.h"
 #include "../Minigin/Systems/DebugSystem.h"
+#include "Enemies/Pooka.h"
 
 
 void game::Game::Init()
 {
-    InitializeMenuScreen();
-    //InitializeGame();
+    //InitializeMenuScreen();
+    InitializeGame();
 }
 
 void game::Game::Update(float deltaTime)
@@ -102,6 +103,7 @@ void game::Game::InitializeGame() {
 
     //---------Background-------------
     RenderComp->SetTextureFilePath("background.png");
+    RenderComp->SetIsUI(true);
     go->AddComponent(std::move(RenderComp));
     scene->Add(std::move(go));
 
@@ -109,6 +111,7 @@ void game::Game::InitializeGame() {
     go = std::make_unique<dae::GameObject>();
     go->GetTransform().SetLocalPosition(glm::vec3{358, 180,0});
     RenderComp = std::make_unique<dae::RenderComponent>(go.get());
+    RenderComp->SetIsUI(true);
 
     RenderComp->SetTextureFilePath("logo.png");
     go->AddComponent(std::move(RenderComp));
@@ -122,6 +125,7 @@ void game::Game::InitializeGame() {
 
     auto textComp{std::make_unique<dae::TextComponent>(textGO.get(), "Programming 4 Assignment", font)};
     RenderComp = std::make_unique<dae::RenderComponent>(textGO.get());
+    RenderComp->SetIsUI(true);
     textComp->SetColor({255, 255, 255, 255});
     textGO->AddComponent(std::move(RenderComp));
     textGO->AddComponent(std::move(textComp));
@@ -135,6 +139,7 @@ void game::Game::InitializeGame() {
     auto TextComp{std::make_unique<dae::TextComponent>(FpsGameObject.get(), "FPS : 0", font)};
     TextComp->SetColor({255, 255, 255, 255});
     RenderComp = std::make_unique<dae::RenderComponent>(FpsGameObject.get());
+    RenderComp->SetIsUI(true);
     FpsGameObject->AddComponent(std::move(RenderComp));
     FpsGameObject->AddComponent(std::move(TextComp));
     FpsGameObject->AddComponent(std::make_unique<dae::FPSComponent>(FpsGameObject.get()));
@@ -151,6 +156,7 @@ void game::Game::InitializeGame() {
 
     RenderComp = std::make_unique<dae::RenderComponent>(parentObject.get());
     RenderComp->SetTextureFilePath("Dragon.png");
+    RenderComp->SetIsUI(true);
     auto movementComponent{std::make_unique<dae::MovementComponent>(parentObject.get() , 200.f)};
     parentObject->AddComponent(std::move(movementComponent));
     parentObject->AddComponent(std::move(RenderComp));
@@ -163,28 +169,12 @@ void game::Game::InitializeGame() {
     RenderComp = std::make_unique<dae::RenderComponent>(SecondPlayerObject.get());
 
     RenderComp->SetTextureFilePath("Player.png");
-
+    RenderComp->SetIsUI(true);
     auto movementCompon{std::make_unique<dae::MovementComponent>(SecondPlayerObject.get() , 100.f)};
     SecondPlayerObject->AddComponent(std::move(movementCompon));
     SecondPlayerObject->AddComponent(std::move(RenderComp));
    // SecondPlayerObject->AddComponent(std::move());
 
-    auto hintGO{ std::make_unique<dae::GameObject>() };
-    hintGO->GetTransform().SetLocalPosition(glm::vec3{ 292, 80, 0 });
-
-    auto hintText{ std::make_unique<dae::TextComponent>(
-        hintGO.get(),
-        "Move around to make noise",
-        font
-    ) };
-
-    auto hintRender{ std::make_unique<dae::RenderComponent>(hintGO.get()) };
-    hintText->SetColor({ 255, 255, 0, 255 }); // yellow so it's visible
-
-    hintGO->AddComponent(std::move(hintRender));
-    hintGO->AddComponent(std::move(hintText));
-
-    scene->Add(std::move(hintGO));
 
     // auto gamepad = std::make_unique<dae::Gamepad>(0);
     // dae::InputManager::GetInstance().AddDevice(std::move(gamepad));
@@ -205,6 +195,30 @@ void game::Game::InitializeGame() {
     //m_CurrentScene->Add(std::move(child));
 
     //InputManager::GetInstance().bind
+
+    //##########################################################
+    //                  Pooka Enemy
+    //##########################################################
+    auto pookaGO = std::make_unique<dae::GameObject>();
+    pookaGO->GetTransform().SetLocalPosition(glm::vec3{0, 10, 0});
+
+    // Render component
+    auto pookaRender = std::make_unique<dae::RenderComponent>(pookaGO.get());
+    pookaRender->SetTextureFilePath("Sprites/Pooka.png");
+    pookaRender->SetIsUI(true);
+    pookaGO->AddComponent(std::move(pookaRender));
+    pookaGO->GetTransform().SetLocalPosition(glm::vec3{50, 50, 0});
+    // Movement
+    auto pookaMovement = std::make_unique<dae::MovementComponent>(pookaGO.get(), 50.f);
+    pookaGO->AddComponent(std::move(pookaMovement));
+
+
+    auto pookaAI = std::make_unique<Pooka>(pookaGO.get());
+    pookaGO->AddComponent(std::move(pookaAI));
+
+    scene->Add(std::move(pookaGO));
+
+
 }
 
 void game::Game::InitializeIMGUIScene()
