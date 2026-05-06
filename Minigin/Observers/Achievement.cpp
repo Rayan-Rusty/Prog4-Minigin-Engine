@@ -17,7 +17,7 @@ void dae::Achievement::Notify(Event event, GameActor* )
 }
 
 
-void dae::Achievement::unlock(Achievement achievement)
+void dae::Achievement::unlock(Achievement)
 {
 
 }
