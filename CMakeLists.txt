@@ -12,6 +12,14 @@ set(ENGINE_NAME Minigin)
 set(GAME_NAME Game)
 
 if(EMSCRIPTEN)
+  list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/emscripten")
+
+  set(SDL3TTF_USE_SYSTEM_FREETYPE ON CACHE BOOL "" FORCE)
+  set(SDL3TTF_VENDORED OFF CACHE BOOL "" FORCE)
+  set(SDLTTF_PLUTOSVG OFF CACHE BOOL "" FORCE)
+
+  add_compile_options(-sUSE_FREETYPE=1 -sUSE_HARFBUZZ=1)
+  add_link_options(-sUSE_FREETYPE=1 -sUSE_HARFBUZZ=1)
   set(GAME_NAME minigin_web)
 endif()
 
@@ -228,11 +236,13 @@ target_include_directories(${ENGINE_NAME} PUBLIC
 
 target_link_libraries(${ENGINE_NAME} PUBLIC
         SDL3::SDL3
-        SDL3_ttf::SDL3_ttf
         SDL3_mixer::SDL3_mixer
         glm::glm
         ${VLD_LIBRARIES}
 )
+if(NOT EMSCRIPTEN)
+  target_link_libraries(${ENGINE_NAME} PUBLIC SDL3_ttf::SDL3_ttf)
+endif()
 
 # =========================
 # STEAM (GAME ONLY)
