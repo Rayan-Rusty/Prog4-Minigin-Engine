@@ -57,12 +57,7 @@ void dae::Renderer::Render()
 	for (const auto& cmd : m_drawCommands)
 	{
 		if (!cmd.isUI)
-		{
-			SDL_SetTextureScaleMode(cmd.texture->GetSDLTexture(),
-				SDL_SCALEMODE_NEAREST);
-
-			RenderTexture(*cmd.texture, cmd.dst);
-		}
+			RenderTexture(*cmd.texture, cmd.dst, cmd.src);
 	}
 
 	SDL_SetRenderScale(m_renderer, 1.0f, 1.0f);
@@ -70,12 +65,7 @@ void dae::Renderer::Render()
 	for (const auto& cmd : m_drawCommands)
 	{
 		if (cmd.isUI)
-		{
-			SDL_SetTextureScaleMode(cmd.texture->GetSDLTexture(),
-				SDL_SCALEMODE_LINEAR);
-
-			RenderTexture(*cmd.texture, cmd.dst);
-		}
+			RenderTexture(*cmd.texture, cmd.dst, cmd.src);
 	}
 
 
@@ -137,6 +127,17 @@ void dae::Renderer::RenderTexture(const Texture2D &texture, const SDL_FRect &dst
 	);
 }
 
+
+void dae::Renderer::RenderTexture(const Texture2D &texture, const SDL_FRect &dst, const SDL_FRect &src) const
+{
+	SDL_RenderTexture(
+		m_renderer,
+		texture.GetSDLTexture(),
+		&src,
+		&dst
+		);
+}
+
 SDL_Renderer* dae::Renderer::GetSDLRenderer() const { return m_renderer; }
 
 void dae::Renderer::Clear() const
@@ -152,7 +153,7 @@ void dae::Renderer::Clear() const
 }
 
 
-void dae::Renderer::Submit(const std::shared_ptr<Texture2D> &texture, const SDL_FRect &dst, bool isUI)
+void dae::Renderer::Submit(bool isUI, const std::shared_ptr<Texture2D>& texture,const SDL_FRect& dst , const SDL_FRect& src)
 {
-	m_drawCommands.push_back({texture , dst, isUI});
+	m_drawCommands.push_back({texture, dst , src , isUI});
 }

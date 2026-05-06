@@ -22,7 +22,8 @@ namespace dae
 		{
 			std::shared_ptr<Texture2D> texture;
 			SDL_FRect dst;
-			bool isUI;
+			SDL_FRect src;
+			bool isUI{false};
 		};
 
 		void Init(SDL_Window* window);
@@ -32,8 +33,8 @@ namespace dae
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
 		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
 		void RenderTexture(const Texture2D& texture, const SDL_FRect& dst) const;
-
-		void Submit(const std::shared_ptr<Texture2D>& texture,const SDL_FRect& dst,bool isUI);
+		void RenderTexture(const Texture2D& texture , const SDL_FRect& dst,const SDL_FRect& src) const;
+		void Submit(bool isUI, const std::shared_ptr<Texture2D>& texture,const SDL_FRect& dst , const SDL_FRect& src);
 
 
 		SDL_Renderer* GetSDLRenderer() const;

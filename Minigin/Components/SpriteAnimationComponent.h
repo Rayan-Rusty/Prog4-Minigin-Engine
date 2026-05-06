@@ -21,23 +21,26 @@ namespace dae
         SpriteAnimationComponent(GameObject* owner,int rows, int columns,const std::string& TextureFile);
         ~SpriteAnimationComponent();
 
-
-
-
+        void Update(float deltaTime) override;
+        const SDL_FRect& GetSourceRect() const;
 
 
 
         std::type_index GetType() const override;
 
-        void Render() const override;
-
 
     private:
 
-        bool m_needsUpdate{false};
+
+        SDL_FRect m_Src{};
+        int m_CurrentFrame{};
+        float m_Timer{};
+        bool m_NeedsUpdate{false};
         std::shared_ptr<Texture2D> m_Texture{nullptr};
-        int m_rows{};
-        int m_cols{};
+        float m_FrameTime = 0.1f;
+
+        int m_Rows{};
+        int m_Cols{};
     };
 }
 
