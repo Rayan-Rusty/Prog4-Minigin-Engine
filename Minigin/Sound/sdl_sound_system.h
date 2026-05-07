@@ -16,7 +16,7 @@ namespace dae
         ~sdl_sound_system() override;
 
         void play(sound_id id, float volume) override;
-        void load_sound(sound_id id, const std::string& path);
+        void load_sound(sound_id id, const std::string& path) override;
     private:
         class Impl;
         std::unique_ptr<Impl> m_Impl;
