@@ -97,9 +97,17 @@ add_library(${ENGINE_NAME} STATIC
 
 target_include_directories(${ENGINE_NAME} PUBLIC
         ${CMAKE_SOURCE_DIR}/Minigin
+        ${CMAKE_SOURCE_DIR}/Minigin/Managers
+        ${CMAKE_SOURCE_DIR}/Minigin/Components
+        ${CMAKE_SOURCE_DIR}/Minigin/Commands
+        ${CMAKE_SOURCE_DIR}/Minigin/Systems
+        ${CMAKE_SOURCE_DIR}/Minigin/EventQueue
+        ${CMAKE_SOURCE_DIR}/Minigin/Sound
+        ${CMAKE_SOURCE_DIR}/Minigin/Observers
+        ${CMAKE_SOURCE_DIR}/Minigin/HelperFunctions
 )
 
-set(ENGINE_DIRS Minigin/Components Minigin/Commands Minigin/Systems Minigin/Devices Minigin/EventQueue
+set(ENGINE_DIRS Minigin/ Minigin/Components Minigin/Commands Minigin/Systems Minigin/Devices Minigin/EventQueue
         Minigin/HelperFunctions Minigin/Managers Minigin/Observers Minigin/Singletons)
 
 
@@ -108,6 +116,9 @@ target_compile_features(${ENGINE_NAME} PUBLIC cxx_std_20)
 # =========================
 # GAME (EXECUTABLE)
 # =========================
+
+
+
 add_executable(${GAME_NAME}
         Game/Main.cpp
         Game/Game.cpp
@@ -123,6 +134,13 @@ add_executable(${GAME_NAME}
         Game/Enemies/Pooka/States/PookaNormalState.h
         Game/Enemies/Pooka/States/PookaGhostState.cpp
         Game/Enemies/Pooka/States/PookaGhostState.h
+)
+
+target_include_directories(${GAME_NAME} PRIVATE
+        ${CMAKE_SOURCE_DIR}/Game
+        ${CMAKE_SOURCE_DIR}/Game/Enemies
+        ${CMAKE_SOURCE_DIR}/Game/Enemies/Pooka
+        ${CMAKE_SOURCE_DIR}/Game/Enemies/Pooka/States
 )
 
 target_compile_features(${GAME_NAME} PUBLIC cxx_std_20)

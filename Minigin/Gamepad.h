@@ -14,6 +14,7 @@ namespace dae
     {
     public:
         Gamepad(int index);
+        ~Gamepad();
         bool IsConnected();
         void Update();
         bool IsButtonPressed(GamepadButton button) const;

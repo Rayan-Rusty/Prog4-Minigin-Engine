@@ -63,6 +63,10 @@ dae::Gamepad::Gamepad(int index) : pImpl(std::make_unique<ImplGamePad>()) {
     pImpl->SetIndex(index);
 }
 
+dae::Gamepad::~Gamepad() {
+
+}
+
 
 bool dae::Gamepad::IsConnected()
 {
