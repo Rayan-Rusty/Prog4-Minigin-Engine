@@ -23,14 +23,21 @@ public:
 
     void Update()
     {
+    #ifdef _WIN32
         m_isConnected = (XInputGetState(m_index, &m_state) == ERROR_SUCCESS);
+    #endif
     }
 
     bool IsButtonPressed(GamepadButton button) const
     {
-        return (m_state.Gamepad.wButtons & ToXInput(button)) != 0;
+    #ifdef _WIN32
+            return (m_state.Gamepad.wButtons & ToXInput(button)) != 0;
+    #else
+            return false;
+    #endif
     }
 
+#ifdef _WIN32
     WORD ToXInput(GamepadButton button) const
     {
         switch (button)
@@ -42,7 +49,6 @@ public:
 
             case GamepadButton::DPadUp: return XINPUT_GAMEPAD_DPAD_UP;
             case GamepadButton::DPadDown: return XINPUT_GAMEPAD_DPAD_DOWN;
-
             case GamepadButton::DPadLeft: return XINPUT_GAMEPAD_DPAD_LEFT;
             case GamepadButton::DPadRight: return XINPUT_GAMEPAD_DPAD_RIGHT;
 
@@ -51,17 +57,18 @@ public:
 
             case GamepadButton::LeftShoulder: return XINPUT_GAMEPAD_LEFT_SHOULDER;
             case GamepadButton::RightShoulder: return XINPUT_GAMEPAD_RIGHT_SHOULDER;
+
             default:
-                assert(false && "Unknown GamepadButton!");
                 return 0;
         }
     }
 
-
+    XINPUT_STATE m_state{};
+#endif
 
 private:
     int m_index{};
-    XINPUT_STATE m_state{};
+
     bool m_isConnected{ false };
 
 };
