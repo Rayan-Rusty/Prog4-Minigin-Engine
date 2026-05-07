@@ -11,7 +11,17 @@ void dae::Achievement::Notify(Event event, GameActor* )
     {
         case Event::ActorDied:
             break;
+
         case Event::ActorFell:
+            break;
+
+        case Event::PointsScored:
+            break;
+
+        case Event::ItemCollected:
+            break;
+
+        case Event::LevelCompleted:
             break;
     }
 }
