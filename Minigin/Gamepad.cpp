@@ -5,9 +5,11 @@
 #include "Gamepad.h"
 
 #include <vector>
+#ifdef _WIN32
 #include <Windows.h>
 #include <XInput.h>
-#include "Managers/InputManager.h"
+#endif
+#include "InputManager.h"
 
 class dae::Gamepad::ImplGamePad
 {
@@ -50,6 +52,22 @@ public:
                 assert(false && "Unknown GamepadButton!");
                 return 0;
         }
+    }
+    static std::vector<int> GetConnectedDevices()
+    {
+        std::vector<int> indices;
+
+        for (int i = 0; i < XUSER_MAX_COUNT; ++i)
+        {
+            XINPUT_STATE state{};
+
+            if (XInputGetState(i, &state) == ERROR_SUCCESS)
+            {
+                indices.push_back(i);
+            }
+        }
+
+        return indices;
     }
 
 
@@ -97,18 +115,7 @@ bool dae::Gamepad::IsPressed(std::variant<GamepadButton , SDL_Scancode> keyOrBut
 
 std::vector<int> dae::Gamepad::GetConnectedDevices()
 {
-    std::vector<int> indices;
-
-    for (int i = 0; i < XUSER_MAX_COUNT; ++i)
-    {
-        XINPUT_STATE state{};
-        if (XInputGetState(i, &state) == ERROR_SUCCESS)
-        {
-            indices.push_back(i);
-        }
-    }
-
-    return indices;
+    return ImplGamePad::GetConnectedDevices();
 
 }
 
