@@ -14,7 +14,7 @@ namespace dae
     {
     public:
         void play(sound_id, float) override {}
-        void load_sound(sound_id , const std::string& ){}
+        void load_sound(sound_id , const std::string& ) override{}
     };
 }
 
