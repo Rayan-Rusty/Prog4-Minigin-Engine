@@ -50,3 +50,7 @@ bool dae::Keyboard::IsPressed(std::variant<GamepadButton, SDL_Scancode> keyOrBut
     return false; //ignore Xinputkeys
 }
 
+int dae::Keyboard::GetDeviceID() const
+{
+    return -1;
+}

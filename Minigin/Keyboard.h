@@ -16,7 +16,7 @@ namespace dae
         Keyboard();
         void Update() override;
         bool IsPressed(std::variant<GamepadButton, SDL_Scancode> keyOrButton) const override;
-
+        int GetDeviceID() const override;
     private:
         class Impl;
         std::unique_ptr<Impl> pImpl;
