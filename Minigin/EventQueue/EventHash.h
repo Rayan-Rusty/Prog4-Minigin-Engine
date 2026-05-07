@@ -4,6 +4,7 @@
 
 #ifndef MINIGIN_EVENTHASH_H
 #define MINIGIN_EVENTHASH_H
+#include <cstddef>
 template <int length> struct sdbm_hash
 {
     consteval static unsigned int _calculate(const char* const text, unsigned int& value) {
