@@ -5,11 +5,14 @@
 #include "Gamepad.h"
 
 #include <vector>
+
+#include "InputManager.h"
+
 #ifdef _WIN32
 #include <Windows.h>
 #include <XInput.h>
 #endif
-#include "InputManager.h"
+
 
 class dae::Gamepad::ImplGamePad
 {
@@ -53,28 +56,14 @@ public:
                 return 0;
         }
     }
-    static std::vector<int> GetConnectedDevices()
-    {
-        std::vector<int> indices;
 
-        for (int i = 0; i < XUSER_MAX_COUNT; ++i)
-        {
-            XINPUT_STATE state{};
-
-            if (XInputGetState(i, &state) == ERROR_SUCCESS)
-            {
-                indices.push_back(i);
-            }
-        }
-
-        return indices;
-    }
 
 
 private:
     int m_index{};
     XINPUT_STATE m_state{};
     bool m_isConnected{ false };
+
 };
 
 dae::Gamepad::Gamepad(int index) : pImpl(std::make_unique<ImplGamePad>()) {
@@ -112,11 +101,24 @@ bool dae::Gamepad::IsPressed(std::variant<GamepadButton , SDL_Scancode> keyOrBut
     return false; // ignore keyboard keys
 }
 
-
 std::vector<int> dae::Gamepad::GetConnectedDevices()
 {
-    return ImplGamePad::GetConnectedDevices();
+#ifdef _WIN32
+    std::vector<int> indices;
 
+    for (int i = 0; i < XUSER_MAX_COUNT; ++i)
+    {
+        XINPUT_STATE state{};
+        if (XInputGetState(i, &state) == ERROR_SUCCESS)
+        {
+            indices.push_back(i);
+        }
+    }
+
+    return indices;
+#else
+    return {};
+#endif
 }
 
 

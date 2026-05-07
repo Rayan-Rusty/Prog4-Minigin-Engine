@@ -407,3 +407,9 @@ imgui.ini
 steamworks_sdk_*/
 
 .DS_Store
+
+web/.nojekyll
+web/minigin_web.data
+web/minigin_web.html
+web/minigin_web.js
+web/minigin_web.wasm

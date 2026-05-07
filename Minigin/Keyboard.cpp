@@ -15,6 +15,7 @@ public:
     void Update()
     {
         SDL_PumpEvents();
+        keyState = SDL_GetKeyboardState(&numKeys);
     }
 
 
