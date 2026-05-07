@@ -11,7 +11,7 @@
 
 
 dae::SpriteAnimationComponent::SpriteAnimationComponent(GameObject *owner, int rows , int columns, const std::string& TextureFile)
-    : Component(owner) , m_Rows(rows), m_Cols(columns), m_Texture(nullptr)
+    : Component(owner) , m_Texture(nullptr), m_Rows(rows), m_Cols(columns)
 {
     m_Texture = ResourceManager::GetInstance().LoadTexture(TextureFile);
 

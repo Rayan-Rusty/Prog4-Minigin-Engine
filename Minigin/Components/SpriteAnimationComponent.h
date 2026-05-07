@@ -35,7 +35,7 @@ namespace dae
         SDL_FRect m_Src{};
         int m_CurrentFrame{};
         float m_Timer{};
-        bool m_NeedsUpdate{false};
+
         std::shared_ptr<Texture2D> m_Texture{nullptr};
         float m_FrameTime = 0.1f;
 
