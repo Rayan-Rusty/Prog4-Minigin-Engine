@@ -33,6 +33,7 @@ public:
     #ifdef _WIN32
             return (m_state.Gamepad.wButtons & ToXInput(button)) != 0;
     #else
+        (void)button;
             return false;
     #endif
     }
