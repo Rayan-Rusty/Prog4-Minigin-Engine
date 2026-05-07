@@ -1,32 +1,30 @@
-//
-// Created by omen on 14/02/2026.
-//
+
 
 #include "Game.h"
 
-#include "../Minigin/Managers/SceneManager.h"
-#include "../Minigin/Managers/ResourceManager.h"
+#include "SceneManager.h"
+#include "ResourceManager.h"
 
-#include "../Minigin/GameObject.h"
-#include "../Minigin/Scene.h"
-#include "../Minigin/Components/TextComponent.h"
-#include "../Minigin/Components/FPSComponent.h"
-#include "../Minigin/Components/RenderComponent.h"
-#include "../Minigin/Components/RotationComponent.h"
+#include "GameObject.h"
+#include "Scene.h"
+#include "TextComponent.h"
+#include "FPSComponent.h"
+#include "RenderComponent.h"
+#include "RotationComponent.h"
 
 #include <algorithm>
 
-#include "../Minigin/Managers/InputManager.h"
-#include "../Minigin/Commands/MoveCommand.h"
-#include "../Minigin/Components/MovementComponent.h"
-#include "../Minigin/Gamepad.h"
-#include "../Minigin/GamepadDataStructs.h"
-#include "../Minigin/EventQueue/EventsIds.h"
-#include "../Minigin/Sound/Decorator.h"
-#include "../Minigin/Sound/ServiceLocator.h"
-#include "../Minigin/Sound/SoundEventListener.h"
-#include "../Minigin/Systems/DebugSystem.h"
-#include "Enemies/Pooka/Pooka.h"
+#include "InputManager.h"
+#include "MoveCommand.h"
+#include "MovementComponent.h"
+#include "Gamepad.h"
+#include "GamepadDataStructs.h"
+#include "EventsIds.h"
+
+#include "ServiceLocator.h"
+#include "SoundEventListener.h"
+#include "DebugSystem.h"
+#include "Pooka.h"
 
 
 void game::Game::Init()

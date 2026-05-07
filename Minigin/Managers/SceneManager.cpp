@@ -21,6 +21,8 @@ dae::Scene& dae::SceneManager::CreateScene()
 
 void dae::SceneManager::SetActiveScene(size_t index)
 {
+	//TODO unload previous scene
+	//TODO load new scene
 	m_activeSceneIndex = index;
 }
 
