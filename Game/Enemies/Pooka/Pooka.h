@@ -18,7 +18,7 @@ public:
     ~Pooka();
 
 
-    void Update(float dt);
+    void Update(float dt) override;
     void ChangeState(std::unique_ptr<PookaState> newState);
     std::type_index GetType() const override;
 private:
