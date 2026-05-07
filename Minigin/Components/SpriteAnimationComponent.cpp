@@ -6,7 +6,7 @@
 
 #include "RenderComponent.h"
 #include "Renderer.h"
-#include "../GameObject.h"
+#include "GameObject.h"
 #include "Managers/ResourceManager.h"
 
 

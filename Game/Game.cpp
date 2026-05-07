@@ -26,13 +26,13 @@
 #include "../Minigin/Sound/ServiceLocator.h"
 #include "../Minigin/Sound/SoundEventListener.h"
 #include "../Minigin/Systems/DebugSystem.h"
-#include "Enemies/Pooka.h"
+#include "Enemies/Pooka/Pooka.h"
 
 
 void game::Game::Init()
 {
-    //InitializeMenuScreen();
-    InitializeGame();
+    InitializeMenuScreen();
+    //InitializeGame();
 }
 
 void game::Game::Update(float deltaTime)

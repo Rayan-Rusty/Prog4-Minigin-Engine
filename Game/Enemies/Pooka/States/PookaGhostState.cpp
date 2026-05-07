@@ -3,6 +3,7 @@
 //
 
 #include "PookaGhostState.h"
+//TODO Set target directories correctly
 
 #include "PookaNormalState.h"
 #include "../Pooka.h"

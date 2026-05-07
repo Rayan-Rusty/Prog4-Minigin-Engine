@@ -1,8 +1,16 @@
 cmake_minimum_required(VERSION 3.26)
 project(Minigin)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED)
+
 
 if(EMSCRIPTEN)
   message("Using Emscripten!")
+  set(GAME_NAME Dig_Dug)
+  set(TARGET_PARAM)
+else ()
+  set(GAME_NAME Dig_Dug)
+  set(TARGET_PARAM WIN32)
 endif()
 
 # =========================
@@ -86,9 +94,14 @@ add_library(${ENGINE_NAME} STATIC
         Minigin/IGame.cpp
 )
 
+
 target_include_directories(${ENGINE_NAME} PUBLIC
         ${CMAKE_SOURCE_DIR}/Minigin
 )
+
+set(ENGINE_DIRS Minigin/Components Minigin/Commands Minigin/Systems Minigin/Devices Minigin/EventQueue
+        Minigin/HelperFunctions Minigin/Managers Minigin/Observers Minigin/Singletons)
+
 
 target_compile_features(${ENGINE_NAME} PUBLIC cxx_std_20)
 
@@ -102,14 +115,14 @@ add_executable(${GAME_NAME}
         Game/Player.h
         Game/Utils.cpp
         Game/Utils.h
-        Game/Enemies/Pooka.cpp
-        Game/Enemies/Pooka.h
-        Game/Enemies/States/PookaState.cpp
-        Game/Enemies/States/PookaState.h
-        Game/Enemies/States/PookaNormalState.cpp
-        Game/Enemies/States/PookaNormalState.h
-        Game/Enemies/States/PookaGhostState.cpp
-        Game/Enemies/States/PookaGhostState.h
+        Game/Enemies/Pooka/Pooka.cpp
+        Game/Enemies/Pooka/Pooka.h
+        Game/Enemies/Pooka/States/PookaState.cpp
+        Game/Enemies/Pooka/States/PookaState.h
+        Game/Enemies/Pooka/States/PookaNormalState.cpp
+        Game/Enemies/Pooka/States/PookaNormalState.h
+        Game/Enemies/Pooka/States/PookaGhostState.cpp
+        Game/Enemies/Pooka/States/PookaGhostState.h
 )
 
 target_compile_features(${GAME_NAME} PUBLIC cxx_std_20)
@@ -124,14 +137,17 @@ include(FetchContent)
 
 # ---- GLM ----
 
-FetchContent_Declare(
-        glm
-        GIT_REPOSITORY https://github.com/g-truc/glm.git
-        GIT_TAG 1.0.3
-)
+find_package(glm CONFIG QUIET)
+if(NOT glm_FOUND)
+  FetchContent_Declare(
+          glm
+          URL https://github.com/g-truc/glm/releases/download/1.0.3/glm-1.0.3.zip
+          DOWNLOAD_NO_PROGRESS ON
+          DOWNLOAD_DIR ${CMAKE_BINARY_DIR}/downloads
+  )
+  FetchContent_MakeAvailable(glm)
+endif()
 
-set(GLM_BUILD_LIBRARY OFF CACHE BOOL "" FORCE)
-set(GLM_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(glm)
 
@@ -142,6 +158,8 @@ if(NOT SDL3_FOUND)
     FetchContent_Declare(
             SDL3
             URL https://www.libsdl.org/release/SDL3-devel-3.4.0-VC.zip
+            DOWNLOAD_NO_PROGRESS ON
+            DOWNLOAD_DIR ${CMAKE_BINARY_DIR}/downloads
     )
     FetchContent_MakeAvailable(SDL3)
     list(PREPEND CMAKE_PREFIX_PATH "${sdl3_SOURCE_DIR}")
@@ -151,8 +169,80 @@ if(NOT SDL3_FOUND)
             SDL3
             GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
             GIT_TAG release-3.4.0
+            GIT_SHALLOW TRUE
+            GIT_PROGRESS TRUE
     )
     FetchContent_MakeAvailable(SDL3)
+  endif()
+endif()
+
+
+
+# ---- SDL3_ttf ----
+find_package(SDL3_ttf 3.2.2 CONFIG QUIET)
+if(NOT SDL3_ttf_FOUND)
+  if (WIN32)
+    FetchContent_Declare(
+            SDL3_ttf
+            URL https://www.libsdl.org/projects/SDL_ttf/release/SDL3_ttf-devel-3.2.2-VC.zip
+            DOWNLOAD_NO_PROGRESS ON
+            DOWNLOAD_DIR ${CMAKE_BINARY_DIR}/downloads
+    )
+    FetchContent_MakeAvailable(SDL3_ttf)
+    list(PREPEND CMAKE_PREFIX_PATH "${sdl3_ttf_SOURCE_DIR}")
+    find_package(SDL3_ttf CONFIG REQUIRED)
+  else()
+    FetchContent_Declare(
+            SDL3_ttf
+            GIT_REPOSITORY https://github.com/libsdl-org/SDL_ttf.git
+            GIT_TAG release-3.2.2
+            GIT_SHALLOW TRUE
+            GIT_PROGRESS TRUE
+    )
+    set(SDL3TTF_INSTALL OFF)
+    if(EMSCRIPTEN)
+      list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/emscripten")
+      set(SDL3TTF_USE_SYSTEM_FREETYPE ON)
+      set(SDL3TTF_VENDORED OFF)
+      set(SDLTTF_PLUTOSVG OFF)
+      add_compile_options(-sUSE_FREETYPE=1 -sUSE_HARFBUZZ=1)
+      add_link_options(-sUSE_FREETYPE=1 -sUSE_HARFBUZZ=1)
+    endif()
+    FetchContent_MakeAvailable(SDL3_ttf)
+  endif()
+endif()
+
+# ---- SDL3_mixer ----
+find_package(SDL3_mixer 3.2.0 CONFIG QUIET)
+if(NOT SDL3_mixer_FOUND)
+  if (WIN32)
+    FetchContent_Declare(
+            SDL3_mixer
+            URL https://github.com/libsdl-org/SDL_mixer/releases/download/release-3.2.0/SDL3_mixer-devel-3.2.0-VC.zip
+            DOWNLOAD_NO_PROGRESS ON
+            DOWNLOAD_DIR ${CMAKE_BINARY_DIR}/downloads
+    )
+    FetchContent_MakeAvailable(SDL3_mixer)
+    list(PREPEND CMAKE_PREFIX_PATH "${sdl3_mixer_SOURCE_DIR}")
+    find_package(SDL3_mixer CONFIG REQUIRED)
+  else()
+    FetchContent_Declare(
+            SDL3_mixer
+            GIT_REPOSITORY https://github.com/libsdl-org/SDL_mixer.git
+            GIT_TAG release-3.2.0
+            GIT_SHALLOW TRUE
+            GIT_PROGRESS TRUE
+    )
+    set(SDL3MIXER_INSTALL OFF)
+    if(EMSCRIPTEN)
+      list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/emscripten")
+      set(SDL3MIXER_USE_SYSTEM_FREETYPE ON)
+      set(SDL3MIXER_VENDORED OFF)
+      set(SDL3MIXER_PLUTOSVG OFF)
+      add_compile_options(-sUSE_FREETYPE=1 -sUSE_HARFBUZZ=1)
+      add_link_options(-sUSE_FREETYPE=1 -sUSE_HARFBUZZ=1)
+    endif()
+    FetchContent_MakeAvailable(SDL3_mixer)
   endif()
 endif()
 
@@ -161,6 +251,7 @@ FetchContent_Declare(
         imgui
         GIT_REPOSITORY https://github.com/ocornut/imgui
         GIT_TAG v1.92.5-docking
+        GIT_SHALLOW TRUE
 )
 FetchContent_MakeAvailable(imgui)
 
@@ -174,75 +265,35 @@ add_library(imgui STATIC
         ${imgui_SOURCE_DIR}/backends/imgui_impl_sdlrenderer3.cpp
 )
 
-target_include_directories(imgui PUBLIC ${imgui_SOURCE_DIR}/include)
+target_include_directories(imgui PUBLIC ${imgui_SOURCE_DIR} ${sdl3_SOURCE_DIR}/include)
 target_link_libraries(imgui PUBLIC SDL3::SDL3)
 target_compile_features(imgui PUBLIC cxx_std_20)
 
 target_link_libraries(${ENGINE_NAME} PUBLIC imgui)
-
-# ---- SDL3_ttf ----
-find_package(SDL3_ttf 3.2.2 CONFIG QUIET)
-if(NOT SDL3_ttf_FOUND)
-  if (WIN32)
-    FetchContent_Declare(
-            SDL3_ttf
-            URL https://www.libsdl.org/projects/SDL_ttf/release/SDL3_ttf-devel-3.2.2-VC.zip
-    )
-    FetchContent_MakeAvailable(SDL3_ttf)
-    list(PREPEND CMAKE_PREFIX_PATH "${sdl3_ttf_SOURCE_DIR}")
-    find_package(SDL3_ttf CONFIG REQUIRED)
-  else()
-    FetchContent_Declare(
-            SDL3_ttf
-            GIT_REPOSITORY https://github.com/libsdl-org/SDL_ttf.git
-            GIT_TAG release-3.2.2
-    )
-    FetchContent_MakeAvailable(SDL3_ttf)
-  endif()
-endif()
-
-# ---- SDL3_mixer ----
-if(NOT EMSCRIPTEN)
-
-  find_package(SDL3_mixer CONFIG QUIET)
-  if(NOT SDL3_mixer_FOUND)
-    set(SDL3MIXER_VENDORED ON CACHE BOOL "" FORCE)
-
-    # Disable these bc i dont need it
-    set(SDL3MIXER_MP3_MPG123 OFF CACHE BOOL "" FORCE)
-    set(SDL3MIXER_OPUS OFF CACHE BOOL "" FORCE)
-    set(SDL3MIXER_FLAC OFF CACHE BOOL "" FORCE)
-    set(SDL3MIXER_VORBIS OFF CACHE BOOL "" FORCE)
-    set(SDL3MIXER_WAVPACK OFF CACHE BOOL "" FORCE)
-    set(SDL3MIXER_GME OFF CACHE BOOL "" FORCE)
-    set(SDL3MIXER_MOD_XMP OFF CACHE BOOL "" FORCE)
-
-    FetchContent_Declare(
-            SDL3_mixer
-            GIT_REPOSITORY https://github.com/libsdl-org/SDL_mixer.git
-            GIT_TAG main
-    )
-    FetchContent_MakeAvailable(SDL3_mixer)
-  endif()
-endif ()
 # ---- VLD ----
-find_package(VLD CONFIG)
-
+if(WIN32)
+  find_package(VLD CONFIG)
+endif()
 
 target_include_directories(${ENGINE_NAME} PUBLIC
         ${CMAKE_SOURCE_DIR}/Minigin/
+        ${glm_SOURCE_DIR}
+        ${sdl3_SOURCE_DIR}/include
+        ${sdl3_image_SOURCE_DIR}/include
+        ${sdl3_ttf_SOURCE_DIR}/include
+        ${sdl3_mixer_SOURCE_DIR}/include
+        ${imgui_SOURCE_DIR}
         ${VLD_INCLUDE_DIRS}
 )
-
 target_link_libraries(${ENGINE_NAME} PUBLIC
         SDL3::SDL3
+        SDL3_ttf::SDL3_ttf
         SDL3_mixer::SDL3_mixer
         glm::glm
+        imgui
         ${VLD_LIBRARIES}
 )
-if(NOT EMSCRIPTEN)
-  target_link_libraries(${ENGINE_NAME} PUBLIC SDL3_ttf::SDL3_ttf)
-endif()
+
 
 # =========================
 # STEAM (GAME ONLY)
@@ -293,9 +344,9 @@ elseif(WIN32)
   )
   # DLL COPY
   set(SDL_RUNTIME_DLLS
-          SDL3::SDL3
-          SDL3_mixer::SDL3_mixer
-          SDL3_ttf::SDL3_ttf
+            SDL3::SDL3
+            SDL3_mixer::SDL3_mixer
+            SDL3_ttf::SDL3_ttf
   )
 
   foreach(dllTarget IN LISTS SDL_RUNTIME_DLLS)
