@@ -25,3 +25,17 @@ std::unique_ptr<dae::GameObject> Utils::CreateAnimatedSpriteObject(const std::st
     return obj;
 }
 
+
+std::unique_ptr<dae::GameObject> Utils::CreateBackgroundObject(std::string &TexturePath)
+{
+    auto obj = std::make_unique<dae::GameObject>();
+
+    auto renderComp = std::make_unique<dae::RenderComponent>(obj.get());
+    renderComp->SetTextureFilePath(TexturePath);
+
+    obj->AddComponent(std::move(renderComp));
+
+
+
+    return obj;
+}
