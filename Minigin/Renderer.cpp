@@ -49,23 +49,13 @@ void dae::Renderer::Render()
 	// Render your scene objects
 	// Finish ImGui frame
 	ImGui::Render();
-	ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData() , m_renderer); // just 1 param in SDL3
+	ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData() , m_renderer);
 
 
-	SDL_SetRenderScale(m_renderer, 3.0f, 3.0f);
-
-	for (const auto& cmd : m_drawCommands)
-	{
-		if (!cmd.isUI)
-			RenderTexture(*cmd.texture, cmd.dst, cmd.src);
-	}
-
-	SDL_SetRenderScale(m_renderer, 1.0f, 1.0f);
 
 	for (const auto& cmd : m_drawCommands)
 	{
-		if (cmd.isUI)
-			RenderTexture(*cmd.texture, cmd.dst, cmd.src);
+		RenderTexture(*cmd.texture, cmd.dst, cmd.src);
 	}
 
 

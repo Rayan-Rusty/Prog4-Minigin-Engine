@@ -18,29 +18,37 @@ namespace dae
     class SpriteAnimationComponent final : public Component
     {
     public:
-        SpriteAnimationComponent(GameObject* owner,int rows, int columns,const std::string& TextureFile);
+        SpriteAnimationComponent(GameObject* owner,int rows, int columns);
         ~SpriteAnimationComponent();
 
         void Update(float deltaTime) override;
         const SDL_FRect& GetSourceRect() const;
 
 
+        void SetAnimation(int row, int startCol, int endCol);
 
         std::type_index GetType() const override;
 
 
     private:
-
+        struct AnimationClip
+        {
+            int row;
+            int startCol;
+            int endCol;
+        };
 
         SDL_FRect m_Src{};
-        int m_CurrentFrame{};
-        float m_Timer{};
+        int m_CurrentFrame{0};
+        float m_Timer{0.f};
 
-        std::shared_ptr<Texture2D> m_Texture{nullptr};
-        float m_FrameTime = 0.1f;
+        float m_FrameTime = 0.2f;
 
-        int m_Rows{};
-        int m_Cols{};
+        int m_Rows{0};
+        int m_Cols{0};
+
+        AnimationClip m_CurrentAnim{};
+        int m_CurrentCol{};
     };
 }
 

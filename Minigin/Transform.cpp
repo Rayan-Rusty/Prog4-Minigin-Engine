@@ -34,3 +34,13 @@ void dae::Transform::SetWorldPosition(const glm::vec3& pos)
 std::type_index dae::Transform::GetType() const {
 	return std::type_index(typeid(Transform));
 }
+
+void dae::Transform::SetScale(const glm::vec3& scale)
+{
+	m_scale = scale;
+}
+
+const glm::vec3& dae::Transform::GetScale() const
+{
+	return m_scale;
+}
