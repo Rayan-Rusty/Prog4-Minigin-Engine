@@ -24,13 +24,16 @@
 #include "ServiceLocator.h"
 #include "SoundEventListener.h"
 #include "DebugSystem.h"
-#include "Pooka.h"
+#include "PookaBehaviour.h"
+#include "Utils.h"
 
 
 void game::Game::Init()
 {
-    InitializeMenuScreen();
-    //InitializeGame();
+   // InitializeMenuScreen();
+   // InitializeGame();
+    InitFirstLevel();
+
 }
 
 void game::Game::Update(float deltaTime)
@@ -211,7 +214,7 @@ void game::Game::InitializeGame() {
     pookaGO->AddComponent(std::move(pookaMovement));
 
 
-    auto pookaAI = std::make_unique<Pooka>(pookaGO.get());
+    auto pookaAI = std::make_unique<PookaBehaviour>(pookaGO.get());
     pookaGO->AddComponent(std::move(pookaAI));
 
     scene->Add(std::move(pookaGO));
@@ -240,11 +243,20 @@ void game::Game::InitializeIMGUIScene()
     go->AddComponent(std::move(RenderComp));
     scene->Add(std::move(go));
 
+}
 
+void game::Game::InitFirstLevel()
+{
+    auto Scene = &dae::SceneManager::GetInstance().CreateScene();
+    auto Pooka = Utils::CreateAnimatedSpriteObject("Sprites/PookaSprites.png", 6 , 7 );
 
+    Pooka->GetTransform().SetWorldPosition(glm::vec3{15, 15,0});
+    Pooka->GetTransform().SetScale(glm::vec3{2, 2, 1});
 
+    auto pookaAI = std::make_unique<PookaBehaviour>(Pooka.get());
+    Pooka->AddComponent(std::move(pookaAI));
 
-
+    Scene->Add(std::move(Pooka));
 
 
 

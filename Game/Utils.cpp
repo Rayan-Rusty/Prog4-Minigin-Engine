@@ -12,14 +12,15 @@ std::unique_ptr<dae::GameObject> Utils::CreateAnimatedSpriteObject(const std::st
 {
     auto obj = std::make_unique<dae::GameObject>();
 
-    obj->AddComponent(std::make_unique<dae::RenderComponent>(obj.get()));
+    auto renderComp = std::make_unique<dae::RenderComponent>(obj.get());
+    renderComp->SetTextureFilePath(TexturePath);
 
-    obj->AddComponent(std::make_unique<dae::SpriteAnimationComponent>(
-        obj.get(),
-        rows,
-        cols,
-        TexturePath
-    ));
+    obj->AddComponent(std::move(renderComp));
+
+    obj->AddComponent(std::make_unique<dae::SpriteAnimationComponent>( obj.get(), rows , cols ));
+
+
+
 
     return obj;
 }

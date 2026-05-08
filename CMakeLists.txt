@@ -126,8 +126,8 @@ add_executable(${GAME_NAME}
         Game/Player.h
         Game/Utils.cpp
         Game/Utils.h
-        Game/Enemies/Pooka/Pooka.cpp
-        Game/Enemies/Pooka/Pooka.h
+        Game/Enemies/Pooka/PookaBehaviour.cpp
+        Game/Enemies/Pooka/PookaBehaviour.h
         Game/Enemies/Pooka/States/PookaState.cpp
         Game/Enemies/Pooka/States/PookaState.h
         Game/Enemies/Pooka/States/PookaNormalState.cpp

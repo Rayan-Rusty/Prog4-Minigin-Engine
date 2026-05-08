@@ -20,6 +20,7 @@ namespace game
         void InitializeGame();
         void InitializeMenuScreen();
         void InitializeIMGUIScene();
+        void InitFirstLevel();
 
     };
 }
