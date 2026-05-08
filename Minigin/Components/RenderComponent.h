@@ -25,7 +25,7 @@ namespace dae
         RenderComponent& operator=(const RenderComponent& other) = delete;
         RenderComponent& operator=(RenderComponent&& other) = delete;
     private:
-        SpriteAnimationComponent* m_spriteComp{nullptr};
+
         std::shared_ptr<Texture2D> m_Texture{nullptr};
         bool m_isUI{false};
 
