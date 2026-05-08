@@ -11,9 +11,9 @@ class PookaNormalState : public PookaState
 {
 public:
     ~PookaNormalState() override;
-    void Enter(Pooka& pooka) override;
-    void Update(Pooka& pooka, float dt) override;
-    void Exit(Pooka& pooka) override;
+    void Enter(PookaBehaviour& pooka) override;
+    void Update(PookaBehaviour& pooka, float dt) override;
+    void Exit(PookaBehaviour& pooka) override;
 private:
     float m_timer = 0.0f;
 

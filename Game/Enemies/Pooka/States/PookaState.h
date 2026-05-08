@@ -5,15 +5,15 @@
 #ifndef MINIGIN_POOKASTATE_H
 #define MINIGIN_POOKASTATE_H
 
-class Pooka;
+class PookaBehaviour;
 class PookaState
 {
 public:
     virtual ~PookaState() = default;
 
-    virtual void Enter(Pooka& pooka);
-    virtual void Update(Pooka& pooka , float dt) = 0;
-    virtual void Exit(Pooka& pooka);
+    virtual void Enter(PookaBehaviour& pooka) = 0;
+    virtual void Update(PookaBehaviour& pooka , float dt) = 0;
+    virtual void Exit(PookaBehaviour& pooka) = 0;
 
 };
 

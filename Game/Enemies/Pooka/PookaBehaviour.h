@@ -11,11 +11,11 @@
 
 class PookaState;
 class GameObject;
-class Pooka : public dae::Component
+class PookaBehaviour : public dae::Component
 {
 public:
-    Pooka(dae::GameObject* owner);
-    ~Pooka();
+    PookaBehaviour(dae::GameObject* owner);
+    ~PookaBehaviour();
 
 
     void Update(float dt) override;

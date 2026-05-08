@@ -3,28 +3,25 @@
 //
 
 #include "PookaGhostState.h"
-//TODO Set target directories correctly
-
 #include "PookaNormalState.h"
-#include "../Pooka.h"
-#include "Components/RenderComponent.h"
+#include "PookaBehaviour.h"
+#include "SpriteAnimationComponent.h"
 
 PookaGhostState::~PookaGhostState() {
 
 }
 
-void PookaGhostState::Enter(Pooka& pooka )
+void PookaGhostState::Enter(PookaBehaviour& pooka )
 {
     m_timer = 0;
     auto* obj = pooka.GetOwner();
 
-    if (auto* render = obj->GetComponent<dae::RenderComponent>())
-    {
-        render->SetTextureFilePath("Sprites/Pookaghost.png");
-    }
+    if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
+        spriteComp->SetAnimation(0 , 3 , 4);
+
 }
 
-void PookaGhostState::Update(Pooka& pooka , float dt)
+void PookaGhostState::Update(PookaBehaviour& pooka , float dt)
 {
     m_timer += dt;
 
@@ -34,6 +31,6 @@ void PookaGhostState::Update(Pooka& pooka , float dt)
     }
 }
 
-void PookaGhostState::Exit(Pooka& ) {
+void PookaGhostState::Exit(PookaBehaviour& ) {
 
 }
