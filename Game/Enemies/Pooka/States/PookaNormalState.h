@@ -4,20 +4,24 @@
 
 #ifndef MINIGIN_POOKANORMALSTATE_H
 #define MINIGIN_POOKANORMALSTATE_H
-#include "PookaState.h"
 
-
-class PookaNormalState : public PookaState
+#include "State.h"
+namespace game
 {
-public:
-    ~PookaNormalState() override;
-    void Enter(PookaBehaviour& pooka) override;
-    void Update(PookaBehaviour& pooka, float dt) override;
-    void Exit(PookaBehaviour& pooka) override;
-private:
-    float m_timer = 0.0f;
+    class PookaBehaviour;
+    class PookaNormalState : public State<PookaBehaviour>
+    {
+    public:
+        ~PookaNormalState() override = default;
+        void Enter(PookaBehaviour& Data) override;
+        void Update(PookaBehaviour& Data, float dt) override;
+        void Exit(PookaBehaviour& Data) override;
+    private:
+        float m_timer = 0.0f;
 
-};
+    };
+
+}
 
 
 #endif //MINIGIN_POOKANORMALSTATE_H

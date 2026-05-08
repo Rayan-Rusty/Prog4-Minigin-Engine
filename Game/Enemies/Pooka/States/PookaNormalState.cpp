@@ -9,14 +9,11 @@
 #include "SpriteAnimationComponent.h"
 
 
-PookaNormalState::~PookaNormalState() {
 
-}
-
-void PookaNormalState::Enter(PookaBehaviour& pooka )
+void game::PookaNormalState::Enter(PookaBehaviour& Data )
 {
     m_timer = 0;
-    auto* obj = pooka.GetOwner();
+    auto* obj = Data.GetOwner();
 
     if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
         spriteComp->SetAnimation(0 , 0 , 1);
@@ -24,18 +21,18 @@ void PookaNormalState::Enter(PookaBehaviour& pooka )
 
 }
 
-void PookaNormalState::Update(PookaBehaviour& , float dt)
+void game::PookaNormalState::Update(PookaBehaviour& Data , float dt)
 {
     m_timer += dt;
 
     // DEMO ONLY
-    // if (m_timer > 2.0f)
-    // {
-    //     pooka.ChangeState(std::make_unique<PookaGhostState>());
-    // }
+    if (m_timer > 2.0f)
+    {
+       Data.ChangeState(std::make_unique<PookaGhostState>());
+    }
 }
 
-void PookaNormalState::Exit(PookaBehaviour& )
+void game::PookaNormalState::Exit(PookaBehaviour& )
 {
 
 }

@@ -1,14 +1,15 @@
 //
-// Created by omen on 06/05/2026.
+// Created by omen on 08/05/2026.
 //
 
-#include "PookaGhostState.h"
-#include "PookaNormalState.h"
+#include "PookaInflatedState.h"
+
+
 #include "PookaBehaviour.h"
 #include "SpriteAnimationComponent.h"
 
 
-void game::PookaGhostState::Enter(PookaBehaviour& Data )
+void game::PookaInflatedState::Enter(PookaBehaviour& Data )
 {
     m_timer = 0;
     auto* obj = Data.GetOwner();
@@ -18,13 +19,13 @@ void game::PookaGhostState::Enter(PookaBehaviour& Data )
 
 }
 
-void game::PookaGhostState::Update(PookaBehaviour&  , float dt)
+void game::PookaInflatedState::Update(PookaBehaviour&  , float dt)
 {
     m_timer += dt;
 
 
 }
 
-void game::PookaGhostState::Exit(PookaBehaviour& ) {
+void game::PookaInflatedState::Exit(PookaBehaviour& ) {
 
 }

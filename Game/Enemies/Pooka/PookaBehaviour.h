@@ -7,24 +7,41 @@
 #include <memory>
 
 #include "GameObject.h"
+#include "State.h"
 
 
-class PookaState;
-class GameObject;
-class PookaBehaviour : public dae::Component
+namespace dae {
+    class GameObject;
+}
+namespace game
 {
-public:
-    PookaBehaviour(dae::GameObject* owner);
-    ~PookaBehaviour();
+    class PookaState;
+
+    class PookaBehaviour : public dae::Component
+    {
+    public:
+        PookaBehaviour(dae::GameObject* owner);
+        ~PookaBehaviour() = default;
 
 
-    void Update(float dt) override;
-    void ChangeState(std::unique_ptr<PookaState> newState);
-    std::type_index GetType() const override;
-private:
-    std::unique_ptr<PookaState> m_state;
+        void Update(float dt) override;
+        void ChangeState(std::unique_ptr<State<PookaBehaviour>> newState);
+        std::type_index GetType() const override;
 
-};
+
+
+        PookaBehaviour(const PookaBehaviour& other) = delete;
+        PookaBehaviour(PookaBehaviour&& other) = delete;
+        PookaBehaviour& operator=(const PookaBehaviour& other) = delete;
+        PookaBehaviour& operator=(PookaBehaviour&& other) = delete;
+
+
+    private:
+        std::unique_ptr<State<PookaBehaviour>> m_state;
+
+    };
+}
+
 
 
 #endif //MINIGIN_POOKA_H

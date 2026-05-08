@@ -26,6 +26,13 @@
 #include "DebugSystem.h"
 #include "PookaBehaviour.h"
 #include "Utils.h"
+#include "Fygar/FygarBehaviour.h"
+
+
+//TODO ASYNC noise
+//TODO remove FPS object
+//TODO give in name without keyboard
+//TODO SPrites need to be able to be multiple cols or rows
 
 
 void game::Game::Init()
@@ -248,15 +255,26 @@ void game::Game::InitializeIMGUIScene()
 void game::Game::InitFirstLevel()
 {
     auto Scene = &dae::SceneManager::GetInstance().CreateScene();
+
+
+
     auto Pooka = Utils::CreateAnimatedSpriteObject("Sprites/PookaSprites.png", 6 , 7 );
-
     Pooka->GetTransform().SetWorldPosition(glm::vec3{15, 15,0});
-    Pooka->GetTransform().SetScale(glm::vec3{2, 2, 1});
-
+    Pooka->GetTransform().SetScale(glm::vec3{2, 2, 2});
     auto pookaAI = std::make_unique<PookaBehaviour>(Pooka.get());
     Pooka->AddComponent(std::move(pookaAI));
 
+
+
+    auto Fygar = Utils::CreateAnimatedSpriteObject("Sprites/FygarSprites.png", 8 , 8);
+    Fygar->GetTransform().SetWorldPosition(glm::vec3{60, 15, 0});
+    Fygar->GetTransform().SetScale(glm::vec3{2, 2, 2});
+    auto FygarAI = std::make_unique<FygarBehaviour>(Fygar.get());
+    Pooka->AddComponent(std::move(FygarAI));
+
+
     Scene->Add(std::move(Pooka));
+    Scene->Add(std::move(Fygar));
 
 
 
