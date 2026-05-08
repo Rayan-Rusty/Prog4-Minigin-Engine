@@ -18,7 +18,6 @@ namespace game
         void Exit(PookaBehaviour& Data) override;
     private:
         float m_timer = 0.0f;
-        float m_duration = 3.0f;
     };
 }
 
