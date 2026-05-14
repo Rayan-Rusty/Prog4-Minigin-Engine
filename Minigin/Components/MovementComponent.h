@@ -19,7 +19,7 @@ namespace dae
         void Update(float deltaTime) override;
         std::type_index GetType() const override;
         void Move(const glm::vec3& direction);
-
+        bool IsMoving() const;
 
         MovementComponent(const MovementComponent& other) = delete;
         MovementComponent(MovementComponent&& other) = delete;
@@ -28,7 +28,9 @@ namespace dae
     private:
         float m_Speed{0.f};
         bool m_Gravity{false};
-        glm::vec3 m_velocity{0,0,0};
+        glm::vec3 m_Direction{0, 0, 0};
+        glm::vec3 m_Velocity{0, 0, 0};
+        bool m_IsMoving{};
 
     };
 }

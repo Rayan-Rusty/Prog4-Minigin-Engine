@@ -16,24 +16,31 @@ dae::MovementComponent::MovementComponent(GameObject *owner, float speed, bool g
 
 void dae::MovementComponent::Update(float deltaTime)
 {
-    auto pos {GetOwner()->GetTransform().GetLocalPosition()};
-    pos += m_velocity * deltaTime;
+
+
+    auto pos = GetOwner()->GetTransform().GetLocalPosition();
+    pos += m_Direction * m_Speed * deltaTime;
 
     if (m_Gravity)
-        pos.y += m_Gravity * deltaTime;
+        pos.y -= m_Speed * deltaTime;
 
     GetOwner()->GetTransform().SetLocalPosition(pos);
 
-    m_velocity = glm::vec3{0,0,0};
-
+    m_IsMoving = glm::length(m_Direction) > 0.0f;
+    m_Direction = glm::vec3{0.0f, 0.0f, 0.0f};
 }
 
 
 void dae::MovementComponent::Move(const glm::vec3 &direction)
 {
-    m_velocity += direction * m_Speed;
+    m_Direction = direction;
+
 }
 
+bool dae::MovementComponent::IsMoving() const
+{
+    return m_IsMoving;
+}
 
 std::type_index dae::MovementComponent::GetType() const
 {
