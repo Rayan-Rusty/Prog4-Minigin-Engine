@@ -6,7 +6,7 @@
 #define MINIGIN_IGAME_H
 
 
-namespace game
+namespace DigDug
 {
     class IGame
     {

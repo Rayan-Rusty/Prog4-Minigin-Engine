@@ -5,16 +5,16 @@
 #include <vld.h>
 #endif
 
-#include "../Minigin/Minigin.h"
-#include "../Minigin/Managers/SceneManager.h"
-#include "../Minigin/Components/TextComponent.h"
+#include "Minigin.h"
+#include "SceneManager.h"
+#include "TextComponent.h"
 
-#include "../Minigin/IGame.h"
-#include "Game.h"
+#include "IGame.h"
+#include "DigDug.h"
 #include <filesystem>
-#include "../Minigin/Sound/Decorator.h"
-#include "../Minigin/Sound/sdl_sound_system.h"
-#include "../Minigin/Sound/ServiceLocator.h"
+#include "Decorator.h"
+#include "sdl_sound_system.h"
+#include "ServiceLocator.h"
 namespace fs = std::filesystem;
 
 
@@ -45,7 +45,7 @@ int main(int, char*[]) {
 
 
 
-	std::unique_ptr<game::IGame> game = std::make_unique<game::Game>();
+	std::unique_ptr<DigDug::IGame> game = std::make_unique<DigDug::Game>();
 	game->Init();
 
 	engine.SetGame(std::move(game));

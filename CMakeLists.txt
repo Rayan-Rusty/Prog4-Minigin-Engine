@@ -105,6 +105,7 @@ target_include_directories(${ENGINE_NAME} PUBLIC
         ${CMAKE_SOURCE_DIR}/Minigin/Sound
         ${CMAKE_SOURCE_DIR}/Minigin/Observers
         ${CMAKE_SOURCE_DIR}/Minigin/HelperFunctions
+        ${CMAKE_SOURCE_DIR}/Minigin/States
 )
 
 set(ENGINE_DIRS Minigin/ Minigin/Components Minigin/Commands Minigin/Systems Minigin/Devices Minigin/EventQueue
@@ -121,9 +122,9 @@ target_compile_features(${ENGINE_NAME} PUBLIC cxx_std_20)
 
 add_executable(${GAME_NAME}
         Game/Main.cpp
-        Game/Game.cpp
-        Game/Player/Player.cpp
-        Game/Player/Player.h
+        Game/DigDug.cpp
+        Game/Player/PlayerBehaviour.cpp
+        Game/Player/PlayerBehaviour.h
         Game/Utils.cpp
         Game/Utils.h
         Game/Enemies/Pooka/PookaBehaviour.cpp
@@ -132,10 +133,10 @@ add_executable(${GAME_NAME}
         Game/Enemies/Pooka/States/PookaNormalState.h
         Game/Enemies/Pooka/States/PookaGhostState.cpp
         Game/Enemies/Pooka/States/PookaGhostState.h
-        Game/Level/TilemapComponent.cpp
-        Game/Level/TilemapComponent.h
-        Game/State.cpp
-        Game/State.h
+        Game/TileMap/TilemapComponent.cpp
+        Game/TileMap/TilemapComponent.h
+        Minigin/States/State.cpp
+        Minigin/States/State.h
         Game/Enemies/Fygar/FygarBehaviour.cpp
         Game/Enemies/Fygar/FygarBehaviour.h
         Game/Enemies/Fygar/States/FygarNormalState.cpp
@@ -152,6 +153,10 @@ add_executable(${GAME_NAME}
         Game/Enemies/Pooka/States/PookaInflatedState.h
         Game/Enemies/Pooka/States/PookaDeadState.cpp
         Game/Enemies/Pooka/States/PookaDeadState.h
+        Game/Player/States/PlayerIdleState.cpp
+        Game/Player/States/PlayerIdleState.h
+        Game/Player/States/PlayerWalkingState.cpp
+        Game/Player/States/PlayerWalkingState.h
 )
 
 target_include_directories(${GAME_NAME} PRIVATE
@@ -161,7 +166,10 @@ target_include_directories(${GAME_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/Game/Enemies/Pooka/States
         ${CMAKE_SOURCE_DIR}/Game/Enemies/Fygar
         ${CMAKE_SOURCE_DIR}/Game/Enemies/Fygar/States
+        ${CMAKE_SOURCE_DIR}/Game/Player/States
+        ${CMAKE_SOURCE_DIR}/Game/Player
         ${CMAKE_SOURCE_DIR}/Game/Level
+        ${CMAKE_SOURCE_DIR}/Game/TileMap
 )
 
 target_compile_features(${GAME_NAME} PUBLIC cxx_std_20)

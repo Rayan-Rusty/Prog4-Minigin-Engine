@@ -1,6 +1,6 @@
 
 
-#include "Game.h"
+#include "DigDug.h"
 
 #include "SceneManager.h"
 #include "ResourceManager.h"
@@ -24,9 +24,12 @@
 #include "ServiceLocator.h"
 #include "SoundEventListener.h"
 #include "DebugSystem.h"
+#include "Keyboard.h"
+#include "PlayerBehaviour.h"
 #include "PookaBehaviour.h"
+#include "TilemapComponent.h"
 #include "Utils.h"
-#include "Fygar/FygarBehaviour.h"
+#include "FygarBehaviour.h"
 
 
 //TODO ASYNC noise
@@ -35,7 +38,7 @@
 //TODO SPrites need to be able to be multiple cols or rows
 
 
-void game::Game::Init()
+void DigDug::Game::Init()
 {
    // InitializeMenuScreen();
    // InitializeGame();
@@ -43,19 +46,19 @@ void game::Game::Init()
 
 }
 
-void game::Game::Update(float deltaTime)
+void DigDug::Game::Update(float deltaTime)
 {
     dae::SceneManager::GetInstance().Update(deltaTime);
 
 }
 
-void game::Game::Draw() const
+void DigDug::Game::Draw() const
 {
     dae::SceneManager::GetInstance().Render();
 }
 
 
-void game::Game::InitializeMenuScreen()
+void DigDug::Game::InitializeMenuScreen()
 {
     auto scene = &dae::SceneManager::GetInstance().CreateScene();
 
@@ -84,7 +87,7 @@ void game::Game::InitializeMenuScreen()
 }
 
 
-void game::Game::InitializeGame() {
+void DigDug::Game::InitializeGame() {
 
     auto scene = &dae::SceneManager::GetInstance().CreateScene();
 
@@ -188,15 +191,15 @@ void game::Game::InitializeGame() {
     // dae::InputManager::GetInstance().AddDevice(std::move(gamepad));
 
     auto moveLeft = std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{-1,0,0});
-
-    dae::InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_A, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{-1,0,0}));
-    dae::InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_D,std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{1,0,0}));
-    dae::InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_W, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,-1,0}));
-    dae::InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_S, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,1,0}));
-    dae::InputManager::GetInstance().AddCommandBinding(dae::GamepadButton::DPadDown, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{0,1,0}));
-    dae::InputManager::GetInstance().AddCommandBinding(dae::GamepadButton::DPadUp, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{0,-1,0}));
-    dae::InputManager::GetInstance().AddCommandBinding(dae::GamepadButton::DPadLeft, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{-1,0,0}));
-    dae::InputManager::GetInstance().AddCommandBinding(dae::GamepadButton::DPadRight, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{1,0,0}));
+    //
+    // dae::InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_A, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{-1,0,0}));
+    // dae::InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_D,std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{1,0,0}));
+    // dae::InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_W, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,-1,0}));
+    // dae::InputManager::GetInstance().AddCommandBinding(SDL_SCANCODE_S, std::make_unique<dae::MoveCommand>(parentObject.get() , glm::vec3{0,1,0}));
+    // dae::InputManager::GetInstance().AddCommandBinding(dae::GamepadButton::DPadDown, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{0,1,0}));
+    // dae::InputManager::GetInstance().AddCommandBinding(dae::GamepadButton::DPadUp, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{0,-1,0}));
+    // dae::InputManager::GetInstance().AddCommandBinding(dae::GamepadButton::DPadLeft, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{-1,0,0}));
+    // dae::InputManager::GetInstance().AddCommandBinding(dae::GamepadButton::DPadRight, std::make_unique<dae::MoveCommand>(SecondPlayerObject.get() , glm::vec3{1,0,0}));
 
     scene->Add(std::move(parentObject));
     scene->Add(std::move(SecondPlayerObject));
@@ -229,7 +232,7 @@ void game::Game::InitializeGame() {
 
 }
 
-void game::Game::InitializeIMGUIScene()
+void DigDug::Game::InitializeIMGUIScene()
 {
     auto scene = &dae::SceneManager::GetInstance().CreateScene();
     auto go{std::make_unique<dae::GameObject>()};
@@ -252,7 +255,7 @@ void game::Game::InitializeIMGUIScene()
 
 }
 
-void game::Game::InitFirstLevel()
+void DigDug::Game::InitFirstLevel()
 {
     auto Scene = &dae::SceneManager::GetInstance().CreateScene();
 
@@ -270,12 +273,35 @@ void game::Game::InitFirstLevel()
     Fygar->GetTransform().SetWorldPosition(glm::vec3{60, 15, 0});
     Fygar->GetTransform().SetScale(glm::vec3{2, 2, 2});
     auto FygarAI = std::make_unique<FygarBehaviour>(Fygar.get());
-    Pooka->AddComponent(std::move(FygarAI));
+    Fygar->AddComponent(std::move(FygarAI));
+
+    auto player = Utils::CreatePlayerCharacter("Sprites/PlayerSprites.png", 3 , 8);
+    player->GetTransform().SetWorldPosition(glm::vec3{90, 15, 0});
+    player->GetTransform().SetScale(glm::vec3{2, 2, 2});
+
+    auto PlayerAI = std::make_unique<DigDug::PlayerBehaviour>(player.get());
+    player->AddComponent(std::move(PlayerAI));
+
+    auto Background = Utils::CreateBackgroundObject("Sprites/Level1Background.png");
+    Background->GetTransform().SetScale(glm::vec3{2, 2, 2});
+    Background->GetTransform().SetWorldPosition(glm::vec3{800 / 4, 0, 0});
 
 
+    auto Tilemap = std::make_unique<dae::GameObject>();
+    auto tilemapComp = std::make_unique<TilemapComponent>(Tilemap.get());
+    tilemapComp->AddTexture("Sprites/Block.png");
+    tilemapComp->LoadFromFile("Data/Sprites/IndexedFile.png");
+    Tilemap->AddComponent(std::move(tilemapComp));
+    Tilemap->GetTransform().SetScale(glm::vec3{2, 2, 2});
+    Tilemap->GetTransform().SetWorldPosition(glm::vec3{800 / 4, 0, 0});
+
+
+    Scene->Add(std::move(Tilemap));
     Scene->Add(std::move(Pooka));
     Scene->Add(std::move(Fygar));
+    Scene->Add(std::move(player));
 
-
+    //TODO keyboard needs ot be auto added
+    dae::InputManager::GetInstance().AddDevice(std::make_unique<dae::Keyboard>());
 
 }

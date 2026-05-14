@@ -25,8 +25,8 @@ namespace dae
 		// Student functions
 		static float GetFrameTime();
 
-		void SetGame(std::unique_ptr<game::IGame> game) { m_Game = std::move(game); }
+		void SetGame(std::unique_ptr<DigDug::IGame> game) { m_Game = std::move(game); }
 	private:
-		std::unique_ptr<game::IGame> m_Game;
+		std::unique_ptr<DigDug::IGame> m_Game;
 	};
 }

@@ -2,11 +2,11 @@
 #include <memory>
 
 #include "IGame.h"
-#include "../Minigin/Scene.h"
-namespace game
+#include "Scene.h"
+namespace DigDug
 {
 
-    class Game : public game::IGame
+    class Game : public DigDug::IGame
     {
     public:
         Game() = default;
