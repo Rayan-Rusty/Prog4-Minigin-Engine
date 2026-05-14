@@ -21,8 +21,4 @@ void dae::MoveCommand::Execute()
     if (moveComp)
         moveComp->Move(m_direction);
 
-    Event e(MOVED);
-    dae::SceneManager::GetInstance()
-        .GetEventBus()
-        .QueueEvent(e);
 }
