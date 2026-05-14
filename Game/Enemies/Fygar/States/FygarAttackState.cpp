@@ -8,7 +8,7 @@
 #include "FygarBehaviour.h"
 #include "GameObject.h"
 
-void game::FygarAttackState::Enter(FygarBehaviour& Data)
+void DigDug::FygarAttackState::Enter(FygarBehaviour& Data)
 {
 
     auto* obj = Data.GetOwner();
@@ -19,12 +19,12 @@ void game::FygarAttackState::Enter(FygarBehaviour& Data)
 }
 
 
-void game::FygarAttackState::Update(FygarBehaviour &, float )
+void DigDug::FygarAttackState::Update(FygarBehaviour &, float )
 {
 
 }
 
 
-void game::FygarAttackState::Exit(FygarBehaviour &) {
+void DigDug::FygarAttackState::Exit(FygarBehaviour &) {
 
 }

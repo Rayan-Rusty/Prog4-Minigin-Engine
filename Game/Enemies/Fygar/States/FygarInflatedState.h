@@ -6,7 +6,7 @@
 #define MINIGIN_FYGARINFLATEDSTATE_H
 #include "State.h"
 
-namespace game {
+namespace DigDug {
     class FygarBehaviour;
 
     class FygarInflatedState: public State<FygarBehaviour>

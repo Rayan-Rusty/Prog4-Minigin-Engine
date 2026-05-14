@@ -8,21 +8,21 @@
 #include "FygarNormalState.h"
 
 
-game::FygarBehaviour::FygarBehaviour(dae::GameObject *owner)
+DigDug::FygarBehaviour::FygarBehaviour(dae::GameObject *owner)
     : Component(owner)
 {
     ChangeState(std::make_unique<FygarAttackState>());
 }
 
 
-void game::FygarBehaviour::Update(float dt)
+void DigDug::FygarBehaviour::Update(float dt)
 {
     if (m_state)
         m_state->Update(*this , dt);
 }
 
 
-void game::FygarBehaviour::ChangeState(std::unique_ptr<State<FygarBehaviour> > newState)
+void DigDug::FygarBehaviour::ChangeState(std::unique_ptr<State<FygarBehaviour> > newState)
 {
     if (m_state)
         m_state->Exit(*this);
@@ -32,7 +32,7 @@ void game::FygarBehaviour::ChangeState(std::unique_ptr<State<FygarBehaviour> > n
 }
 
 
-std::type_index game::FygarBehaviour::GetType() const
+std::type_index DigDug::FygarBehaviour::GetType() const
 {
     return typeid(FygarBehaviour);
 }

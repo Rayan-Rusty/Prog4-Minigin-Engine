@@ -11,7 +11,7 @@
 
 class GameObject;
 
-namespace game
+namespace DigDug
 {
     class FygarBehaviour : public dae::Component
     {

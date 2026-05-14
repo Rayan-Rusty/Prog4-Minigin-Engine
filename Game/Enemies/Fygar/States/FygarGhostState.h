@@ -8,7 +8,7 @@
 
 
 
-namespace game
+namespace DigDug
 {
     class FygarBehaviour;
     class FygarGhostState : public State<FygarBehaviour>

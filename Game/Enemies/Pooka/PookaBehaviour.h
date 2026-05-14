@@ -13,7 +13,7 @@
 namespace dae {
     class GameObject;
 }
-namespace game
+namespace DigDug
 {
     class PookaState;
 

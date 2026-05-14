@@ -9,7 +9,7 @@
 #include "SpriteAnimationComponent.h"
 
 
-void game::FygarGhostState::Enter(FygarBehaviour &Data)
+void DigDug::FygarGhostState::Enter(FygarBehaviour &Data)
 {
     auto* obj = Data.GetOwner();
 
@@ -17,10 +17,10 @@ void game::FygarGhostState::Enter(FygarBehaviour &Data)
         spriteComp->SetAnimation(0 , 6 , 7);
 }
 
-void game::FygarGhostState::Update(FygarBehaviour &, float ) {
+void DigDug::FygarGhostState::Update(FygarBehaviour &, float ) {
 
 }
 
-void game::FygarGhostState::Exit(FygarBehaviour &) {
+void DigDug::FygarGhostState::Exit(FygarBehaviour &) {
 
 }

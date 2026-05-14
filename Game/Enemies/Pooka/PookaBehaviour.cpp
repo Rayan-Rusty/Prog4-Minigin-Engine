@@ -7,7 +7,7 @@
 #include "States/PookaNormalState.h"
 
 
- game::PookaBehaviour::PookaBehaviour(dae::GameObject* owner)
+ DigDug::PookaBehaviour::PookaBehaviour(dae::GameObject* owner)
     :Component(owner)
 {
     ChangeState(std::make_unique<PookaNormalState>());
@@ -15,14 +15,14 @@
 
 
 
-void  game::PookaBehaviour::Update(float dt)
+void  DigDug::PookaBehaviour::Update(float dt)
 {
     if (m_state)
         m_state->Update(*this , dt);
 }
 
 
-void  game::PookaBehaviour::ChangeState(std::unique_ptr<State<PookaBehaviour>> newState)
+void  DigDug::PookaBehaviour::ChangeState(std::unique_ptr<State<PookaBehaviour>> newState)
 {
     if (m_state)
         m_state->Exit(*this);
@@ -32,7 +32,7 @@ void  game::PookaBehaviour::ChangeState(std::unique_ptr<State<PookaBehaviour>> n
 }
 
 
-std::type_index  game::PookaBehaviour::GetType() const
+std::type_index  DigDug::PookaBehaviour::GetType() const
 {
     return typeid(PookaBehaviour);
 }

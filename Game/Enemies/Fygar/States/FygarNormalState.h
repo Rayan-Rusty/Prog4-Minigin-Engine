@@ -7,7 +7,7 @@
 #include "State.h"
 
 
-namespace game
+namespace DigDug
 {
     class FygarBehaviour;
     class FygarNormalState  : public State<FygarBehaviour>
