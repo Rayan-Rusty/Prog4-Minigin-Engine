@@ -60,9 +60,9 @@ void dae::RenderComponent::Render() const
     }
 
 
+    Renderer::GetInstance().RenderTexture(*m_Texture, dst, src);
 
 
-    Renderer::GetInstance().Submit(m_isUI, m_Texture, dst, src);
 }
 
 std::type_index dae::RenderComponent::GetType() const

@@ -53,11 +53,6 @@ void dae::Renderer::Render()
 
 
 
-	for (const auto& cmd : m_drawCommands)
-	{
-		RenderTexture(*cmd.texture, cmd.dst, cmd.src);
-	}
-
 
 	SDL_RenderPresent(m_renderer);
 	m_drawCommands.clear();
