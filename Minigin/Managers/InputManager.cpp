@@ -1,12 +1,15 @@
 #include <SDL3/SDL.h>
 #include <backends/imgui_impl_sdl3.h>
 #include "InputManager.h"
+
+#include "Keyboard.h"
 #include "../Gamepad.h"
 
 
 bool dae::InputManager::ProcessInput(float)
 {
 	DetectGamePads();
+
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
 		if (e.type == SDL_EVENT_QUIT)
@@ -14,21 +17,8 @@ bool dae::InputManager::ProcessInput(float)
 			return false;
 		}
 
-
-		if (e.type == SDL_EVENT_KEY_DOWN) {
-			SDL_Scancode sc = e.key.scancode;
-			for (auto& binding : m_Commands)
-			{
-				// Only trigger if this is a keyboard command
-				if (std::holds_alternative<SDL_Scancode>(binding.keyOrButton) &&
-					std::get<SDL_Scancode>(binding.keyOrButton) == sc)
-				{
-					binding.command->Execute();
-				}
-			}
-		}
 		if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
-			
+
 		}
 		ImGui_ImplSDL3_ProcessEvent(&e);
 	}
@@ -41,12 +31,28 @@ bool dae::InputManager::ProcessInput(float)
 	{
 		for (auto& device : m_Devices)
 		{
-			if (device->IsPressed(binding.keyOrButton))
+			bool execute = false;
+
+			if (binding.state == KeyState::Held)
+			{
+				execute = device->IsPressed(binding.keyOrButton);
+			}
+			else if (binding.state == KeyState::Down)
+			{
+				execute = device->IsDown(binding.keyOrButton);
+			}
+			else if (binding.state == KeyState::Up)
+			{
+				execute = device->IsUp(binding.keyOrButton);
+			}
+
+			if (execute)
 			{
 				binding.command->Execute();
 			}
 		}
 	}
+
 
 
 	return true;
@@ -56,12 +62,18 @@ bool dae::InputManager::ProcessInput(float)
 
 void dae::InputManager::AddDevice(std::unique_ptr<InputDevice> device)
 {
+
+
 	m_Devices.push_back(std::move(device));
+
 }
 
-void dae::InputManager::AddCommandBinding(std::variant<GamepadButton, SDL_Scancode> keyOrButton, std::unique_ptr<Command> command)
+void dae::InputManager::AddCommandBinding(
+    std::variant<GamepadButton, SDL_Scancode> keyOrButton,
+    std::unique_ptr<Command> command,
+    KeyState state)
 {
-	m_Commands.emplace_back(keyOrButton , std::move(command));
+    m_Commands.emplace_back(keyOrButton, std::move(command), state);
 }
 void dae::InputManager::RemoveCommandBinding(std::variant<GamepadButton, SDL_Scancode> keyOrButton)
 {
@@ -95,15 +107,15 @@ void dae::InputManager::DetectGamePads()
 			AddDevice(std::make_unique<Gamepad>(index));
 		}
 	}
-
-	m_Devices.erase(
-		std::remove_if(m_Devices.begin(), m_Devices.end(),
-			[&](const std::unique_ptr<InputDevice>& device)
-			{
-				return std::find(indices.begin(), indices.end(),
-								 device->GetDeviceID()) == indices.end();
-			}),
-		m_Devices.end()
-	);
+	//
+	// m_Devices.erase(
+	// 	std::remove_if(m_Devices.begin(), m_Devices.end(),
+	// 		[&](const std::unique_ptr<InputDevice>& device)
+	// 		{
+	// 			return std::find(indices.begin(), indices.end(),
+	// 							 device->GetDeviceID()) == indices.end();
+	// 		}),
+	// 	m_Devices.end()
+	// );
 
 }

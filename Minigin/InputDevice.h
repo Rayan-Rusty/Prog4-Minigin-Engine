@@ -21,6 +21,8 @@ namespace dae
         virtual void Update() = 0;
         virtual int GetDeviceID() const = 0;
         virtual bool IsPressed(std::variant<GamepadButton, SDL_Scancode> keyOrButton) const = 0;
+        virtual bool IsDown(std::variant<GamepadButton, SDL_Scancode> keyOrButton) const = 0;
+        virtual bool IsUp(std::variant<GamepadButton, SDL_Scancode> keyOrButton) const = 0;
     };
 }
 

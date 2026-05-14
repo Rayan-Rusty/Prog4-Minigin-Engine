@@ -11,13 +11,23 @@ namespace dae
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
+		enum class KeyState
+		{
+			Down,
+			Held,
+			Up
+		};
 
+		void ProcessKeyBoard();
+		void ProcessGamepad();
 		bool ProcessInput(float DeltaTime);
 
 		void AddDevice(std::unique_ptr<InputDevice> device);
 
-		void AddCommandBinding(std::variant<GamepadButton,SDL_Scancode> keyOrButton,
-							   std::unique_ptr<Command> command);
+		void AddCommandBinding(
+			std::variant<GamepadButton, SDL_Scancode> keyOrButton,
+			std::unique_ptr<Command> command,
+			KeyState state);
 
 		void RemoveCommandBinding(std::variant<GamepadButton, SDL_Scancode> keyOrButton);
 
@@ -28,7 +38,7 @@ namespace dae
 		{
 			std::variant<GamepadButton, SDL_Scancode> keyOrButton; //lets it switch depending on which value you give it!
 			std::unique_ptr<Command> command;
-
+			KeyState state;
 		};
 
 		std::vector<CommandBinding> m_Commands;

@@ -19,6 +19,8 @@ namespace dae
         void Update() override;
         bool IsButtonPressed(GamepadButton button) const;
         bool IsPressed(std::variant<GamepadButton, SDL_Scancode> keyOrButton) const override;
+        bool IsDown(std::variant<GamepadButton, SDL_Scancode> keyOrButton) const override;
+        bool IsUp(std::variant<GamepadButton, SDL_Scancode> keyOrButton) const  override;
         static std::vector<int> GetConnectedDevices();
 
         int GetDeviceID() const override;

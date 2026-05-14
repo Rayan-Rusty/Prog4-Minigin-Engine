@@ -14,8 +14,11 @@ namespace dae
     {
     public:
         Keyboard();
+        ~Keyboard() override;
         void Update() override;
         bool IsPressed(std::variant<GamepadButton, SDL_Scancode> keyOrButton) const override;
+         bool IsDown(std::variant<GamepadButton, SDL_Scancode> keyOrButton) const override;
+         bool IsUp(std::variant<GamepadButton, SDL_Scancode> keyOrButton) const  override;
         int GetDeviceID() const override;
     private:
         class Impl;

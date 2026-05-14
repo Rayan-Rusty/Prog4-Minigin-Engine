@@ -19,7 +19,8 @@ namespace  dae
         Start,
         Back,
         LeftShoulder,
-        RightShoulder
+        RightShoulder,
+        count
     };
 
 }
