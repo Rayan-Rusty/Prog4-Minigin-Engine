@@ -5,6 +5,7 @@
 #ifndef MINIGIN_SPRITEANIMATIONCOMPONENT_H
 #define MINIGIN_SPRITEANIMATIONCOMPONENT_H
 #include <memory>
+#include <vector>
 #include <SDL3/SDL.h>
 
 #include "Component.h"
@@ -26,16 +27,29 @@ namespace dae
 
 
         void SetAnimation(int row, int startCol, int endCol);
-
+        //SetCustomAnimation(std::vector<SDL_FRect>);
         std::type_index GetType() const override;
 
 
     private:
+
+        struct SpriteFrame
+        {
+            SDL_FRect src;
+            float duration;
+        };
+
+        // struct AnimationClip
+        // {
+        //     std::vector<SpriteFrame> frames;
+        //     bool looping{false};
+        // };
+
         struct AnimationClip
         {
-            int row;
-            int startCol;
-            int endCol;
+             int row;
+             int startCol;
+             int endCol;
         };
 
         SDL_FRect m_Src{};

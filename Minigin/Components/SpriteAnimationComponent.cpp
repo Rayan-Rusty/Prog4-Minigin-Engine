@@ -55,11 +55,11 @@ void dae::SpriteAnimationComponent::Update(float deltaTime)
         float frameWidth = texSize.x / m_Cols;
         float frameHeight = texSize.y / m_Rows;
 
-        int row = m_CurrentCol / m_Cols;
+
         int col = m_CurrentCol % m_Cols;
 
         m_Src.x = col * frameWidth;
-        m_Src.y = row * frameHeight;
+        m_Src.y = m_CurrentAnim.row * frameHeight;
         m_Src.w = frameWidth;
         m_Src.h = frameHeight;
     }
