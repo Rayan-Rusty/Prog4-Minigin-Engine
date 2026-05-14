@@ -4,5 +4,5 @@
 
 #include "State.h"
 
-namespace game {
+namespace DigDug {
 } // game
