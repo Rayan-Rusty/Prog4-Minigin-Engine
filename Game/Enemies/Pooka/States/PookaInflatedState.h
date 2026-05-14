@@ -6,7 +6,7 @@
 #define MINIGIN_POOKAINFLATEDSTATE_H
 #include "State.h"
 
-namespace game
+namespace DigDug
 {
     class PookaBehaviour;
 

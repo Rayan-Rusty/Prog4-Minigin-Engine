@@ -6,7 +6,7 @@
 #define MINIGIN_POOKAGHOSTSTATE_H
 
 #include "State.h"
-namespace game
+namespace DigDug
 {
     class PookaBehaviour;
     class PookaGhostState :  public State<PookaBehaviour>

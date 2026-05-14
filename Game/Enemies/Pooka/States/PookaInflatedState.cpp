@@ -9,7 +9,7 @@
 #include "SpriteAnimationComponent.h"
 
 
-void game::PookaInflatedState::Enter(PookaBehaviour& Data )
+void DigDug::PookaInflatedState::Enter(PookaBehaviour& Data )
 {
     m_timer = 0;
     auto* obj = Data.GetOwner();
@@ -19,13 +19,13 @@ void game::PookaInflatedState::Enter(PookaBehaviour& Data )
 
 }
 
-void game::PookaInflatedState::Update(PookaBehaviour&  , float dt)
+void DigDug::PookaInflatedState::Update(PookaBehaviour&  , float dt)
 {
     m_timer += dt;
 
 
 }
 
-void game::PookaInflatedState::Exit(PookaBehaviour& ) {
+void DigDug::PookaInflatedState::Exit(PookaBehaviour& ) {
 
 }

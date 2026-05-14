@@ -10,7 +10,7 @@
 
 
 
-void game::PookaNormalState::Enter(PookaBehaviour& Data )
+void DigDug::PookaNormalState::Enter(PookaBehaviour& Data )
 {
     m_timer = 0;
     auto* obj = Data.GetOwner();
@@ -21,7 +21,7 @@ void game::PookaNormalState::Enter(PookaBehaviour& Data )
 
 }
 
-void game::PookaNormalState::Update(PookaBehaviour& Data , float dt)
+void DigDug::PookaNormalState::Update(PookaBehaviour& Data , float dt)
 {
     m_timer += dt;
 
@@ -32,7 +32,7 @@ void game::PookaNormalState::Update(PookaBehaviour& Data , float dt)
     }
 }
 
-void game::PookaNormalState::Exit(PookaBehaviour& )
+void DigDug::PookaNormalState::Exit(PookaBehaviour& )
 {
 
 }

@@ -10,7 +10,7 @@
 #include "SpriteAnimationComponent.h"
 
 
-void game::PookaDeadState::Enter(PookaBehaviour& Data )
+void DigDug::PookaDeadState::Enter(PookaBehaviour& Data )
 {
     m_timer = 0;
     auto* obj = Data.GetOwner();
@@ -20,14 +20,14 @@ void game::PookaDeadState::Enter(PookaBehaviour& Data )
 
 }
 
-void game::PookaDeadState::Update(PookaBehaviour&  , float dt)
+void DigDug::PookaDeadState::Update(PookaBehaviour&  , float dt)
 {
     m_timer += dt;
 
 
 }
 
-void game::PookaDeadState::Exit(PookaBehaviour& )
+void DigDug::PookaDeadState::Exit(PookaBehaviour& )
 {
 
 }

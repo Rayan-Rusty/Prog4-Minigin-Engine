@@ -1,0 +1,43 @@
+//
+// Created by omen on 02/05/2026.
+//
+
+#ifndef MINIGIN_PLAYER_H
+#define MINIGIN_PLAYER_H
+#include <memory>
+
+#include "Component.h"
+#include "State.h"
+
+namespace dae { class GameObject; }
+namespace DigDug
+{
+    class PlayerBehaviour : public dae::Component
+    {
+    public:
+
+
+        PlayerBehaviour(dae::GameObject* owner);
+        ~PlayerBehaviour() = default;
+
+
+        void Update(float dt) override;
+        void ChangeState(std::unique_ptr<State<PlayerBehaviour>> newState);
+        std::type_index GetType() const override;
+
+
+
+        PlayerBehaviour(const PlayerBehaviour& other) = delete;
+        PlayerBehaviour(PlayerBehaviour&& other) = delete;
+        PlayerBehaviour& operator=(const PlayerBehaviour& other) = delete;
+        PlayerBehaviour& operator=(PlayerBehaviour&& other) = delete;
+
+
+    private:
+        std::unique_ptr<State<PlayerBehaviour>> m_state;
+    };
+}
+
+
+
+#endif //MINIGIN_PLAYER_H
