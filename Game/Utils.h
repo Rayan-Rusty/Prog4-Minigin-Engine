@@ -12,9 +12,10 @@
 namespace Utils
 {
     std::unique_ptr<dae::GameObject> CreateAnimatedSpriteObject( const std::string& TexturePath , int rows , int cols);
-    std::unique_ptr<dae::GameObject> CreateTextObject( std::string& TexturePath);
-    std::unique_ptr<dae::GameObject> CreateBackgroundObject(std::string& TexturePath);
-    std::unique_ptr<dae::GameObject> CreateUIElement(std::string& TexturePath);
+    std::unique_ptr<dae::GameObject> CreatePlayerCharacter( const std::string& TexturePath , int rows , int cols);
+    std::unique_ptr<dae::GameObject> CreateTextObject( const std::string& TexturePath);
+    std::unique_ptr<dae::GameObject> CreateBackgroundObject(const std::string& TexturePath);
+    std::unique_ptr<dae::GameObject> CreateUIElement(const std::string& TexturePath);
 
     //void DebugObject();
 }
