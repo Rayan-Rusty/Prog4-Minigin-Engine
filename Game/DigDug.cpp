@@ -30,6 +30,10 @@
 #include "TilemapComponent.h"
 #include "Utils.h"
 #include "FygarBehaviour.h"
+#include "MenuNavigateCommand.h"
+#include "Menu/MenuMarker.h"
+#include "Menu/Events/System/MenuNavigateSystem.h"
+
 
 
 //TODO ASYNC noise
@@ -40,8 +44,8 @@
 
 void DigDug::Game::Init()
 {
-   // InitializeMenuScreen();
-   // InitializeGame();
+   //InitializeMenuScreen();
+    //InitializeGame();
     InitFirstLevel();
 
 }
@@ -58,33 +62,6 @@ void DigDug::Game::Draw() const
 }
 
 
-void DigDug::Game::InitializeMenuScreen()
-{
-    auto scene = &dae::SceneManager::GetInstance().CreateScene();
-
-
-    //---------Background-------------
-    auto go{std::make_unique<dae::GameObject>()};
-    auto RenderComp{std::make_unique<dae::RenderComponent>(go.get())};
-    RenderComp->SetTextureFilePath("Sprites/MenuScreen.png");
-    go->AddComponent(std::move(RenderComp));
-    scene->Add(std::move(go));
-
-
-    auto FpsGameObject{std::make_unique<dae::GameObject>()};
-    FpsGameObject->GetTransform().SetLocalPosition(glm::vec3{10,10,0});
-    auto font{dae::ResourceManager::GetInstance().LoadFont("Fonts/Emulogic-zrEw.ttf", 18)};
-    auto TextComp{std::make_unique<dae::TextComponent>(FpsGameObject.get(), "FPS : 0", font)};
-    TextComp->SetColor({255, 255, 255, 255});
-    RenderComp = std::make_unique<dae::RenderComponent>(FpsGameObject.get());
-
-    RenderComp->SetIsUI(true);
-    FpsGameObject->AddComponent(std::move(RenderComp));
-    FpsGameObject->AddComponent(std::move(TextComp));
-    FpsGameObject->AddComponent(std::make_unique<dae::FPSComponent>(FpsGameObject.get()));
-    scene->Add(std::move(FpsGameObject));
-
-}
 
 
 void DigDug::Game::InitializeGame() {
@@ -255,6 +232,60 @@ void DigDug::Game::InitializeIMGUIScene()
 
 }
 
+void DigDug::Game::InitializeMenuScreen()
+{
+    auto scene = &dae::SceneManager::GetInstance().CreateScene();
+
+    //========================
+    //===== Background =======
+    //========================
+    auto Background = Utils::CreateBackgroundObject("MainMenu/Background.png");
+    Background->GetTransform().SetScale(glm::vec3{2, 2, 2});
+    Background->GetTransform().SetWorldPosition(glm::vec3{0, 0, 0});
+
+    //========================
+    //===== Arrow =======
+    //========================
+    auto Marker = Utils::CreateBackgroundObject("MainMenu/Marker.png");
+    Marker->GetTransform().SetScale(glm::vec3{2, 2, 2});
+    Marker->GetTransform().SetWorldPosition(glm::vec3{512 / 2 - 100, 205, 0});
+
+    auto markerComp  = std::make_unique<MenuMarker>(Marker.get());
+    markerComp->AddPosition(glm::vec3{512 / 2 - 100, 205, 0}); // Single Player
+    markerComp->AddPosition(glm::vec3{512 / 2 - 100, 235, 0}); // Multiplayer
+    markerComp->AddPosition(glm::vec3{512 / 2 - 100, 265, 0}); // Options
+
+
+    Marker->AddComponent(std::move(markerComp));
+
+
+    auto menuSystem = std::make_unique<MenuNavigateSystem>(Marker.get());
+    scene->StoreSystem(std::move(menuSystem));
+
+    auto menuUp = std::make_unique<dae::MenuNavigateCommand>(Marker.get() , 1);
+
+    dae::InputManager::GetInstance().AddCommandBinding(
+        SDL_SCANCODE_W,
+        std::move(menuUp),
+        dae::InputManager::KeyState::Down
+    );
+
+    auto menuDown = std::make_unique<dae::MenuNavigateCommand>(Marker.get() , -1);
+
+    dae::InputManager::GetInstance().AddCommandBinding(
+        SDL_SCANCODE_S,
+        std::move(menuDown),
+        dae::InputManager::KeyState::Down
+    );
+
+    scene->Add(std::move(Background));
+    scene->Add(std::move(Marker));    //TODO keyboard needs ot be auto added
+    dae::InputManager::GetInstance().AddDevice(std::make_unique<dae::Keyboard>());
+
+
+}
+
+
 void DigDug::Game::InitFirstLevel()
 {
     auto Scene = &dae::SceneManager::GetInstance().CreateScene();
@@ -293,7 +324,7 @@ void DigDug::Game::InitFirstLevel()
     tilemapComp->LoadFromFile("Data/Sprites/IndexedFile.png");
     Tilemap->AddComponent(std::move(tilemapComp));
     Tilemap->GetTransform().SetScale(glm::vec3{2, 2, 2});
-    Tilemap->GetTransform().SetWorldPosition(glm::vec3{800 / 4, 0, 0});
+    Tilemap->GetTransform().SetWorldPosition(glm::vec3{0, -16*2, 0});
 
 
     Scene->Add(std::move(Tilemap));
