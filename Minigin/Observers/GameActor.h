@@ -6,18 +6,21 @@
 #define MINIGIN_GAMEACTOR_H
 #include <vector>
 
+#include "IObserver.h"
+
 
 namespace dae
 {
-    class IObserver;
 
     class GameActor
     {
     public:
+        GameActor() = default;
+        ~GameActor();
         void AddObserver(IObserver* observer);
         void RemoveObserver(IObserver* observer);
     protected:
-            void NotifyObservers(Event event);
+            void NotifyObservers(IObserver::Event event);
     private:
         std::vector<IObserver*> m_Observers;
 

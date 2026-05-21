@@ -7,9 +7,22 @@
 #include "IObserver.h"
 
 
-void dae::AddObserver(IObserver *observer) {
-    m_Observers->push_back(observer);
+dae::GameActor::~GameActor()
+{
+    for (auto observer : m_Observers)
+    {
+        if (observer)
+            observer->OnSubjectDestroy();
+    }
 }
+
+
+void dae::GameActor::AddObserver(IObserver* observer)
+{
+    if (observer)
+        m_Observers.push_back(observer);
+}
+
 
 void dae::GameActor::RemoveObserver(IObserver *observer)
 {
@@ -23,7 +36,12 @@ void dae::GameActor::RemoveObserver(IObserver *observer)
     );
 }
 
-void dae::GameActor::NotifyObservers(Event event) {
-    for (auto observer: m_Observers)
-        observer->Notify(event, this);
+
+void dae::GameActor::NotifyObservers(IObserver::Event event)
+{
+    for (auto observer : m_Observers)
+    {
+        if (observer)
+            observer->Notify(event, this);
+    }
 }

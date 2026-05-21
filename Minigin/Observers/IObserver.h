@@ -22,7 +22,9 @@ namespace dae
             LevelCompleted
 
         };
+
         virtual void Notify(Event event, GameActor* actor) = 0;
+        virtual void OnSubjectDestroy() {}
     private:
     };
 }
