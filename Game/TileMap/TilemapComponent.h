@@ -13,6 +13,7 @@
 
 namespace dae {
     class GameObject;
+
 }
 
 namespace DigDug
@@ -31,20 +32,37 @@ namespace DigDug
         void Render() const override;
         void Clear();
         std::type_index GetType() const override { return typeid(TilemapComponent); }
-        // TileType GetTile(int x, int y) const;
-        // void SetTile(int x, int y, TileType type);
-        // bool IsBlocked(int x, int y) const;
-        enum class TileType
+        //bool DeterminOrientation(int x , int y);
+
+        enum class TileType : uint8_t {
+            Empty = 0,
+            Block = 1,
+            BlockVertical = 2,  // For vertical dirt
+            PookaSpawn = 3,
+            FygarSpawn = 4,
+            PlayerSpawn = 5
+        };
+
+
+        enum class TileOrientation : uint8_t
         {
-            Dirt = 0,
-            Dug = 1
+            Horizontal = 0,
+            Vertical = 1
         };
 
         struct Tile
         {
        		int x , y;
+
+            bool IsEmpty{false};
+            TileOrientation orientation{TileOrientation::Horizontal};
+
             TileType  state;
             std::vector<std::shared_ptr<dae::Texture2D>> texture;
+            std::shared_ptr<dae::Texture2D> GetCurrentTexture() const
+            {
+                return texture[IsEmpty];
+            }
         };
 
     private:
