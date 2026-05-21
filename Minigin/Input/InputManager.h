@@ -1,11 +1,13 @@
 #pragma once
+#include <memory>
 #include <variant>
+#include <vector>
 
-#include "../Singleton.h"
-#include "../Commands/Command.h"
+#include "Singleton.h"
+#include "Command.h"
 
-#include "../Devices/InputDevice.h"
-#include "../DataStructs/GamepadDataStructs.h"
+#include "InputDevice.h"
+#include "GamepadDataStructs.h"
 namespace dae
 {
 	class InputManager final : public Singleton<InputManager>

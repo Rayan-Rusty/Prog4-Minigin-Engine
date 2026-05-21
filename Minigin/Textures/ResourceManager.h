@@ -3,7 +3,7 @@
 #include <string>
 #include <memory>
 #include <map>
-#include "../Singleton.h"
+#include "Singleton.h"
 
 namespace dae
 {

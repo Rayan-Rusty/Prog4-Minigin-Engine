@@ -3,7 +3,7 @@
 //
 
 #include "RotationComponent.h"
-#include "../GameObject/GameObject.h"
+#include "GameObject.h"
 //TODO REMOVE PIVOT , WRAP , ANGLE
 
 dae::RotationComponent::RotationComponent(GameObject* pOwner, float clockwiseDirection)

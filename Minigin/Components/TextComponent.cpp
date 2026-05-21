@@ -2,9 +2,9 @@
 #include <utility>
 #include <SDL3_ttf/SDL_ttf.h>
 #include "TextComponent.h"
-#include "../Rendering/Renderer.h"
-#include "../Textures/Font.h"
-#include "../Textures/Texture2D.h"
+#include "Renderer.h"
+#include "Font.h"
+#include "Texture2D.h"
 #include "RenderComponent.h"
 
 dae::TextComponent::TextComponent(GameObject* owner, std::string  text, std::shared_ptr<Font> font, const SDL_Color& color)

@@ -4,7 +4,7 @@
 
 #ifndef MINIGIN_DEBUGSYSTEM_H
 #define MINIGIN_DEBUGSYSTEM_H
-#include "../EventQueue/IEventListener.h"
+#include "IEventListener.h"
 
 
 namespace dae

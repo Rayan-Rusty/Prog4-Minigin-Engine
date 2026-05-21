@@ -3,7 +3,7 @@
 //
 
 #include "PookaGhostState.h"
-#include "PookaNormalState.h"
+
 #include "PookaBehaviour.h"
 #include "SpriteAnimationComponent.h"
 

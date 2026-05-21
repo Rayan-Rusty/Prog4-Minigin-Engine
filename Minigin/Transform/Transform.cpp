@@ -1,5 +1,5 @@
 #include "Transform.h"
-#include "../GameObject/GameObject.h"
+#include "GameObject.h"
 
 dae::Transform::Transform(GameObject *owner)
 	: Component(owner)

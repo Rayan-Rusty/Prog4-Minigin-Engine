@@ -4,7 +4,7 @@
 
 #include "MenuMarker.h"
 
-#include "../../Minigin/GameObject/GameObject.h"
+#include "GameObject.h"
 
 
 DigDug::MenuMarker::MenuMarker(dae::GameObject *owner)

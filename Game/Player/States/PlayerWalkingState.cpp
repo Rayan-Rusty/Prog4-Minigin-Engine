@@ -4,11 +4,11 @@
 
 #include "PlayerWalkingState.h"
 
-#include "../../../Minigin/GameObject/GameObject.h"
+#include "GameObject.h"
 #include "MovementComponent.h"
 #include "PlayerIdleState.h"
 #include "SpriteAnimationComponent.h"
-#include "Player/PlayerBehaviour.h"
+#include "PlayerBehaviour.h"
 
 
 void DigDug::PlayerWalkingState::Enter(PlayerBehaviour &Data)

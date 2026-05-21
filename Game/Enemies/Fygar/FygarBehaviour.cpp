@@ -5,7 +5,7 @@
 #include "FygarBehaviour.h"
 
 #include "FygarAttackState.h"
-#include "FygarNormalState.h"
+
 
 
 DigDug::FygarBehaviour::FygarBehaviour(dae::GameObject *owner)

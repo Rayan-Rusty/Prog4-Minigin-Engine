@@ -3,10 +3,8 @@
 //
 
 #include "MoveCommand.h"
-#include "Components/MovementComponent.h"
-#include "EventQueue/Event.h"
-#include "EventQueue/EventsIds.h"
-#include "../Scene/SceneManager.h"
+#include "MovementComponent.h"
+#include "SceneManager.h"
 
 dae::MoveCommand::MoveCommand(GameObject *actor , glm::vec3 direction)
     : GameActorCommand(actor), m_direction(direction)

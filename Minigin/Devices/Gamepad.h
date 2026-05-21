@@ -7,7 +7,7 @@
 #include <memory>
 #include "InputDevice.h"
 #include <vector>
-#include "../DataStructs/GamepadDataStructs.h"
+#include "GamepadDataStructs.h"
 namespace dae
 {
     class Gamepad : public InputDevice

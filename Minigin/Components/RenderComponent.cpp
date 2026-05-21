@@ -2,8 +2,8 @@
 #include "RenderComponent.h"
 
 #include "SpriteAnimationComponent.h"
-#include "../Textures/Texture2D.h"
-#include "../GameObject/GameObject.h"
+#include "Texture2D.h"
+#include "GameObject.h"
 
 
 dae::RenderComponent::RenderComponent(GameObject *owner)

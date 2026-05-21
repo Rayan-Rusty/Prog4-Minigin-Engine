@@ -1,9 +1,9 @@
 #pragma once
 #include <vector>
-//#include <string>
+
 #include <memory>
 #include "Scene.h"
-#include "../Singleton.h"
+#include "Singleton.h"
 
 namespace dae
 {

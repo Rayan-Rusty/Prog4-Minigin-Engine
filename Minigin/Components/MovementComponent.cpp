@@ -4,7 +4,7 @@
 
 #include "MovementComponent.h"
 
-#include "../GameObject/GameObject.h"
+#include "GameObject.h"
 
 
 dae::MovementComponent::MovementComponent(GameObject *owner, float speed, bool gravity)

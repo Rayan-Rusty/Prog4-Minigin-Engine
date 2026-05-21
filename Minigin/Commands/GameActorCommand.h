@@ -8,7 +8,7 @@
 
 namespace dae
 {
-
+    class GameObject;
     class GameActorCommand : public Command
     {
     public:

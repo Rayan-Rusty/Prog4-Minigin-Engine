@@ -2,11 +2,11 @@
 
 #include "DigDug.h"
 
-#include "../Minigin/Scene/SceneManager.h"
-#include "../Minigin/Textures/ResourceManager.h"
+#include "SceneManager.h"
+#include "ResourceManager.h"
 
-#include "../Minigin/GameObject/GameObject.h"
-#include "../Minigin/Scene/Scene.h"
+#include "GameObject.h"
+#include "Scene.h"
 #include "TextComponent.h"
 #include "FPSComponent.h"
 #include "RenderComponent.h"
@@ -14,17 +14,17 @@
 
 #include <algorithm>
 
-#include "../Minigin/Input/InputManager.h"
+#include "InputManager.h"
 #include "MoveCommand.h"
 #include "MovementComponent.h"
-#include "../Minigin/Devices/Gamepad.h"
-#include "../Minigin/DataStructs/GamepadDataStructs.h"
+#include "Gamepad.h"
+#include "GamepadDataStructs.h"
 #include "EventsIds.h"
 
 #include "ServiceLocator.h"
 #include "SoundEventListener.h"
 #include "DebugSystem.h"
-#include "../Minigin/Devices/Keyboard.h"
+#include "Keyboard.h"
 #include "PlayerBehaviour.h"
 #include "PookaBehaviour.h"
 #include "TilemapComponent.h"

@@ -4,12 +4,12 @@
 
 #ifndef MINIGIN_SPRITEANIMATIONCOMPONENT_H
 #define MINIGIN_SPRITEANIMATIONCOMPONENT_H
-#include <memory>
+
 #include <vector>
 #include <SDL3/SDL.h>
 
 #include "Component.h"
-#include "../Textures/Texture2D.h"
+#include "Texture2D.h"
 
 namespace dae
 {

@@ -4,7 +4,7 @@
 
 #ifndef MINIGIN_SOUNDEVENTLISTENER_H
 #define MINIGIN_SOUNDEVENTLISTENER_H
-#include "../EventQueue/IEventListener.h"
+#include "IEventListener.h"
 
 
 namespace dae

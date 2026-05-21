@@ -1,7 +1,7 @@
 ﻿#include <stdexcept>
 #include <SDL3_ttf/SDL_ttf.h>
 #include "ResourceManager.h"
-#include "../Rendering/Renderer.h"
+#include "Renderer.h"
 #include "Texture2D.h"
 #include "Font.h"
 

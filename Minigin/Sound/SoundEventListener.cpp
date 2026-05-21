@@ -4,7 +4,7 @@
 
 #include "SoundEventListener.h"
 
-#include "../EventQueue/EventsIds.h"
+#include "EventsIds.h"
 #include "Sound/ServiceLocator.h"
 
 

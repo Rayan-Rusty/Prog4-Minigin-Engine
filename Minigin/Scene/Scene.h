@@ -1,9 +1,9 @@
 #pragma once
 #include <memory>
-#include <string>
+
 #include <vector>
-#include "../GameObject/GameObject.h"
-#include "../EventQueue/EventBus.h"
+#include "GameObject.h"
+#include "EventBus.h"
 
 namespace dae
 {

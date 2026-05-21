@@ -7,9 +7,9 @@
 #include <iostream>
 #include <SDL3/SDL.h>
 
-#include "../../Minigin/GameObject/GameObject.h"
-#include "../../Minigin/Rendering/Renderer.h"
-#include "../../Minigin/Textures/ResourceManager.h"
+#include "GameObject.h"
+#include "Renderer.h"
+#include "ResourceManager.h"
 
 DigDug::TilemapComponent::TilemapComponent(dae::GameObject* pOwner)
     :Component(pOwner)

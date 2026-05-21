@@ -5,9 +5,9 @@
 #include "SpriteAnimationComponent.h"
 
 #include "RenderComponent.h"
-#include "../Rendering/Renderer.h"
-#include "../GameObject/GameObject.h"
-#include "../Textures/ResourceManager.h"
+#include "Renderer.h"
+#include "GameObject.h"
+
 
 
 dae::SpriteAnimationComponent::SpriteAnimationComponent(GameObject *owner, int rows , int columns)

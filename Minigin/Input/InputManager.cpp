@@ -2,8 +2,8 @@
 #include <backends/imgui_impl_sdl3.h>
 #include "InputManager.h"
 
-#include "../Devices/Keyboard.h"
-#include "../Devices/Gamepad.h"
+#include "Keyboard.h"
+#include "Gamepad.h"
 
 
 bool dae::InputManager::ProcessInput(float)

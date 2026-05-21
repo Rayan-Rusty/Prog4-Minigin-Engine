@@ -3,7 +3,7 @@
 //
 
 #include "ScoreSystem.h"
-#include "../EventQueue/EventsIds.h"
+#include "EventsIds.h"
 
 
 void dae::ScoreSystem::OnEvent(const Event &e)

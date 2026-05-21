@@ -4,7 +4,7 @@
 
 #include "PlayerBehaviour.h"
 
-#include "States/PlayerIdleState.h"
+#include "PlayerIdleState.h"
 
 
 DigDug::PlayerBehaviour::PlayerBehaviour(dae::GameObject* owner)

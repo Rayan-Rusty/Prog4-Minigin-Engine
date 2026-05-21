@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <SDL3/SDL.h>
-#include "../Singleton.h"
+#include "Singleton.h"
 #include <memory>
 class TextObject;
 namespace dae

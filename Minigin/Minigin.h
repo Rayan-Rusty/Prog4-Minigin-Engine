@@ -1,8 +1,7 @@
 #pragma once
-#include <string>
-#include <functional>
+
 #include <filesystem>
-#include <SDL3/SDL.h>
+
 
 #include "IGame.h"
 

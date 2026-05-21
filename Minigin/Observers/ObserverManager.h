@@ -4,7 +4,7 @@
 
 #ifndef MINIGIN_OBSERVERMANAGER_H
 #define MINIGIN_OBSERVERMANAGER_H
-#include <vector>
+
 
 #include "Singleton.h"
 //TODO finish observers

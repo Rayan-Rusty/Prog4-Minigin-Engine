@@ -4,7 +4,7 @@
 
 #include "PookaNormalState.h"
 
-#include "PookaGhostState.h"
+
 #include "PookaBehaviour.h"
 #include "PookaInflatedState.h"
 #include "SpriteAnimationComponent.h"

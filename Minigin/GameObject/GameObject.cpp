@@ -1,9 +1,9 @@
-#include <string>
+
 #include "GameObject.h"
 
 
-#include "../Textures/ResourceManager.h"
-#include "../Rendering/Renderer.h"
+#include "ResourceManager.h"
+
 
 dae::GameObject::~GameObject()
 {

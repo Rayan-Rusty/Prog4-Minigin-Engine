@@ -4,7 +4,7 @@
 
 #ifndef MINIGIN_UTILS_H
 #define MINIGIN_UTILS_H
-#include "../DataStructs/DataStructs.h"
+#include "DataStructs.h"
 #include "SDL3/SDL_rect.h"
 
 namespace dae {

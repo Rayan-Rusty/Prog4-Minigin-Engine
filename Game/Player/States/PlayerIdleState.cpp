@@ -3,11 +3,11 @@
 //
 
 #include "PlayerIdleState.h"
-#include "Player/PlayerBehaviour.h"
-#include "../../../Minigin/GameObject/GameObject.h"
+#include "PlayerBehaviour.h"
+#include "GameObject.h"
 #include "MovementComponent.h"
 #include "SpriteAnimationComponent.h"
-#include "MovementComponent.h"
+
 #include "PlayerWalkingState.h"
 
 

@@ -1,8 +1,8 @@
-#pragma once
-#include "Components/Component.h"
 
-#include "../Rendering/Renderer.h"
-#include "../Textures/ResourceManager.h"
+#include "Component.h"
+
+#include "Renderer.h"
+#include "ResourceManager.h"
 
 namespace dae
 {

@@ -2,12 +2,12 @@
 // Created by omen on 29/04/2026.
 //
 
-#include "../Systems/DebugSystem.h"
+#include "DebugSystem.h"
 
 #include <iostream>
 #include <ostream>
 
-#include "EventQueue/EventsIds.h"
+#include "EventsIds.h"
 
 
 void dae::DebugSystem::OnEvent(const Event &e)

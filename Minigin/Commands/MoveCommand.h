@@ -5,6 +5,7 @@
 #ifndef MINIGIN_MOVELEFTCOMMAND_H
 #define MINIGIN_MOVELEFTCOMMAND_H
 #include "GameActorCommand.h"
+#include <glm\glm.hpp>
 
 namespace dae
 {

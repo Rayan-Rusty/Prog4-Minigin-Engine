@@ -1,9 +1,9 @@
 ﻿#include <stdexcept>
-#include <cstring>
+
 #include <iostream>
-#include "../Renderer.h"
-#include "../Scene/SceneManager.h"
-#include "../Textures/Texture2D.h"
+#include "Renderer.h"
+#include "SceneManager.h"
+#include "Texture2D.h"
 #include <imgui.h>
 #include <backends/imgui_impl_sdl3.h>
 #include <backends/imgui_impl_sdlrenderer3.h>

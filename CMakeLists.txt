@@ -99,7 +99,16 @@ add_library(${ENGINE_NAME} STATIC
 
 target_include_directories(${ENGINE_NAME} PUBLIC
         ${CMAKE_SOURCE_DIR}/Minigin
-        ${CMAKE_SOURCE_DIR}/Minigin/Managers
+        ${CMAKE_SOURCE_DIR}/Minigin/DataStructs
+        ${CMAKE_SOURCE_DIR}/Minigin/Devices
+        ${CMAKE_SOURCE_DIR}/Minigin/GameObject
+        ${CMAKE_SOURCE_DIR}/Minigin/Imgui
+        ${CMAKE_SOURCE_DIR}/Minigin/Input
+        ${CMAKE_SOURCE_DIR}/Minigin/Rendering
+        ${CMAKE_SOURCE_DIR}/Minigin/Scene
+        ${CMAKE_SOURCE_DIR}/Minigin/Singletons
+        ${CMAKE_SOURCE_DIR}/Minigin/Textures
+        ${CMAKE_SOURCE_DIR}/Minigin/Transform
         ${CMAKE_SOURCE_DIR}/Minigin/Components
         ${CMAKE_SOURCE_DIR}/Minigin/Commands
         ${CMAKE_SOURCE_DIR}/Minigin/Systems

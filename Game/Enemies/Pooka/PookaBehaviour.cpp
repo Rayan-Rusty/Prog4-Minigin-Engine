@@ -4,7 +4,7 @@
 
 #include "PookaBehaviour.h"
 
-#include "States/PookaNormalState.h"
+#include "PookaNormalState.h"
 
 
  DigDug::PookaBehaviour::PookaBehaviour(dae::GameObject* owner)

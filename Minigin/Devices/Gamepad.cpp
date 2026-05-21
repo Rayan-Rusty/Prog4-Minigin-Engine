@@ -7,7 +7,7 @@
 #include <array>
 #include <vector>
 
-#include "../Input/InputManager.h"
+#include "InputManager.h"
 
 #ifdef _WIN32
 #include <Windows.h>
