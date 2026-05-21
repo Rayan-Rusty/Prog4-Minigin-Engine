@@ -18,6 +18,8 @@ namespace dae
 		EventBus& GetEventBus();
 		void StoreSystem(std::unique_ptr<IEventListener> system);
 
+		void Clear();
+
 
 		void Update(float deltaTime);
 		void RemoveGameObject();

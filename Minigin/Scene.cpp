@@ -65,3 +65,10 @@ void Scene::StoreSystem(std::unique_ptr<IEventListener> system)
 	m_eventBus.AddListener(system.get());
 	m_listeners.emplace_back(std::move(system));
 }
+
+void Scene::Clear()
+{
+	m_objects.clear();
+	m_listeners.clear();
+    //m_eventBus.Clear();
+}
