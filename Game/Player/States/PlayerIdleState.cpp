@@ -18,10 +18,20 @@ void DigDug::PlayerIdleState::Enter(PlayerBehaviour &Data)
     auto* obj = Data.GetOwner();
 
     if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
-        spriteComp->SetAnimation(0 , 0 , 0);
-}
+    {
+        std::vector<SDL_FRect> idle =
+        {
+            {0, 0, 16, 16},
+        };
 
-void DigDug::PlayerIdleState::Update(PlayerBehaviour& Data, float ) {
+        spriteComp->SetAnimation( idle, 0.2f , false);
+    }
+
+    
+}
+//TODO State update is a return ?
+void DigDug::PlayerIdleState::Update(PlayerBehaviour& Data, float )
+{
     auto* moveComp = Data.GetOwner()->GetComponent<dae::MovementComponent>();
 
     if (moveComp && moveComp->IsMoving())

@@ -11,8 +11,18 @@ void DigDug::FygarNormalState::Enter(FygarBehaviour &Data)
 {
     auto* obj = Data.GetOwner();
 
+
     if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
-        spriteComp->SetAnimation(0 , 0 , 1);
+    {
+        std::vector<SDL_FRect> normalState =
+        {
+            {0, 0, 16, 16},
+            {16 , 0, 16, 16},
+            {32 , 0, 16, 16},
+        };
+
+        spriteComp->SetAnimation( normalState, 0.2f , true);
+    }
 }
 
 void DigDug::FygarNormalState::Update(FygarBehaviour &, float )

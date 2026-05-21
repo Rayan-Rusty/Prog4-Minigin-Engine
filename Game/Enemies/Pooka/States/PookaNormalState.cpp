@@ -6,6 +6,7 @@
 
 #include "PookaGhostState.h"
 #include "PookaBehaviour.h"
+#include "PookaInflatedState.h"
 #include "SpriteAnimationComponent.h"
 
 
@@ -16,7 +17,16 @@ void DigDug::PookaNormalState::Enter(PookaBehaviour& Data )
     auto* obj = Data.GetOwner();
 
     if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
-        spriteComp->SetAnimation(0 , 0 , 1);
+    {
+        std::vector<SDL_FRect> normalState =
+        {
+            {0, 0, 16, 16},
+            {16 , 0, 16, 16}
+
+        };
+
+        spriteComp->SetAnimation( normalState, 0.2f , true);
+    }
 
 
 }
@@ -28,7 +38,7 @@ void DigDug::PookaNormalState::Update(PookaBehaviour& Data , float dt)
     // DEMO ONLY
     if (m_timer > 2.0f)
     {
-       Data.ChangeState(std::make_unique<PookaGhostState>());
+       Data.ChangeState(std::make_unique<PookaInflatedState>());
     }
 }
 

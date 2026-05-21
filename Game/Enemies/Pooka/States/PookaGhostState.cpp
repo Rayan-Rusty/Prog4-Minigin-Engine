@@ -14,14 +14,22 @@ void DigDug::PookaGhostState::Enter(PookaBehaviour& Data )
     auto* obj = Data.GetOwner();
 
     if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
-        spriteComp->SetAnimation(0 , 3 , 4);
+    {
+        std::vector<SDL_FRect> ghostState =
+        {
+            {48, 0, 16, 16},
+            { 64, 0, 16, 16}
+
+        };
+
+        spriteComp->SetAnimation( ghostState, 0.2f , true);
+    }
 
 }
 
 void DigDug::PookaGhostState::Update(PookaBehaviour&  , float dt)
 {
     m_timer += dt;
-
 
 }
 

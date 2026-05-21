@@ -9,13 +9,13 @@
 #include "FygarBehaviour.h"
 #include "GameObject.h"
 
-void DigDug::FygarDeadState::Enter(FygarBehaviour& Data)
+void DigDug::FygarDeadState::Enter(FygarBehaviour& )
 {
 
-    auto* obj = Data.GetOwner();
+    // auto* obj = Data.GetOwner();
 
-    if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
-        spriteComp->SetAnimation(0 , 0 , 1);
+    // if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
+    //     spriteComp->SetAnimation(0 , 0 , 1);
 
 }
 

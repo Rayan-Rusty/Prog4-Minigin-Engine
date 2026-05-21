@@ -14,6 +14,7 @@ namespace DigDug
     class FygarGhostState : public State<FygarBehaviour>
     {
     public:
+
         ~FygarGhostState() override = default;
         void Enter(FygarBehaviour& Data) override;
         void Update(FygarBehaviour& Data, float dt) override;

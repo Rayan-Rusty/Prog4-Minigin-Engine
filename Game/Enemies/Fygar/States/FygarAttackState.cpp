@@ -14,7 +14,17 @@ void DigDug::FygarAttackState::Enter(FygarBehaviour& Data)
     auto* obj = Data.GetOwner();
 
     if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
-        spriteComp->SetAnimation(0 , 0 , 1);
+    {
+        std::vector<SDL_FRect> AttackFrames =
+        {
+            {48, 16, 16, 16},
+            {64 , 16, 16, 16},
+            {80 , 16, 16, 16}
+        };
+
+        spriteComp->SetAnimation( AttackFrames, 0.2f , true);
+    }
+
 
 }
 

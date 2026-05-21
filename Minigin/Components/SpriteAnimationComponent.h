@@ -26,7 +26,8 @@ namespace dae
         const SDL_FRect& GetSourceRect() const;
 
 
-        void SetAnimation(int row, int startCol, int endCol);
+        //void SetAnimation(int row, int startCol, int endCol,  int frameWidth = 1, int frameHeight = 1);
+        void SetAnimation(const std::vector<SDL_FRect>& Sizes , float duration , bool looping = true);
         //SetCustomAnimation(std::vector<SDL_FRect>);
         std::type_index GetType() const override;
 
@@ -39,17 +40,12 @@ namespace dae
             float duration;
         };
 
-        // struct AnimationClip
-        // {
-        //     std::vector<SpriteFrame> frames;
-        //     bool looping{false};
-        // };
+
 
         struct AnimationClip
         {
-             int row;
-             int startCol;
-             int endCol;
+            std::vector<SpriteFrame> spritesFrames;
+            bool looping{true}; //TODO make it so that you can loop things or not through this
         };
 
         SDL_FRect m_Src{};
@@ -63,6 +59,7 @@ namespace dae
 
         AnimationClip m_CurrentAnim{};
         int m_CurrentCol{};
+        int m_CurrentFrameIndex{0};
     };
 }
 

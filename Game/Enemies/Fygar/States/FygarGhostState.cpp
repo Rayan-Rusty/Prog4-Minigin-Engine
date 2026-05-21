@@ -13,8 +13,18 @@ void DigDug::FygarGhostState::Enter(FygarBehaviour &Data)
 {
     auto* obj = Data.GetOwner();
 
+
     if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
-        spriteComp->SetAnimation(0 , 6 , 7);
+    {
+        std::vector<SDL_FRect> ghostFrames =
+        {
+            {96, 0, 16, 16},
+            {112 , 0 , 16, 16}
+        };
+
+        spriteComp->SetAnimation( ghostFrames, 0.2f , true);
+    }
+
 }
 
 void DigDug::FygarGhostState::Update(FygarBehaviour &, float ) {

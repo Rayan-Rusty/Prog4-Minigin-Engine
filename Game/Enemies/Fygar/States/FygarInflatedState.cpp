@@ -13,8 +13,19 @@ void DigDug::FygarInflatedState::Enter(FygarBehaviour& Data)
 
     auto* obj = Data.GetOwner();
 
+
     if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
-        spriteComp->SetAnimation(0 , 0 , 1);
+    {
+        std::vector<SDL_FRect> InflateFrames =
+        {
+            {0, 32, 16, 16},
+            {16 , 32, 32, 32},
+            {32 , 32, 32, 32},
+            {48 , 32, 32, 32}
+        };
+
+        spriteComp->SetAnimation( InflateFrames, 0.2f , true);
+    }
 
 }
 

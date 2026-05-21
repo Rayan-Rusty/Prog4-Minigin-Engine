@@ -15,8 +15,17 @@ void DigDug::PookaDeadState::Enter(PookaBehaviour& Data )
     m_timer = 0;
     auto* obj = Data.GetOwner();
 
+
     if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
-        spriteComp->SetAnimation(0 , 3 , 4);
+    {
+        std::vector<SDL_FRect> normalState =
+        {
+            {0, 16, 16, 16},
+            {16 , 16, 16, 16}
+        };
+
+        spriteComp->SetAnimation( normalState, 0.2f , true);
+    }
 
 }
 
