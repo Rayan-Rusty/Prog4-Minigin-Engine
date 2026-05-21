@@ -36,18 +36,18 @@ endif()
 # =========================
 add_library(${ENGINE_NAME} STATIC
         # Core engine
-        Minigin/Font.cpp
-        Minigin/GameObject.cpp
+        Minigin/Textures/Font.cpp
+        Minigin/GameObject/GameObject.cpp
         Minigin/Minigin.cpp
-        Minigin/Renderer.cpp
-        Minigin/Scene.cpp
-        Minigin/Texture2D.cpp
-        Minigin/Transform.cpp
+        Minigin/Rendering/Renderer.cpp
+        Minigin/Scene/Scene.cpp
+        Minigin/Textures/Texture2D.cpp
+        Minigin/Transform/Transform.cpp
 
         # Managers
-        Minigin/Managers/InputManager.cpp
-        Minigin/Managers/ResourceManager.cpp
-        Minigin/Managers/SceneManager.cpp
+        Minigin/Input/InputManager.cpp
+        Minigin/Textures/ResourceManager.cpp
+        Minigin/Scene/SceneManager.cpp
 
         # Components
         Minigin/Components/TextComponent.cpp
@@ -64,8 +64,8 @@ add_library(${ENGINE_NAME} STATIC
         Minigin/Commands/GameActorCommand.cpp
 
         # Input
-        Minigin/Gamepad.cpp
-        Minigin/Keyboard.cpp
+        Minigin/Devices/Gamepad.cpp
+        Minigin/Devices/Keyboard.cpp
 
         # Observers
         Minigin/Observers/ObserverManager.cpp
@@ -92,6 +92,8 @@ add_library(${ENGINE_NAME} STATIC
 
         # Game interface
         Minigin/IGame.cpp
+        Minigin/Components/CollisionComponent.cpp
+        Minigin/Components/CollisionComponent.h
 )
 
 
@@ -157,6 +159,12 @@ add_executable(${GAME_NAME}
         Game/Player/States/PlayerIdleState.h
         Game/Player/States/PlayerWalkingState.cpp
         Game/Player/States/PlayerWalkingState.h
+        Game/Menu/MenuMarker.cpp
+        Game/Menu/MenuMarker.h
+        Minigin/Commands/MenuNavigateCommand.cpp
+        Minigin/Commands/MenuNavigateCommand.h
+        Game/Menu/Events/System/MenuNavigateSystem.cpp
+        Game/Menu/Events/System/MenuNavigateSystem.h
 )
 
 target_include_directories(${GAME_NAME} PRIVATE

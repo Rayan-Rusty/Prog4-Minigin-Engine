@@ -7,7 +7,7 @@
 #include "InputDevice.h"
 #include <memory>
 #include <variant>
-#include "GamepadDataStructs.h"
+#include "../DataStructs/GamepadDataStructs.h"
 namespace dae
 {
     class Keyboard final : public InputDevice

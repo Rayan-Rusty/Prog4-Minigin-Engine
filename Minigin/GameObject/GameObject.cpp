@@ -2,8 +2,8 @@
 #include "GameObject.h"
 
 
-#include "Managers/ResourceManager.h"
-#include "Renderer.h"
+#include "../Textures/ResourceManager.h"
+#include "../Rendering/Renderer.h"
 
 dae::GameObject::~GameObject()
 {

@@ -4,8 +4,8 @@
 #include "../Singleton.h"
 #include "../Commands/Command.h"
 
-#include "../InputDevice.h"
-#include "GamepadDataStructs.h"
+#include "../Devices/InputDevice.h"
+#include "../DataStructs/GamepadDataStructs.h"
 namespace dae
 {
 	class InputManager final : public Singleton<InputManager>

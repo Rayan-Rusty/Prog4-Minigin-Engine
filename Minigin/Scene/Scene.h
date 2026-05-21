@@ -2,8 +2,8 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "GameObject.h"
-#include "EventQueue/EventBus.h"
+#include "../GameObject/GameObject.h"
+#include "../EventQueue/EventBus.h"
 
 namespace dae
 {

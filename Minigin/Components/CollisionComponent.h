@@ -5,7 +5,7 @@
 #ifndef MINIGIN_COLLISIONCOMPONENT_H
 #define MINIGIN_COLLISIONCOMPONENT_H
 #include "Component.h"
-#include "DataStructs.h"
+#include "../DataStructs/DataStructs.h"
 #include "SDL3/SDL_rect.h"
 
 #include <typeindex>

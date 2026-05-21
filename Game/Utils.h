@@ -6,7 +6,7 @@
 #define MINIGIN_UTILS_H
 
 
-#include "GameObject.h"
+#include "../Minigin/GameObject/GameObject.h"
 
 
 namespace Utils

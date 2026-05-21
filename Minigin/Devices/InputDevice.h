@@ -6,7 +6,7 @@
 #define MINIGIN_INPUTDEVICE_H
 
 #include <variant>
-#include "GamepadDataStructs.h"
+#include "../DataStructs/GamepadDataStructs.h"
 #include <SDL3/SDL.h>
 
 namespace dae

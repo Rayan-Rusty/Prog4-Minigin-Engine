@@ -4,8 +4,8 @@
 
 #include "CollisionComponent.h"
 
-#include "GameObject.h"
-#include "Renderer.h"
+#include "../GameObject/GameObject.h"
+#include "../Rendering/Renderer.h"
 #include "Utils.h"
 
 dae::CollisionComponent::CollisionComponent(GameObject* owner)

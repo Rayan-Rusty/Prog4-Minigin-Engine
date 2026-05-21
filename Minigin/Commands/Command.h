@@ -4,7 +4,7 @@
 
 #ifndef MINIGIN_COMMAND_H
 #define MINIGIN_COMMAND_H
-#include "./GameObject.h"
+#include "../GameObject/GameObject.h"
 namespace dae
 {
     class Command

@@ -4,8 +4,8 @@
 
 #include "Utils.h"
 
-#include "InputManager.h"
-#include "Keyboard.h"
+#include "../Minigin/Input/InputManager.h"
+#include "../Minigin/Devices/Keyboard.h"
 #include "MoveCommand.h"
 #include "MovementComponent.h"
 #include "PlayerBehaviour.h"

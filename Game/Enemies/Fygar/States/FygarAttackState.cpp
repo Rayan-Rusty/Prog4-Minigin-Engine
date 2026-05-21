@@ -6,7 +6,7 @@
 
 #include "SpriteAnimationComponent.h"
 #include "FygarBehaviour.h"
-#include "GameObject.h"
+#include "../../../../Minigin/GameObject/GameObject.h"
 
 void DigDug::FygarAttackState::Enter(FygarBehaviour& Data)
 {

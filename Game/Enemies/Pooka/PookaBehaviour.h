@@ -6,7 +6,7 @@
 #define MINIGIN_POOKA_H
 #include <memory>
 
-#include "GameObject.h"
+#include "../../../Minigin/GameObject/GameObject.h"
 #include "State.h"
 
 

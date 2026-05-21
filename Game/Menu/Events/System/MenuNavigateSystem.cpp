@@ -4,7 +4,7 @@
 
 #include "MenuNavigateSystem.h"
 #include "Menu/MenuMarker.h"
-#include "GameObject.h"
+#include "../../../../Minigin/GameObject/GameObject.h"
 #include "EventsIds.h"
 #include "MenuNavigateCommand.h"
 

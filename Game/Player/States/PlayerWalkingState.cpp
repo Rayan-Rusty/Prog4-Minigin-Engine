@@ -4,7 +4,7 @@
 
 #include "PlayerWalkingState.h"
 
-#include "GameObject.h"
+#include "../../../Minigin/GameObject/GameObject.h"
 #include "MovementComponent.h"
 #include "PlayerIdleState.h"
 #include "SpriteAnimationComponent.h"

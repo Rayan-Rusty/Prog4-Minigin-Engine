@@ -9,7 +9,7 @@
 #include <vector>
 
 #include "Component.h"
-#include "Texture2D.h"
+#include "../../Minigin/Textures/Texture2D.h"
 
 namespace dae {
     class GameObject;

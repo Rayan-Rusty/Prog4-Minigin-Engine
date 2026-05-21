@@ -2,7 +2,7 @@
 #include <memory>
 
 #include "IGame.h"
-#include "Scene.h"
+#include "../Minigin/Scene/Scene.h"
 namespace DigDug
 {
 
