@@ -23,6 +23,12 @@ void dae::SceneManager::SetActiveScene(size_t index)
 {
 	//TODO unload previous scene
 	//TODO load new scene
+
+	if (index >= m_scenes.size())
+		return;
+
+
+	m_scenes[m_activeSceneIndex]->RemoveAll();
 	m_activeSceneIndex = index;
 }
 
