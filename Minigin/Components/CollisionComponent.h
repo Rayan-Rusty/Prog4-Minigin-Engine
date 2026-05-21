@@ -6,6 +6,7 @@
 #define MINIGIN_COLLISIONCOMPONENT_H
 #include "Component.h"
 #include "DataStructs.h"
+#include "SDL3/SDL_rect.h"
 
 #include <typeindex>
 
@@ -22,8 +23,8 @@ namespace dae
         void Render() const override;
         std::type_index GetType() const override;
 
-        //dae::Rect GetBounds() const;
-        //void SetBounds(const Rect& rect) { m_bounds = rect; }
+        SDL_FRect GetBounds() const;
+        void SetBounds(const SDL_FRect& rect) { m_bounds = rect; }
 
         void SetEnabled(bool enabled) { m_Enabled = enabled; }
         bool IsEnabled() const { return m_Enabled; }
@@ -33,11 +34,10 @@ namespace dae
 
 
     private:
-        //Rectf m_bounds;
+        SDL_FRect m_bounds;
         bool m_Enabled{true};
         float m_Width{0.0f};
         float m_Height{0.0f};
-        glm::vec2 m_Offset{0, 0};
     };
 } // dae
 

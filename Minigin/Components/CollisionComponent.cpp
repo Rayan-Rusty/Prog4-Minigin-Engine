@@ -30,7 +30,7 @@ void dae::CollisionComponent::Render() const
 #ifdef _DEBUG
     if (m_Enabled)
     {
-        //Rect bounds = GetBounds();
+        SDL_FRect bounds = GetBounds();
 
     }
 #endif
@@ -39,23 +39,23 @@ void dae::CollisionComponent::Render() const
 }
 
 
-// dae::Rect dae::CollisionComponent::GetBounds() const
-// {
-//     const auto& worldPos = GetOwner()->GetTransform().GetWorldPosition();
-//     const auto& scale = GetOwner()->GetTransform().GetScale();
-//
-//     Rect worldBounds;
-//     worldBounds.pos.x = worldPos.x + m_Offset.x;
-//     worldBounds.pos.y = worldPos.y + m_Offset.y;
-//     worldBounds.size.x = m_Width * scale.x;
-//     worldBounds.size.y = m_Height * scale.y;
-//
-//     return worldBounds;
-// }
-
 std::type_index dae::CollisionComponent::GetType() const
 {
     return typeid(dae::CollisionComponent);
+}
+
+SDL_FRect dae::CollisionComponent::GetBounds() const
+{
+    const auto& worldPos = GetOwner()->GetTransform().GetWorldPosition();
+    const auto& scale = GetOwner()->GetTransform().GetScale();
+
+    SDL_FRect worldBounds;
+    worldBounds.x = worldPos.x;
+    worldBounds.y = worldPos.y;
+    worldBounds.w = m_Width * scale.x;
+    worldBounds.h = m_Height * scale.y;
+    //
+    return worldBounds;
 }
 
 
@@ -63,6 +63,7 @@ bool dae::CollisionComponent::Intersect(const CollisionComponent *other) const
 {
     if (!other)
         return false;
-    //return CheckOverlap(this->GetBounds(), other->GetBounds());
-    return true;
+
+    return CheckOverlap(this->GetBounds(), other->GetBounds());
+
 }
