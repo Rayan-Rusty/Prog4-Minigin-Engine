@@ -10,25 +10,27 @@
  DigDug::PookaBehaviour::PookaBehaviour(dae::GameObject* owner)
     :Component(owner)
 {
+
     ChangeState(std::make_unique<PookaNormalState>());
 }
 
 
 
-void  DigDug::PookaBehaviour::Update(float dt)
+void  DigDug::PookaBehaviour::Update(float )
 {
-    if (m_state)
-        m_state->Update(*this , dt);
+     auto newState = m_state->Update(*this);
+     if (newState)
+         ChangeState(std::move(newState));
 }
 
 
 void  DigDug::PookaBehaviour::ChangeState(std::unique_ptr<State<PookaBehaviour>> newState)
 {
-    if (m_state)
-        m_state->Exit(*this);
+     if (m_state)
+         m_state->Exit(*this);
 
-    m_state = std::move(newState);
-    m_state->Enter(*this);
+     m_state = std::move(newState);
+     m_state->Enter(*this);
 }
 
 

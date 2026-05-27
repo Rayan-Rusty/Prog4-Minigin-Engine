@@ -14,7 +14,7 @@ namespace DigDug
     public:
         ~PookaDeadState() override = default;
         void Enter(PookaBehaviour& Data) override;
-        void Update(PookaBehaviour& Data, float dt) override;
+        std::unique_ptr<State> Update(PookaBehaviour& Data) override;
         void Exit(PookaBehaviour& Data) override;
     private:
         float m_timer{0.f};

@@ -54,11 +54,8 @@ namespace dae
 
         float m_FrameTime = 0.2f;
 
-        int m_Rows{0};
-        int m_Cols{0};
-
         AnimationClip m_CurrentAnim{};
-        int m_CurrentCol{};
+
         int m_CurrentFrameIndex{0};
     };
 }

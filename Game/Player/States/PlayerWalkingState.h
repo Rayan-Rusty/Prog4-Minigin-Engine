@@ -4,7 +4,9 @@
 
 #ifndef MINIGIN_PLAYERWALKINGSTATE_H
 #define MINIGIN_PLAYERWALKINGSTATE_H
+#include "MovementComponent.h"
 #include "State.h"
+
 
 namespace DigDug {
     class PlayerBehaviour;
@@ -16,10 +18,11 @@ namespace DigDug {
         PlayerWalkingState() = default;
         ~PlayerWalkingState() override = default;
         void Enter(PlayerBehaviour& Data) override;
-        void Update(PlayerBehaviour& Data, float dt) override;
+        std::unique_ptr<State<PlayerBehaviour>> Update(PlayerBehaviour& Data) override;
         void Exit(PlayerBehaviour& Data) override;
     private:
         int m_Timer{0};
+
     };
 
 }

@@ -10,8 +10,8 @@
 
 
 
-dae::SpriteAnimationComponent::SpriteAnimationComponent(GameObject *owner, int rows , int columns)
-    : Component(owner) ,  m_Rows(rows), m_Cols(columns)
+dae::SpriteAnimationComponent::SpriteAnimationComponent(GameObject *owner, int  , int )
+    : Component(owner)
 {
 
 

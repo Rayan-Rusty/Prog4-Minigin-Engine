@@ -17,6 +17,7 @@ void DigDug::PlayerWalkingState::Enter(PlayerBehaviour &Data)
     auto* obj = Data.GetOwner();
 
 
+
     if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
     {
         std::vector<SDL_FRect> normalState =
@@ -30,15 +31,20 @@ void DigDug::PlayerWalkingState::Enter(PlayerBehaviour &Data)
     }
 }
 
-void DigDug::PlayerWalkingState::Update(PlayerBehaviour &Data, float )
+std::unique_ptr<State<DigDug::PlayerBehaviour>> DigDug::PlayerWalkingState::Update(PlayerBehaviour& Data)  // Fixed return type
 {
+
+
     auto* moveComp = Data.GetOwner()->GetComponent<dae::MovementComponent>();
 
     if (moveComp && !moveComp->IsMoving())
     {
-        Data.ChangeState(std::make_unique<PlayerIdleState>());
 
+        return std::make_unique<PlayerIdleState>();
     }
+
+    return nullptr;
+
 }
 
 void DigDug::PlayerWalkingState::Exit(PlayerBehaviour &) {

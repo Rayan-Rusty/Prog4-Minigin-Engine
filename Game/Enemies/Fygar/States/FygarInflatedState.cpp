@@ -6,7 +6,7 @@
 
 #include "SpriteAnimationComponent.h"
 #include "FygarBehaviour.h"
-#include "../../../../Minigin/GameObject/GameObject.h"
+#include "GameObject.h"
 
 void DigDug::FygarInflatedState::Enter(FygarBehaviour& Data)
 {
@@ -29,10 +29,9 @@ void DigDug::FygarInflatedState::Enter(FygarBehaviour& Data)
 
 }
 
-
-void DigDug::FygarInflatedState::Update(FygarBehaviour &, float )
+std::unique_ptr<State<DigDug::FygarBehaviour>> DigDug::FygarInflatedState::Update(FygarBehaviour &)
 {
-
+    return nullptr;
 }
 
 

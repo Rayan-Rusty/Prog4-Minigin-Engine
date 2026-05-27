@@ -15,10 +15,11 @@ DigDug::PlayerBehaviour::PlayerBehaviour(dae::GameObject* owner)
 
 
 
-void  DigDug::PlayerBehaviour::Update(float dt)
+void  DigDug::PlayerBehaviour::Update(float )
  {
-     if (m_state)
-         m_state->Update(*this , dt);
+
+    if (auto newState= m_state->Update(*this))
+        ChangeState(std::move(newState));
  }
 
 

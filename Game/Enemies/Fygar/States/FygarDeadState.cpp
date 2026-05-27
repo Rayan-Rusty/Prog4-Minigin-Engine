@@ -19,10 +19,9 @@ void DigDug::FygarDeadState::Enter(FygarBehaviour& )
 
 }
 
-
-void DigDug::FygarDeadState::Update(FygarBehaviour &, float )
+std::unique_ptr<State<DigDug::FygarBehaviour>> DigDug::FygarDeadState::Update(FygarBehaviour &)
 {
-
+    return nullptr;
 }
 
 

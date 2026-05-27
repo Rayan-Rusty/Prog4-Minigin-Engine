@@ -16,7 +16,7 @@ namespace DigDug
     public:
         ~FygarAttackState() override = default;
         void Enter(FygarBehaviour& Data) override;
-        void Update(FygarBehaviour& Data, float dt) override;
+        std::unique_ptr<State<FygarBehaviour>> Update(FygarBehaviour& Data) override;
         void Exit(FygarBehaviour& Data) override;
     private:
     };

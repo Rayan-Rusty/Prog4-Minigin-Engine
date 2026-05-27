@@ -30,13 +30,10 @@ void DigDug::PookaInflatedState::Enter(PookaBehaviour& Data )
 
 }
 
-void DigDug::PookaInflatedState::Update(PookaBehaviour&  , float dt)
+std::unique_ptr<State<DigDug::PookaBehaviour>> DigDug::PookaInflatedState::Update(PookaBehaviour &)
 {
-    m_timer += dt;
-
-
+    return nullptr;
 }
-
 void DigDug::PookaInflatedState::Exit(PookaBehaviour& ) {
 
 }

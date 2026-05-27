@@ -7,6 +7,7 @@
 #include <memory>
 
 #include "GameObject.h"
+#include "PookaNormalState.h"
 #include "State.h"
 
 
@@ -37,7 +38,7 @@ namespace DigDug
 
 
     private:
-        std::unique_ptr<State<PookaBehaviour>> m_state;
+        std::unique_ptr<State<PookaBehaviour>> m_state{std::make_unique<PookaNormalState>()};
 
     };
 }

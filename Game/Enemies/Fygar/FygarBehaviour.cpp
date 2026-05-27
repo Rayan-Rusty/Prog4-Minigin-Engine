@@ -15,10 +15,10 @@ DigDug::FygarBehaviour::FygarBehaviour(dae::GameObject *owner)
 }
 
 
-void DigDug::FygarBehaviour::Update(float dt)
+void DigDug::FygarBehaviour::Update(float)
 {
-    if (m_state)
-        m_state->Update(*this , dt);
+    //if (m_state)
+    //     m_state->Update(*this , dt);
 }
 
 

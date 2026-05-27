@@ -31,16 +31,11 @@ void DigDug::PookaNormalState::Enter(PookaBehaviour& Data )
 
 }
 
-void DigDug::PookaNormalState::Update(PookaBehaviour& Data , float dt)
+std::unique_ptr<State<DigDug::PookaBehaviour>> DigDug::PookaNormalState::Update(PookaBehaviour &)
 {
-    m_timer += dt;
-
-    // DEMO ONLY
-    if (m_timer > 2.0f)
-    {
-       Data.ChangeState(std::make_unique<PookaInflatedState>());
-    }
+    return nullptr;
 }
+
 
 void DigDug::PookaNormalState::Exit(PookaBehaviour& )
 {

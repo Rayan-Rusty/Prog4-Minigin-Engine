@@ -29,15 +29,20 @@ void DigDug::PlayerIdleState::Enter(PlayerBehaviour &Data)
 
     
 }
+
 //TODO State update is a return ?
-void DigDug::PlayerIdleState::Update(PlayerBehaviour& Data, float )
+std::unique_ptr<State<DigDug::PlayerBehaviour>> DigDug::PlayerIdleState::Update(PlayerBehaviour& Data)
 {
     auto* moveComp = Data.GetOwner()->GetComponent<dae::MovementComponent>();
 
     if (moveComp && moveComp->IsMoving())
     {
-        Data.ChangeState(std::make_unique<PlayerWalkingState>());
+
+        return std::make_unique<PlayerWalkingState>();
     }
+
+    return nullptr;
+
 }
 
 void DigDug::PlayerIdleState::Exit(PlayerBehaviour &)
