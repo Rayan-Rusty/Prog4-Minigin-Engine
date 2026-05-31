@@ -16,6 +16,7 @@
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "IGame.h"
+#include "Keyboard.h"
 
 SDL_Window* g_window{};
 
@@ -110,6 +111,8 @@ void dae::Minigin::RunOneFrame()
 
 
 	m_quit = !InputManager::GetInstance().ProcessInput(deltaTime);
+
+	InputManager::GetInstance().AddDevice(std::make_unique<Keyboard>());
 
 	Renderer::GetInstance().Clear(); // clears up the last things drawn
 	if (m_Game)
