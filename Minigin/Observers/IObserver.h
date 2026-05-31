@@ -17,9 +17,12 @@ namespace dae
         {
             ActorDied,
             ActorFell,
+            ActorHit,
             PointsScored,
             ItemCollected,
-            LevelCompleted
+
+            LevelCompleted,
+
 
         };
 

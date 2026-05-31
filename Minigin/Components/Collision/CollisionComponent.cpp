@@ -67,3 +67,5 @@ bool dae::CollisionComponent::Intersect(const CollisionComponent *other) const
     return CheckOverlap(this->GetBounds(), other->GetBounds());
 
 }
+
+

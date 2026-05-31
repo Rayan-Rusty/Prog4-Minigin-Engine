@@ -4,7 +4,7 @@
 
 #ifndef MINIGIN_COLLISIONCOMPONENT_H
 #define MINIGIN_COLLISIONCOMPONENT_H
-#include "Component.h"
+#include "../Component.h"
 #include "DataStructs.h"
 #include "SDL3/SDL_rect.h"
 
@@ -16,6 +16,9 @@ namespace dae
     class CollisionComponent : public Component
     {
     public:
+
+
+
         CollisionComponent(GameObject* owner);
         ~CollisionComponent();
 
@@ -32,12 +35,12 @@ namespace dae
         bool Intersect(const CollisionComponent* other) const;
 
 
-
     private:
         SDL_FRect m_bounds;
         bool m_Enabled{true};
         float m_Width{0.0f};
         float m_Height{0.0f};
+
     };
 } // dae
 
