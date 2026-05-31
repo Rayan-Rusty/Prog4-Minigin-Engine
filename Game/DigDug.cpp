@@ -24,6 +24,7 @@
 #include "ServiceLocator.h"
 #include "SoundEventListener.h"
 #include "DebugSystem.h"
+#include "EnemySpawnerComponent.h"
 #include "Keyboard.h"
 #include "PlayerBehaviour.h"
 #include "PookaBehaviour.h"
@@ -291,6 +292,18 @@ void DigDug::Game::InitFirstLevel()
     auto Scene = &dae::SceneManager::GetInstance().CreateScene();
 
 
+    auto Tilemap = std::make_unique<dae::GameObject>();
+    auto tilemapComp = std::make_unique<TilemapComponent>(Tilemap.get());
+    tilemapComp->AddTexture("Sprites/Block.png");
+    tilemapComp->LoadFromFile("Data/Sprites/IndexedFile.png");
+    Tilemap->AddComponent(std::move(tilemapComp));
+    Tilemap->GetTransform().SetScale(glm::vec3{2, 2, 2});
+    Tilemap->GetTransform().SetWorldPosition(glm::vec3{0, 0, 0});
+
+
+
+
+    Scene->Add(std::move(Tilemap));
 
     auto Pooka = Utils::CreateAnimatedSpriteObject("Sprites/PookaSprites.png", 6 , 7 );
     Pooka->GetTransform().SetWorldPosition(glm::vec3{15, 15,0});
@@ -317,22 +330,19 @@ void DigDug::Game::InitFirstLevel()
     Background->GetTransform().SetScale(glm::vec3{2, 2, 2});
     Background->GetTransform().SetWorldPosition(glm::vec3{800 / 4, 0, 0});
 
-
-    auto Tilemap = std::make_unique<dae::GameObject>();
-    auto tilemapComp = std::make_unique<TilemapComponent>(Tilemap.get());
-    tilemapComp->AddTexture("Sprites/Block.png");
-    tilemapComp->LoadFromFile("Data/Sprites/IndexedFile.png");
-    Tilemap->AddComponent(std::move(tilemapComp));
-    Tilemap->GetTransform().SetScale(glm::vec3{2, 2, 2});
-    Tilemap->GetTransform().SetWorldPosition(glm::vec3{0, -16*2, 0});
+    auto SpawnerObject = std::make_unique<dae::GameObject>();
+    auto spawner = std::make_unique<EnemySpawnerComponent>(SpawnerObject.get(), Scene);
+    spawner->LoadFromFile("Data/Sprites/EnemyMap.png");
+    SpawnerObject->AddComponent(std::move(spawner));
+    Scene->Add(std::move(SpawnerObject));
 
 
-    Scene->Add(std::move(Tilemap));
+
     Scene->Add(std::move(Pooka));
     Scene->Add(std::move(Fygar));
     Scene->Add(std::move(player));
 
     //TODO keyboard needs ot be auto added
-    dae::InputManager::GetInstance().AddDevice(std::make_unique<dae::Keyboard>());
+
 
 }
