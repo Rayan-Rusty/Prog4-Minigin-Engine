@@ -92,8 +92,13 @@ add_library(${ENGINE_NAME} STATIC
 
         # Game interface
         Minigin/IGame.cpp
-        Minigin/Components/CollisionComponent.cpp
-        Minigin/Components/CollisionComponent.h
+        Minigin/Components/Collision/CollisionComponent.cpp
+        Minigin/Components/Collision/CollisionComponent.h
+        Minigin/Collisions/CollisionManager.cpp
+        Minigin/Collisions/CollisionManager.h
+        Minigin/Components/HealthComponent.cpp
+        Minigin/Components/HealthComponent.h
+
 )
 
 
@@ -110,6 +115,7 @@ target_include_directories(${ENGINE_NAME} PUBLIC
         ${CMAKE_SOURCE_DIR}/Minigin/Textures
         ${CMAKE_SOURCE_DIR}/Minigin/Transform
         ${CMAKE_SOURCE_DIR}/Minigin/Components
+        ${CMAKE_SOURCE_DIR}/Minigin/Components/Collision
         ${CMAKE_SOURCE_DIR}/Minigin/Commands
         ${CMAKE_SOURCE_DIR}/Minigin/Systems
         ${CMAKE_SOURCE_DIR}/Minigin/EventQueue
@@ -117,6 +123,7 @@ target_include_directories(${ENGINE_NAME} PUBLIC
         ${CMAKE_SOURCE_DIR}/Minigin/Observers
         ${CMAKE_SOURCE_DIR}/Minigin/HelperFunctions
         ${CMAKE_SOURCE_DIR}/Minigin/States
+        ${CMAKE_SOURCE_DIR}/Minigin/Collisions
 )
 
 set(ENGINE_DIRS Minigin/ Minigin/Components Minigin/Commands Minigin/Systems Minigin/Devices Minigin/EventQueue
@@ -174,6 +181,12 @@ add_executable(${GAME_NAME}
         Minigin/Commands/MenuNavigateCommand.h
         Game/Menu/Events/System/MenuNavigateSystem.cpp
         Game/Menu/Events/System/MenuNavigateSystem.h
+        Game/Player/CollisionObserver/PlayerCollisionHandler.cpp
+        Game/Player/CollisionObserver/PlayerCollisionHandler.h
+        Game/TileMap/BaseTilemapLoader.cpp
+        Game/TileMap/BaseTilemapLoader.h
+        Game/TileMap/EnemySpawnerComponent.cpp
+        Game/TileMap/EnemySpawnerComponent.h
 )
 
 target_include_directories(${GAME_NAME} PRIVATE
@@ -184,6 +197,7 @@ target_include_directories(${GAME_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/Game/Enemies/Fygar
         ${CMAKE_SOURCE_DIR}/Game/Enemies/Fygar/States
         ${CMAKE_SOURCE_DIR}/Game/Player/States
+        ${CMAKE_SOURCE_DIR}/Game/Player/CollisionObserver
         ${CMAKE_SOURCE_DIR}/Game/Player
         ${CMAKE_SOURCE_DIR}/Game/Level
         ${CMAKE_SOURCE_DIR}/Game/TileMap
