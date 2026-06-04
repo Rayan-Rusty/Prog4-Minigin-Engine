@@ -1,6 +1,8 @@
 #include <algorithm>
 #include "Scene.h"
 
+#include "CollisionManager.h"
+
 using namespace dae;
 
 void Scene::Add(std::unique_ptr<GameObject> object)
@@ -33,6 +35,7 @@ void Scene::Update(float deltaTime)
 		object->Update(deltaTime);
 	}
 
+	CollisionManager::GetInstance().Update();
 	m_eventBus.ProcessEvents();
 }
 
@@ -71,4 +74,16 @@ void Scene::Clear()
 	m_objects.clear();
 	m_listeners.clear();
     //m_eventBus.Clear();
+}
+
+std::vector<GameObject *> Scene::GetObjectByTag(int tag)
+{
+	std::vector<GameObject*> objects;
+	for (const auto& object : m_objects)
+	{
+		if (object != nullptr && object->GetTag() == tag)
+			objects.emplace_back(object.get());
+	}
+
+	return objects;
 }

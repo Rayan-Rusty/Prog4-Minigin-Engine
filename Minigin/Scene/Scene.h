@@ -20,6 +20,7 @@ namespace dae
 
 		void Clear();
 
+		std::vector<GameObject*> GetObjectByTag(int tag);
 
 		void Update(float deltaTime);
 		void RemoveGameObject();
