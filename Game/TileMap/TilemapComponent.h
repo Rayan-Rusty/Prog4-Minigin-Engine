@@ -10,6 +10,7 @@
 
 #include "BaseTilemapLoader.h"
 #include "Component.h"
+#include "IObserver.h"
 #include "Texture2D.h"
 
 namespace dae {
@@ -19,13 +20,14 @@ namespace dae {
 
 namespace DigDug
 {
-    class TilemapComponent : public BaseTilemapLoader
+    class TilemapComponent : public BaseTilemapLoader , public dae::IObserver
     {
     public:
 
+        void Notify(dae::IObserver::Event event, dae::GameActor* actor) override;
 
         TilemapComponent(dae::GameObject* pOwner);
-        ~TilemapComponent() = default;
+        ~TilemapComponent() override;
 
 
 
@@ -37,6 +39,7 @@ namespace DigDug
 
 
         void OnMapSizeKnown(int width, int height) override;
+        void CollideAt(int gridX, int gridY);
 
         enum class TileType : uint8_t {
             Empty = 0,
@@ -67,12 +70,13 @@ namespace DigDug
 
 
 
+        int OrientationToFrame(TileOrientation orientation);
         TileOrientation DetermineOrientation(int x, int y);
         uint8_t GetRawValue(int x , int y);
 
 
     private:
-
+        //TODO fuckkk my life this needs to be gameobjects so rewrite half of this shit
         void OnTileFound(uint8_t value, int x, int y) override;
 
 

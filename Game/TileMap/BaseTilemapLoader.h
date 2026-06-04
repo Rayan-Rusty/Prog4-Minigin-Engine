@@ -14,12 +14,15 @@ namespace DigDug
     {
     public:
         BaseTilemapLoader(dae::GameObject* pOwner);
-
+        virtual ~BaseTilemapLoader() = default;
         void LoadFromFile(const std::string& path);
 
         virtual void OnMapSizeKnown(int width, int height);
        virtual void OnAllTilesLoaded() = 0;
     protected:
+        int m_WidthTiles{0};
+        int m_HeightTiles{0};
+
         int m_Width{0};
         int m_Height{0};
     private:

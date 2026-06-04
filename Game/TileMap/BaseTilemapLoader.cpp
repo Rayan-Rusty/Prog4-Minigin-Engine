@@ -16,15 +16,18 @@ void DigDug::BaseTilemapLoader::LoadFromFile(const std::string& path)
     SDL_Surface* surface = SDL_LoadPNG(path.c_str());
     if (!surface) return;
 
-    uint8_t* pixels = (uint8_t*)surface->pixels;
+    uint8_t* pixels = static_cast<uint8_t*>(surface->pixels);
 
-    m_Width = surface->w / 16;
-    m_Height = surface->h / 16;
-    OnMapSizeKnown(m_Width, m_Height);
 
-    for (int y = 0; y < m_Height; y++)
+    m_Height = surface->h;
+    m_Width = surface->w;
+    m_WidthTiles = surface->w / 16;
+    m_HeightTiles = surface->h / 16;
+    OnMapSizeKnown(m_WidthTiles, m_HeightTiles);
+
+    for (int y = 0; y < m_HeightTiles; y++)
     {
-        for (int x = 0; x < m_Width; x++)
+        for (int x = 0; x < m_WidthTiles; x++)
         {
             int pixelIndex = (y * 16) * surface->pitch + (x * 16);
             uint8_t value = pixels[pixelIndex];
@@ -32,12 +35,12 @@ void DigDug::BaseTilemapLoader::LoadFromFile(const std::string& path)
         }
     }
 
-    for (int y = 0; y < m_Height; y++)
+    for (int y = 0; y < m_HeightTiles; y++)
     {
-        for (int x = 0; x < m_Width; x++)
+        for (int x = 0; x < m_WidthTiles; x++)
         {
             int pixelIndex = (y * 16) * surface->pitch + (x * 16);
-            std::cout << (int)pixels[pixelIndex] << " ";
+            std::cout << static_cast<int>(pixels[pixelIndex]) << " ";
         }
         std::cout << "\n";
     }
