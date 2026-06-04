@@ -20,7 +20,7 @@ namespace dae
             ActorHit,
             PointsScored,
             ItemCollected,
-
+            Collision,
             LevelCompleted,
 
 
