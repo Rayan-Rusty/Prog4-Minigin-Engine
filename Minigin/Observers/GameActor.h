@@ -12,18 +12,21 @@
 namespace dae
 {
 
+    class GameObject;
     class GameActor
     {
     public:
-        GameActor() = default;
+        GameActor(GameObject* pOwner);
         ~GameActor();
         void AddObserver(IObserver* observer);
         void RemoveObserver(IObserver* observer);
+        void NotifyObservers(IObserver::Event event);
+        GameObject* GetOwner() const;
     protected:
-            void NotifyObservers(IObserver::Event event);
+
     private:
         std::vector<IObserver*> m_Observers;
-
+        GameObject* m_pOwner{nullptr};
 
     };
 
