@@ -17,9 +17,8 @@ namespace DigDug
         void Draw() const override;
     private:
 
-        void InitializeGame();
+
         void InitializeMenuScreen();
-        void InitializeIMGUIScene();
         void InitFirstLevel();
 
     };
