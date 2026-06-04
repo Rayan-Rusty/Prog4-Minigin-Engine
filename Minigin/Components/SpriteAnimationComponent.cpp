@@ -60,18 +60,6 @@ const SDL_FRect &dae::SpriteAnimationComponent::GetSourceRect() const {
     return m_Src;
 }
 
-// void dae::SpriteAnimationComponent::SetAnimation(int row, int startCol, int endCol,  int frameWidth, int frameHeight)
-// {
-//     m_CurrentAnim.row = row;
-//     m_CurrentAnim.startCol = startCol;
-//     m_CurrentAnim.endCol = endCol;
-//     m_CurrentFrame = startCol;
-//     m_CurrentAnim.frameHeight = frameHeight;
-//     m_CurrentAnim.frameWidth = frameWidth;
-//     m_CurrentFrame = startCol;
-//     m_Timer = 0.f;
-// }
-
 void dae::SpriteAnimationComponent::SetAnimation(const std::vector<SDL_FRect>& Sizes, float duration , bool looping)
 {
     m_Timer = 0.f;

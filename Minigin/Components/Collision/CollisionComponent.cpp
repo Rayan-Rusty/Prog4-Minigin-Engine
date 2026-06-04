@@ -11,7 +11,8 @@
 dae::CollisionComponent::CollisionComponent(GameObject* owner)
     : Component(owner)
 {
-
+    m_Width = 16;
+    m_Height = 16;
 }
 
 dae::CollisionComponent::~CollisionComponent()
@@ -26,17 +27,14 @@ void dae::CollisionComponent::Update(float)
 void dae::CollisionComponent::Render() const
 {
 
+    if (!m_Enabled) return;
 
-#ifdef _DEBUG
-    if (m_Enabled)
-    {
-        SDL_FRect bounds = GetBounds();
+    SDL_FRect b = GetBounds();
 
-    }
-#endif
-
+    dae::Renderer::GetInstance().RenderDebugRect(b, {255, 0, 0, 255});
 
 }
+
 
 
 std::type_index dae::CollisionComponent::GetType() const
@@ -66,6 +64,12 @@ bool dae::CollisionComponent::Intersect(const CollisionComponent *other) const
 
     return CheckOverlap(this->GetBounds(), other->GetBounds());
 
+}
+
+void dae::CollisionComponent::SetSize(float width, float height)
+{
+    m_bounds.h = height;
+    m_bounds.w = width;
 }
 
 

@@ -34,13 +34,20 @@ namespace dae
 
         bool Intersect(const CollisionComponent* other) const;
 
+        void SetSize(float width , float height);
+
+
+        enum class Layer { Default, Player, Enemy, Tilemap };
+
+        void SetLayer(Layer layer) { m_layer = layer; }
+        Layer GetLayer() const { return m_layer; }
 
     private:
         SDL_FRect m_bounds;
         bool m_Enabled{true};
         float m_Width{0.0f};
         float m_Height{0.0f};
-
+        Layer m_layer{ Layer::Default };
     };
 } // dae
 

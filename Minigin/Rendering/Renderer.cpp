@@ -123,6 +123,12 @@ void dae::Renderer::RenderTexture(const Texture2D &texture, const SDL_FRect &dst
 		);
 }
 
+void dae::Renderer::RenderDebugRect(const SDL_FRect &rect, SDL_Color color) const
+{
+	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
+	SDL_RenderRect(m_renderer, &rect);
+}
+
 SDL_Renderer* dae::Renderer::GetSDLRenderer() const { return m_renderer; }
 
 void dae::Renderer::Clear() const
