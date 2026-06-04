@@ -4,6 +4,8 @@
 
 #include "CollisionManager.h"
 
+#include "GameObject.h"
+
 void CollisionManager::Register(dae::CollisionComponent *col)
 {
     m_cols.emplace_back(col);
@@ -27,9 +29,13 @@ void CollisionManager::Update()
 
             if (a->Intersect(b))
             {
-                // a->NotifyCollision(b);
-                // b->NotifyCollision(a);
+                a->GetOwner()->GetActor()->NotifyObservers(
+                    dae::IObserver::Event::Collision
+                );
             }
         }
     }
+}
+
+CollisionManager::CollisionManager() {
 }
