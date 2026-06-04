@@ -14,7 +14,7 @@ namespace dae
     {
     public:
         Gamepad(int index);
-        ~Gamepad();
+        ~Gamepad() override;
         bool IsConnected();
         void Update() override;
         bool IsButtonPressed(GamepadButton button) const;
