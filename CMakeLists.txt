@@ -71,7 +71,7 @@ add_library(${ENGINE_NAME} STATIC
         Minigin/Observers/ObserverManager.cpp
         Minigin/Observers/IObserver.cpp
         Minigin/Observers/Achievement.cpp
-
+        Minigin/Observers/GameActor.cpp
         # Systems
         Minigin/Systems/ScoreSystem.cpp
         Minigin/Systems/DebugSystem.cpp
@@ -98,6 +98,8 @@ add_library(${ENGINE_NAME} STATIC
         Minigin/Collisions/CollisionManager.h
         Minigin/Components/HealthComponent.cpp
         Minigin/Components/HealthComponent.h
+        Minigin/Components/Health/HealthComponent.cpp
+        Minigin/Components/Health/HealthComponent.h
 
 )
 
@@ -187,6 +189,8 @@ add_executable(${GAME_NAME}
         Game/TileMap/BaseTilemapLoader.h
         Game/TileMap/EnemySpawnerComponent.cpp
         Game/TileMap/EnemySpawnerComponent.h
+        Game/TileMap/EnemyTraits.h
+        Game/TileMap/Layers/GameLayers.h
 )
 
 target_include_directories(${GAME_NAME} PRIVATE
