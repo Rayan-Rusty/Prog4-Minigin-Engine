@@ -4,7 +4,15 @@
 
 #include "GameActor.h"
 
+#include "GameObject.h"
 #include "IObserver.h"
+
+dae::GameActor::GameActor(dae::GameObject *pOwner)
+    : m_pOwner(pOwner)
+{
+
+}
+
 
 
 dae::GameActor::~GameActor()
@@ -39,9 +47,15 @@ void dae::GameActor::RemoveObserver(IObserver *observer)
 
 void dae::GameActor::NotifyObservers(IObserver::Event event)
 {
+
     for (auto observer : m_Observers)
     {
         if (observer)
             observer->Notify(event, this);
     }
+}
+
+dae::GameObject * dae::GameActor::GetOwner() const
+{
+    return m_pOwner;
 }
