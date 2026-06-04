@@ -22,7 +22,7 @@ namespace DigDug
     {
     public:
         PookaBehaviour(dae::GameObject* owner);
-        ~PookaBehaviour() = default;
+        ~PookaBehaviour() override = default ;
 
 
         void Update(float dt) override;
