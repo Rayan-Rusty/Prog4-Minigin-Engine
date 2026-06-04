@@ -12,6 +12,8 @@ dae::GameObject::~GameObject()
 	{
 		child->SetParent(nullptr, true);
 	}
+
+
 };
 
 void dae::GameObject::Update(float deltaTime)
@@ -106,6 +108,22 @@ const std::vector<dae::GameObject*>& dae::GameObject::GetChildren()
 {
 	return m_Children;
 }
+
+dae::GameActor * dae::GameObject::GetActor()
+{
+	return m_Actor.get();
+}
+
+void dae::GameObject::SetTag(int tag)
+{
+	m_tag = tag;
+}
+
+int dae::GameObject::GetTag() const
+{
+	return m_tag;
+}
+
 bool dae::GameObject::IsChild(GameObject* parent)
 {
 	if (parent == nullptr)

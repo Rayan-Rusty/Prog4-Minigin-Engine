@@ -8,8 +8,12 @@
 #include <type_traits>
 #include <vector>
 #include <algorithm>
+
+#include "GameActor.h"
+
 namespace dae
 {
+	class GameActor;
 
 	class Texture2D;
 	class TextComponent;
@@ -84,6 +88,15 @@ namespace dae
 		const glm::vec3& GetWorldPosition();
 
 		const std::vector<GameObject*>& GetChildren();
+
+
+
+		GameActor* GetActor();
+
+
+		void SetTag(int tag);
+		int GetTag() const;
+
 		GameObject() = default;
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
@@ -95,14 +108,13 @@ namespace dae
 		void AddChild(GameObject* child);
 		void RemoveChild(GameObject* child);
 
+		int m_tag{ 0 };
 		GameObject* m_parent{nullptr};
-
 		std::vector<GameObject*> m_Children;
-
-
 
 		Transform m_Transform{this};
 		std::vector<std::unique_ptr<Component>> m_components;
+		std::unique_ptr<GameActor> m_Actor{std::make_unique<GameActor>(this)};
 		bool m_ShouldDelete{ false };
 		bool m_positionIsDirty {false};
 	};
