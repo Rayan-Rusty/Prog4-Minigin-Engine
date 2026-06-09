@@ -40,8 +40,6 @@ void DigDug::TilemapComponent::Notify(dae::IObserver::Event event, dae::GameActo
     {
         if (actor->GetOwner()->GetTag() == static_cast<int>(DigDug::GameTag::Player))
         {
-
-
             const auto& actorPos {actor->GetOwner()->GetTransform().GetWorldPosition()};
             const auto& tilemapPos {GetOwner()->GetTransform().GetWorldPosition()};
 
@@ -51,8 +49,6 @@ void DigDug::TilemapComponent::Notify(dae::IObserver::Event event, dae::GameActo
             CollideAt(gridX, gridY);
         }
 
-            //digs the block if its the player
-            //doesnt do anything if its an enemy but the collision doesnt know the difference between the two
     }
 }
 
@@ -127,10 +123,7 @@ void DigDug::TilemapComponent::AddTexture(const std::string &path)
 
 }
 
-void DigDug::TilemapComponent::Clear()
-{
 
-}
 
 void DigDug::TilemapComponent::OnMapSizeKnown(int width, int height)
 {
@@ -187,8 +180,6 @@ DigDug::TilemapComponent::TileOrientation DigDug::TilemapComponent::DetermineOri
 
     if (up && !down) return TileOrientation::EdgeBottom;
     if (down && !up) return TileOrientation::EdgeTop;
-
-
 
 
     // middle of tunnels

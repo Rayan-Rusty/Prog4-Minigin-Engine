@@ -34,7 +34,7 @@ namespace DigDug
         void OnAllTilesLoaded() override;
         void AddTexture(const std::string& path);
         void Render() const override;
-        void Clear();
+
         std::type_index GetType() const override { return typeid(TilemapComponent); }
 
 
