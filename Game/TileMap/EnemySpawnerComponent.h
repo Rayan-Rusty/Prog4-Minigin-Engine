@@ -64,7 +64,6 @@ namespace DigDug
                 auto col = std::make_unique<dae::CollisionComponent>(enemy.get());
                 enemy->AddComponent(std::move(col));
                 CollisionManager::GetInstance().Register(enemy->GetComponent<dae::CollisionComponent>());
-                enemy->SetTag(static_cast<int>(DigDug::GameTag::Enemy));
 
                 m_pScene->Add(std::move(enemy));
 
