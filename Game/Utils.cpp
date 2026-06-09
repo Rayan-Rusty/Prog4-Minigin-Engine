@@ -17,9 +17,9 @@
 #include "PookaBehaviour.h"
 #include "Layers/GameLayers.h"
 #include "TilemapComponent.h"
-std::unique_ptr<dae::GameObject> Utils::CreateAnimatedSpriteObject(const std::string &TexturePath, int rows, int cols)
+std::unique_ptr<dae::GameObject> Utils::CreateAnimatedSpriteObject(const std::string &TexturePath, int rows, int cols, int layer, int tag )
 {
-    auto obj = std::make_unique<dae::GameObject>();
+    auto obj = std::make_unique<dae::GameObject>(layer , tag);
 
     auto renderComp = std::make_unique<dae::RenderComponent>(obj.get());
     renderComp->SetTextureFilePath(TexturePath);
@@ -37,7 +37,7 @@ std::unique_ptr<dae::GameObject> Utils::CreateAnimatedSpriteObject(const std::st
 std::unique_ptr<dae::GameObject> Utils::CreatePlayerCharacter(const std::string &TexturePath, int rows, int cols)
 {
 
-    auto obj = std::make_unique<dae::GameObject>();
+    auto obj = std::make_unique<dae::GameObject>(static_cast<int>(DigDug::Layer::Foreground), static_cast<int>(DigDug::GameTag::Player));
 
 
     //Renderer
@@ -123,7 +123,7 @@ std::unique_ptr<dae::GameObject> Utils::CreateBackgroundObject(const std::string
 
 std::unique_ptr<dae::GameObject> Utils::CreateFygar()
 {
-    auto fygar {Utils::CreateEnemy("Sprites/FygarSprites.png" ,8 , 8 , static_cast<int>(DigDug::GameTag::Enemy))};
+    auto fygar {Utils::CreateEnemy("Sprites/FygarSprites.png" ,8 , 8)};
     fygar->GetTransform().SetScale(glm::vec3{2, 2, 2});
     auto fygarAI = std::make_unique<DigDug::FygarBehaviour>(fygar.get());
     fygar->AddComponent(std::move(fygarAI));
@@ -134,7 +134,7 @@ std::unique_ptr<dae::GameObject> Utils::CreateFygar()
 std::unique_ptr<dae::GameObject> Utils::CreatePooka()
 {
 
-    auto pooka {Utils::CreateEnemy("Sprites/PookaSprites.png" ,6 , 7 , static_cast<int>(DigDug::GameTag::Enemy))};
+    auto pooka {Utils::CreateEnemy("Sprites/PookaSprites.png" ,6 , 7 )};
     pooka->GetTransform().SetScale(glm::vec3{2, 2, 2});
     auto pookaAI = std::make_unique<DigDug::PookaBehaviour>(pooka.get());
     pooka->AddComponent(std::move(pookaAI));
@@ -153,16 +153,13 @@ std::unique_ptr<dae::GameObject> Utils::CreatePlayer()
     player->AddComponent(std::move(PlayerAI));
     auto playerCol = std::make_unique<dae::CollisionComponent>(player.get());
     player->AddComponent(std::move(playerCol));
-    player->SetTag(static_cast<int>(DigDug::GameTag::Player));
     CollisionManager::GetInstance().Register(player->GetComponent<dae::CollisionComponent>());
     return player;
 }
 
-std::unique_ptr<dae::GameObject> Utils::CreateEnemy(const std::string& TexturePath, int rows, int cols, int tag)
+std::unique_ptr<dae::GameObject> Utils::CreateEnemy(const std::string& TexturePath, int rows, int cols)
 {
-    auto obj = CreateAnimatedSpriteObject(TexturePath, rows, cols);
-
-    obj->SetTag(tag);
+    auto obj = CreateAnimatedSpriteObject(TexturePath, rows, cols, static_cast<int>(DigDug::Layer::Foreground),static_cast<int>(DigDug::GameTag::Enemy));
 
     auto col = std::make_unique<dae::CollisionComponent>(obj.get());
     obj->AddComponent(std::move(col));
@@ -172,7 +169,7 @@ std::unique_ptr<dae::GameObject> Utils::CreateEnemy(const std::string& TexturePa
 }
 std::unique_ptr<dae::GameObject> Utils::CreateTilemap(const std::string& texturePath, const std::string& dataPath)
 {
-    auto obj = std::make_unique<dae::GameObject>();
+    auto obj = std::make_unique<dae::GameObject>(static_cast<int>(DigDug::Layer::Background), static_cast<int>(DigDug::GameTag::Tilemap));
 
 
     auto col = std::make_unique<dae::CollisionComponent>(obj.get());
@@ -182,8 +179,6 @@ std::unique_ptr<dae::GameObject> Utils::CreateTilemap(const std::string& texture
     obj->GetTransform().SetScale(glm::vec3{2, 2, 2});
     tilemapComp->AddTexture(texturePath);
     tilemapComp->LoadFromFile(dataPath);
-    obj->SetTag(static_cast<int>(DigDug::GameTag::Tilemap));
-
 
     obj->AddComponent(std::move(tilemapComp));
 
