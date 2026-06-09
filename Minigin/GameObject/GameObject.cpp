@@ -114,17 +114,24 @@ dae::GameActor * dae::GameObject::GetActor()
 	return m_Actor.get();
 }
 
-void dae::GameObject::SetTag(int tag)
-{
-	m_tag = tag;
-}
-
 int dae::GameObject::GetTag() const
 {
 	return m_tag;
 }
 
-bool dae::GameObject::IsChild(GameObject* parent)
+
+int dae::GameObject::GetLayer() const
+{
+	return m_layer;
+}
+
+dae::GameObject::GameObject(int layer, int tag)
+: m_tag(tag), m_layer(layer)
+{
+
+}
+
+bool dae::GameObject::IsChild(const GameObject* parent)
 {
 	if (parent == nullptr)
 		return false;

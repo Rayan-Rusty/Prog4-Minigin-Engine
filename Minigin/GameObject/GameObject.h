@@ -81,7 +81,7 @@ namespace dae
 
 		//parent functions
 		void SetParent(GameObject* parent, bool keepWorldPosition);
-		bool IsChild(GameObject* parent);
+		bool IsChild(const GameObject* parent);
 		//WorldPosition functions
 		void UpdateWorldPosition();  // computes world = parent world + local
 		void SetPositionDirty();
@@ -93,11 +93,10 @@ namespace dae
 
 		GameActor* GetActor();
 
-
-		void SetTag(int tag);
 		int GetTag() const;
+		int GetLayer() const;
 
-		GameObject() = default;
+		GameObject(int layer = 0 , int tag = 0);
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -109,6 +108,7 @@ namespace dae
 		void RemoveChild(GameObject* child);
 
 		int m_tag{ 0 };
+		int m_layer{ 0 };
 		GameObject* m_parent{nullptr};
 		std::vector<GameObject*> m_Children;
 
