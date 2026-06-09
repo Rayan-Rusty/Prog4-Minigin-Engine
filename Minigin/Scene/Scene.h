@@ -26,6 +26,8 @@ namespace dae
 		void RemoveGameObject();
 		void Render() const;
 
+		void SortByLayer();
+
 		~Scene() = default;
 		Scene(const Scene& other) = delete;
 		Scene(Scene&& other) = delete;

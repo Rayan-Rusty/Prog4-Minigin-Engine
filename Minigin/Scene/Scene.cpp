@@ -59,6 +59,16 @@ void Scene::Render() const
 	}
 }
 
+void Scene::SortByLayer()
+{
+	std::stable_sort(m_objects.begin(), m_objects.end(),
+		[](const auto& a , const auto& b)
+		{
+			return a->GetLayer() < b->GetLayer();
+		}
+		);
+}
+
 EventBus &Scene::GetEventBus() {
 	return m_eventBus;
 }
