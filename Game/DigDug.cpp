@@ -9,29 +9,21 @@
 #include "MoveCommand.h"
 #include "EnemySpawnerComponent.h"
 #include "EnemyTraits.h"
-#include "Keyboard.h"
-#include "PlayerBehaviour.h"
+
 #include "TilemapComponent.h"
 #include "Utils.h"
 #include "MenuNavigateCommand.h"
 #include "Menu/MenuMarker.h"
 #include "Menu/Events/System/MenuNavigateSystem.h"
-#include "CollisionManager.h"
-#include "Layers/GameLayers.h"
 
 
 //TODO ASYNC noise
 //TODO remove FPS object
-//TODO give in name without keyboard
-//TODO SPrites need to be able to be multiple cols or rows
 
 
 void DigDug::Game::Init()
 {
-   //InitializeMenuScreen();
-    //InitializeGame();
     InitFirstLevel();
-
 }
 
 void DigDug::Game::Update(float deltaTime)
@@ -44,8 +36,6 @@ void DigDug::Game::Draw() const
 {
     dae::SceneManager::GetInstance().Render();
 }
-
-
 
 
 void DigDug::Game::InitializeMenuScreen()
@@ -104,8 +94,6 @@ void DigDug::Game::InitFirstLevel()
 {
     auto Scene = &dae::SceneManager::GetInstance().CreateScene();
 
-
-
     auto player = Utils::CreatePlayer();
 
     Scene->Add(std::move(player));
@@ -116,14 +104,6 @@ void DigDug::Game::InitFirstLevel()
 
     Scene->Add(std::move(Tilemap));
 
-
-    //tilemap
-    //enemyspawnzers
-    //player
-    //ui
-
-
-
     auto SpawnerObject = std::make_unique<dae::GameObject>();
     auto spawner = std::make_unique<EnemySpawnerComponent<PookaTraits>>(SpawnerObject.get(), Scene);
     spawner->LoadFromFile("Data/Sprites/EnemyMap.png");
@@ -131,8 +111,8 @@ void DigDug::Game::InitFirstLevel()
     SpawnerObject->AddComponent(std::move(spawner));
     SpawnerObject->GetTransform().SetWorldPosition(glm::vec3{0, 16*2, 0});
 
-
-
     Scene->Add(std::move(SpawnerObject));
+
+    Scene->SortByLayer();
 
 }
