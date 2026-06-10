@@ -40,33 +40,26 @@ namespace DigDug
             constexpr  float tileSize = 16.f;
             constexpr  float scale = 2.f;
 
+            auto tilemapObjs = m_pScene->GetObjectByTag(
+    static_cast<int>(DigDug::GameTag::TilemapComponent)
+);
+
+            glm::vec3 tilemapPos{0, 0, 0};
+            if (!tilemapObjs.empty())
+                tilemapPos = tilemapObjs[0]->GetTransform().GetWorldPosition();
+
             for (const auto& pos : m_positions)
             {
-
-                auto enemy = Utils::CreateAnimatedSpriteObject
-                (
-                    TEnemyTraits::SpritePath()
-                    ,TEnemyTraits::Cols()
-                    , TEnemyTraits::Rows()
-                    );
+                auto enemy = TEnemyTraits::Create();
 
                 enemy->GetTransform().SetWorldPosition(glm::vec3{
-                    pos.x * tileSize * scale ,
-                    pos.y * tileSize * scale,
-                    0
+                    tilemapPos.x + pos.x * tileSize * scale,
+                    tilemapPos.y + pos.y * tileSize * scale,
+                    0.f
                 });
 
                 enemy->GetTransform().SetScale(glm::vec3{scale, scale, scale});
-
-                auto enemyAI = std::make_unique<typename TEnemyTraits::Behaviour>(enemy.get());
-                enemy->AddComponent(std::move(enemyAI));
-
-                auto col = std::make_unique<dae::CollisionComponent>(enemy.get());
-                enemy->AddComponent(std::move(col));
-                CollisionManager::GetInstance().Register(enemy->GetComponent<dae::CollisionComponent>());
-
                 m_pScene->Add(std::move(enemy));
-
             }
         };
 

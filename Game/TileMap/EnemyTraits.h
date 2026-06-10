@@ -9,11 +9,16 @@
 // and the classes dont know abt each other so there isnt a hard dependency
 #include "PookaBehaviour.h"
 #include "FygarBehaviour.h"
+#include "Utils.h"
 namespace DigDug {
 
 
     struct PookaTraits
     {
+        static std::unique_ptr<dae::GameObject> Create()
+        {
+            return Utils::CreatePooka();
+        }
         using Behaviour = PookaBehaviour;
         static constexpr const char* SpritePath() { return "Sprites/PookaSprites.png"; }
         static constexpr int Cols() { return 6; }
@@ -22,6 +27,10 @@ namespace DigDug {
 
     struct FygarTraits
     {
+        static std::unique_ptr<dae::GameObject> Create()
+        {
+            return Utils::CreateFygar();
+        }
         using Behaviour = FygarBehaviour;
         static constexpr const char* SpritePath() { return "Sprites/Fygarprites.png"; }
         static constexpr int Cols(){ return 8; }
