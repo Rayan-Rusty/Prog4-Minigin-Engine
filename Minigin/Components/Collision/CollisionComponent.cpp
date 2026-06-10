@@ -47,12 +47,19 @@ SDL_FRect dae::CollisionComponent::GetBounds() const
     const auto& worldPos = GetOwner()->GetTransform().GetWorldPosition();
     const auto& scale = GetOwner()->GetTransform().GetScale();
 
+    float scaledW = m_Width  * std::abs(scale.x);
+    float scaledH = m_Height * std::abs(scale.y);
+
+    float scaledOffsetX = m_OffsetX * std::abs(scale.x);
+    float scaledOffsetY = m_OffsetY * std::abs(scale.y);
+
     SDL_FRect worldBounds;
-    worldBounds.x = worldPos.x + m_OffsetX * scale.x;
-    worldBounds.y = worldPos.y + m_OffsetY * scale.y;
-    worldBounds.w = m_Width * scale.x;
-    worldBounds.h = m_Height * scale.y;
-    //
+    worldBounds.x = worldPos.x + scaledOffsetX;
+    worldBounds.y = worldPos.y + scaledOffsetY;
+    worldBounds.w = scaledW;
+    worldBounds.h = scaledH;
+
+
     return worldBounds;
 }
 
