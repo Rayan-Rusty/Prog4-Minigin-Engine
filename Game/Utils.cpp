@@ -14,9 +14,15 @@
 #include "CollisionComponent.h"
 #include "CollisionManager.h"
 #include "FygarBehaviour.h"
+#include "MenuMarker.h"
+#include "MenuNavigateCommand.h"
 #include "PookaBehaviour.h"
 #include "Layers/GameLayers.h"
 #include "TilemapComponent.h"
+#include "Blocks/BlockBehaviour.h"
+#include "Commands/ConfirmedCommand.h"
+#include "Movement/PookaMovement.h"
+
 std::unique_ptr<dae::GameObject> Utils::CreateAnimatedSpriteObject(const std::string &TexturePath, int rows, int cols, int layer, int tag )
 {
     auto obj = std::make_unique<dae::GameObject>(layer , tag);
@@ -50,7 +56,7 @@ std::unique_ptr<dae::GameObject> Utils::CreatePlayerCharacter(const std::string 
 
 
     //Movement
-    auto movementCompon{std::make_unique<dae::MovementComponent>(obj.get() , 300.f)};
+    auto movementCompon{std::make_unique<dae::MovementComponent>(obj.get() , 100.f)};
     obj->AddComponent(std::move(movementCompon));
 
     //Commands
@@ -136,6 +142,17 @@ std::unique_ptr<dae::GameObject> Utils::CreatePooka()
 
     auto pooka {Utils::CreateEnemy("Sprites/PookaSprites.png" ,6 , 7 )};
     pooka->GetTransform().SetScale(glm::vec3{2, 2, 2});
+    auto* col = pooka->GetComponent<dae::CollisionComponent>();
+    if (col)
+    {
+        col->SetSize(16.f, 16.f);
+
+        col->SetLayer(dae::CollisionComponent::Layer::Enemy);
+    }
+
+    auto pookaMovement = std::make_unique<DigDug::PookaMovement>(pooka.get());
+    pooka->AddComponent(std::move(pookaMovement));
+
     auto pookaAI = std::make_unique<DigDug::PookaBehaviour>(pooka.get());
     pooka->AddComponent(std::move(pookaAI));
 
@@ -146,12 +163,14 @@ std::unique_ptr<dae::GameObject> Utils::CreatePooka()
 std::unique_ptr<dae::GameObject> Utils::CreatePlayer()
 {
     auto player = Utils::CreatePlayerCharacter("Sprites/PlayerSprites.png", 3 , 8);
-    player->GetTransform().SetWorldPosition(glm::vec3{90, 15, 0});
+    player->GetTransform().SetWorldPosition(glm::vec3{16 * 12, 16 * 14, 0});
     player->GetTransform().SetScale(glm::vec3{2, 2, 2});
 
     auto PlayerAI = std::make_unique<DigDug::PlayerBehaviour>(player.get());
     player->AddComponent(std::move(PlayerAI));
     auto playerCol = std::make_unique<dae::CollisionComponent>(player.get());
+    playerCol->SetOffset(2.f, 2.f);
+    playerCol->SetSize(12.f, 12.f);
     player->AddComponent(std::move(playerCol));
     CollisionManager::GetInstance().Register(player->GetComponent<dae::CollisionComponent>());
     return player;
@@ -169,20 +188,73 @@ std::unique_ptr<dae::GameObject> Utils::CreateEnemy(const std::string& TexturePa
 }
 std::unique_ptr<dae::GameObject> Utils::CreateTilemap(const std::string& texturePath, const std::string& dataPath)
 {
-    auto obj = std::make_unique<dae::GameObject>(static_cast<int>(DigDug::Layer::Background), static_cast<int>(DigDug::GameTag::Tilemap));
+    auto obj = std::make_unique<dae::GameObject>(static_cast<int>(DigDug::Layer::Background), static_cast<int>(DigDug::GameTag::TilemapComponent));
 
 
-    auto col = std::make_unique<dae::CollisionComponent>(obj.get());
-    obj->AddComponent(std::move(col));
+
 
     auto tilemapComp = std::make_unique<DigDug::TilemapComponent>(obj.get());
+
     obj->GetTransform().SetScale(glm::vec3{2, 2, 2});
     tilemapComp->AddTexture(texturePath);
     tilemapComp->LoadFromFile(dataPath);
 
     obj->AddComponent(std::move(tilemapComp));
 
-    CollisionManager::GetInstance().Register(obj->GetComponent<dae::CollisionComponent>());
 
     return obj;
+}
+
+std::unique_ptr<dae::GameObject> Utils::CreateTile(float worldX, float worldY, float w, float h)
+{
+    auto obj = CreateAnimatedSpriteObject(
+        "Sprites/Block.png", 1, 9,
+        static_cast<int>(DigDug::Layer::Background),
+        static_cast<int>(DigDug::GameTag::Tilemap)
+    );
+
+    obj->GetTransform().SetWorldPosition(glm::vec3{worldX, worldY, 0});
+    obj->GetTransform().SetScale(glm::vec3{2, 2, 2});
+
+    auto col = std::make_unique<dae::CollisionComponent>(obj.get());
+    col->SetSize(w/2, h/2);
+    obj->AddComponent(std::move(col));
+
+    CollisionManager::GetInstance().Register(obj->GetComponent<dae::CollisionComponent>());
+    auto BlockComp = std::make_unique<DigDug::BlockBehaviour>(obj.get());
+    obj->AddComponent(std::move(BlockComp));
+
+    return obj;
+}
+
+std::unique_ptr<dae::GameObject> Utils::CreateMenuMarker()
+{
+    auto Marker = Utils::CreateBackgroundObject("MainMenu/Marker.png");
+    Marker->GetTransform().SetScale(glm::vec3{2, 2, 2});
+    Marker->GetTransform().SetWorldPosition(glm::vec3{512 / 2 - 100, 205, 0});
+
+    auto markerComp = std::make_unique<DigDug::MenuMarker>(Marker.get());
+    markerComp->AddPosition(glm::vec3{512 / 2 - 100, 205, 0});
+    markerComp->AddPosition(glm::vec3{512 / 2 - 100, 235, 0});
+    markerComp->AddPosition(glm::vec3{512 / 2 - 100, 265, 0});
+    Marker->AddComponent(std::move(markerComp));
+
+    //  no MenuNavigateSystem
+
+    dae::InputManager::GetInstance().AddCommandBinding(
+        SDL_SCANCODE_W,
+        std::make_unique<DigDug::MenuNavigateCommand>(Marker.get(), -1),
+        dae::InputManager::KeyState::Down
+    );
+    dae::InputManager::GetInstance().AddCommandBinding(
+        SDL_SCANCODE_S,
+        std::make_unique<DigDug::MenuNavigateCommand>(Marker.get(), 1),
+        dae::InputManager::KeyState::Down
+    );
+    dae::InputManager::GetInstance().AddCommandBinding(
+        SDL_SCANCODE_SPACE,
+        std::make_unique<DigDug::ConfirmedCommand>(Marker.get()),
+        dae::InputManager::KeyState::Down
+    );
+    return Marker;
 }

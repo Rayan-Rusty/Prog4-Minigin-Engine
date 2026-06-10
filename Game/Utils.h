@@ -22,6 +22,10 @@ namespace Utils
 
     std::unique_ptr<dae::GameObject> CreateEnemy(const std::string& TexturePath, int rows, int cols);
     std::unique_ptr<dae::GameObject> CreateTilemap(const std::string& texturePath, const std::string& dataPath);
+
+    std::unique_ptr<dae::GameObject> CreateTile(float worldX, float worldY, float w, float h);
+    std::unique_ptr<dae::GameObject> CreateMenuMarker();
+
     //void DebugObject();
 }
 

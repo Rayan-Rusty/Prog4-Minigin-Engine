@@ -8,8 +8,8 @@
 bool dae::CheckOverlap(const SDL_FRect& A , const SDL_FRect& B)
 {
     //AABB collisions for rectangles
-    bool CollisionX{A.x + A.w >= B.x && B.x + B.w >= A.x};
-    bool CollisionY{A.y + A.h >= B.y && B.y + B.h >= A.y};
+    bool CollisionX{A.x + A.w > B.x && B.x + B.w > A.x};
+    bool CollisionY{A.y + A.h > B.y && B.y + B.h > A.y};
     return CollisionX && CollisionY;
 }
 
