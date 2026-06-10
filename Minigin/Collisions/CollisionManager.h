@@ -13,6 +13,7 @@ class CollisionManager final : public dae::Singleton<CollisionManager>
 public:
 
 
+    void ClearPair(dae::CollisionComponent* a, dae::CollisionComponent* b);
     void Register(dae::CollisionComponent* col);
     void Unregister(dae::CollisionComponent* col);
     void Clear();
@@ -23,6 +24,7 @@ private:
     CollisionManager() = default;
 
     std::vector<dae::CollisionComponent*> m_cols;
+    std::vector<std::pair<size_t, size_t>> m_activeOverlaps;
 };
 
 
