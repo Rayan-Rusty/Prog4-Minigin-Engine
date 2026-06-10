@@ -15,13 +15,14 @@ namespace DigDug {
     {
         auto* gameObject = owner.GetOwner();
 
-        auto* col = gameObject->GetComponent<dae::CollisionComponent>();
+        auto *col = gameObject->GetComponent<dae::CollisionComponent>();
         col->SetEnabled(false);
         CollisionManager::GetInstance().Unregister(col);
 
         if (auto* spriteComp = gameObject->GetComponent<dae::SpriteAnimationComponent>())
             spriteComp->SetAnimation({{ 13 * 16, 0, 16, 16 }}, 0.f, false);
 
+        gameObject->GetActor()->NotifyObservers(dae::IObserver::Event::TileDestroyed);
 
 
     }

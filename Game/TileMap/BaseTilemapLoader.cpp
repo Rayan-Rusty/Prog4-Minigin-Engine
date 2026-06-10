@@ -17,7 +17,7 @@ void DigDug::BaseTilemapLoader::LoadFromFile(const std::string& path)
     if (!surface) return;
 
     uint8_t* pixels = static_cast<uint8_t*>(surface->pixels);
-
+    int bytesPerPixel = SDL_BYTESPERPIXEL(surface->format);
 
     m_Height = surface->h;
     m_Width = surface->w;
@@ -29,9 +29,9 @@ void DigDug::BaseTilemapLoader::LoadFromFile(const std::string& path)
     {
         for (int x = 0; x < m_WidthTiles; x++)
         {
-            int pixelIndex = (y * 16) * surface->pitch + (x * 16);
+            int pixelIndex = (y * 16) * surface->pitch + (x * 16) * bytesPerPixel;
             uint8_t value = pixels[pixelIndex];
-            OnTileFound(value, x, y);  // each derived class handles its own values
+            OnTileFound(value, x, y);
         }
     }
 
@@ -39,7 +39,7 @@ void DigDug::BaseTilemapLoader::LoadFromFile(const std::string& path)
     {
         for (int x = 0; x < m_WidthTiles; x++)
         {
-            int pixelIndex = (y * 16) * surface->pitch + (x * 16);
+            int pixelIndex = (y * 16) * surface->pitch + (x * 16) * bytesPerPixel;
             std::cout << static_cast<int>(pixels[pixelIndex]) << " ";
         }
         std::cout << "\n";
