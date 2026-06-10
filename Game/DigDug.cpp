@@ -23,7 +23,9 @@
 
 void DigDug::Game::Init()
 {
-    InitFirstLevel();
+    dae::SceneManager::GetInstance().RegisterScene(0, [this]{ InitializeMenuScreen(); });
+    dae::SceneManager::GetInstance().RegisterScene(1, [this]{ InitFirstLevel(); });
+
 }
 
 void DigDug::Game::Update(float deltaTime)
@@ -92,6 +94,7 @@ void DigDug::Game::InitializeMenuScreen()
 
 void DigDug::Game::InitFirstLevel()
 {
+    CollisionManager::GetInstance().Clear();
     auto Scene = &dae::SceneManager::GetInstance().CreateScene();
 
     auto player = Utils::CreatePlayer();
@@ -109,7 +112,7 @@ void DigDug::Game::InitFirstLevel()
     spawner->LoadFromFile("Data/Sprites/EnemyMap.png");
 
     SpawnerObject->AddComponent(std::move(spawner));
-    SpawnerObject->GetTransform().SetWorldPosition(glm::vec3{0, 16*2, 0});
+    SpawnerObject->GetTransform().SetWorldPosition(glm::vec3{0, 0, 0});
 
     Scene->Add(std::move(SpawnerObject));
 
