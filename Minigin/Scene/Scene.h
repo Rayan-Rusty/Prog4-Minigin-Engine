@@ -11,6 +11,7 @@ namespace dae
 	class Scene final
 	{
 	public:
+
 		void Add(std::unique_ptr<GameObject> object);
 		void Remove(const GameObject& object);
 		void RemoveAll();
@@ -34,9 +35,10 @@ namespace dae
 		Scene& operator=(const Scene& other) = delete;
 		Scene& operator=(Scene&& other) = delete;
 
+		explicit Scene() = default;
 	private:
 		friend class SceneManager;
-		explicit Scene() = default;
+
 
 		std::vector < std::unique_ptr<GameObject>> m_objects{};
 		std::vector <std::unique_ptr<IEventListener>> m_listeners{};

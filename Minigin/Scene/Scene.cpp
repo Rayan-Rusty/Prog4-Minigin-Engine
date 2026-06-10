@@ -83,6 +83,7 @@ void Scene::Clear()
 {
 	m_objects.clear();
 	m_listeners.clear();
+
     //m_eventBus.Clear();
 }
 

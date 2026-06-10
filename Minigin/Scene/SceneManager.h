@@ -24,11 +24,21 @@ namespace dae
 		EventBus& GetEventBus();
 
 
+		void RegisterScene(size_t index, std::function<void()> initFunc);
+
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;
-		std::vector<std::unique_ptr<Scene>> m_scenes{};
+
 		size_t m_activeSceneIndex{0}; // cant go below 0
+
+
+
+		std::vector<std::function<void()>> m_SceneInitialization;
+
+		std::vector<std::unique_ptr<Scene>> m_scenes{};
+
+
 
 	};
 }
