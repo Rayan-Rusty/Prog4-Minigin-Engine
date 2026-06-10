@@ -7,10 +7,11 @@
 #include <memory>
 #include <string>
 #include <vector>
-
+#include <glm/glm.hpp>
 #include "BaseTilemapLoader.h"
 #include "Component.h"
 #include "IObserver.h"
+
 #include "Texture2D.h"
 
 namespace dae {
@@ -20,74 +21,70 @@ namespace dae {
 
 namespace DigDug
 {
-    class TilemapComponent : public BaseTilemapLoader , public dae::IObserver
+    class TilemapComponent : public BaseTilemapLoader,  public dae::IObserver
     {
     public:
-
-        void Notify(dae::IObserver::Event event, dae::GameActor* actor) override;
 
         TilemapComponent(dae::GameObject* pOwner);
         ~TilemapComponent() override;
 
+        void Notify(Event event, dae::GameActor *actor) override;
+
+        glm::vec3 GridToWorld(const glm::ivec2& gridPos) const;
+        glm::ivec2 WorldToGrid(const glm::vec3& worldPos) const;
+        bool isTileOpen(int x, int y) const;
+        float GetTileWidth()  const { return m_TileWidth; }
+        float GetTileHeight() const { return m_TileHeight; }
 
 
         void OnAllTilesLoaded() override;
         void AddTexture(const std::string& path);
-        void Render() const override;
+
+        void Update(float deltaTime) override;
+
 
         std::type_index GetType() const override { return typeid(TilemapComponent); }
 
 
         void OnMapSizeKnown(int width, int height) override;
-        void CollideAt(int gridX, int gridY);
 
-        enum class TileType : uint8_t {
-            Empty = 0,
-            Block = 1,
 
-        };
-        enum class TileOrientation : uint8_t
+
+        struct TileData
         {
-            Horizontal = 0,
-            Vertical = 1,
-            Middle = 2,
-            MiddleUpside = 3,
-            EdgeLeft = 4,
-            EdgeRight = 5,
-            EdgeTop = 6,
-            EdgeBottom = 7
-        };
-        struct Tile
-        {
-       		int x{0};
-            int y{0};
-            bool isDestroyed{false};
-
-            TileOrientation orientation{TileOrientation::Horizontal};
-            TileType type{TileType::Block};
-            int frameIndex{0};
+            int gridX;
+            int gridY;
+            bool isDestroyed;
+            dae::GameObject* ptr{nullptr};
         };
 
 
+        int GetLayerForWorldPos(const glm::vec3& worldPos) const;
 
-        int OrientationToFrame(TileOrientation orientation);
-        TileOrientation DetermineOrientation(int x, int y);
-        uint8_t GetRawValue(int x , int y);
+
+        uint8_t GetRawValue(int x , int y)const ;
 
 
     private:
-        //TODO fuckkk my life this needs to be gameobjects so rewrite half of this shit
-        void OnTileFound(uint8_t value, int x, int y) override;
 
+
+        int GetBitmask(int x ,int y);
+        int BitmaskToFrame(int mask);
+        void OnTileFound(uint8_t value, int x, int y) override;
+        void CheckNeighbours(int x , int  y);
 
         std::vector<uint8_t> m_Tiles;
-        std::vector<Tile> m_RenderTiles;
+
         std::shared_ptr<dae::Texture2D> m_texture;
 
         std::vector<uint8_t>m_RawTiles;
 
+        std::vector<TileData> m_TileData;
+
         float m_TileWidth{0.f};
         float m_TileHeight{0.f};
+        std::vector<glm::vec3> m_pendingDestructions;
+
     };
 }
 

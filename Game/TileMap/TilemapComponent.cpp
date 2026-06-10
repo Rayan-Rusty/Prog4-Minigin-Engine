@@ -8,80 +8,94 @@
 #include <SDL3/SDL.h>
 
 #include "CollisionComponent.h"
+#include "IObserver.h"
 #include "GameObject.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "Layers/GameLayers.h"
-#include "SceneManager.h"
+
+#include "SpriteAnimationComponent.h"
+#include "Utils.h"
+#include "Blocks/BlockBehaviour.h"
+#include "Blocks/States/BlockDestroyedState.h"
 
 DigDug::TilemapComponent::TilemapComponent(dae::GameObject* pOwner)
     :BaseTilemapLoader(pOwner)
 {
     auto players = dae::SceneManager::GetInstance().GetActiveScene()->GetObjectByTag(static_cast<int>(GameTag::Player));
-    for (const auto& player : players)
-    {
-        player->GetActor()->AddObserver(this);
-    }
+
 }
 
 DigDug::TilemapComponent::~TilemapComponent()
 {
-    auto players = dae::SceneManager::GetInstance().GetActiveScene()->GetObjectByTag(static_cast<int>(GameTag::Player));
-    for (const auto& player : players)
-    {
-        player->GetActor()->RemoveObserver(this);
-    }
+
 }
 
-void DigDug::TilemapComponent::Notify(dae::IObserver::Event event, dae::GameActor* actor )
+void DigDug::TilemapComponent::Notify(Event event, dae::GameActor *actor)
 {
-    if (event == dae::IObserver::Event::Collision)
-    {
-        if (actor->GetOwner()->GetTag() == static_cast<int>(DigDug::GameTag::Player))
+    if (event == dae::IObserver::Event::TileDestroyed && actor->GetOwner()->GetTag() == static_cast<int>(GameTag::Tilemap))
         {
-            const auto& actorPos {actor->GetOwner()->GetTransform().GetWorldPosition()};
-            const auto& tilemapPos {GetOwner()->GetTransform().GetWorldPosition()};
 
-            int gridX = static_cast<int>((actorPos.x - tilemapPos.x) / m_WidthTiles);
-            int gridY = static_cast<int>((actorPos.y - tilemapPos.y) / m_HeightTiles);
 
-            CollideAt(gridX, gridY);
-        }
+        auto grid = WorldToGrid(actor->GetOwner()->GetTransform().GetWorldPosition());
+        if (grid.x < 0 || grid.x >= m_WidthTiles) return;
+        if (grid.y < 0 || grid.y >= m_HeightTiles) return;
 
-    }
+        int index = grid.y * m_WidthTiles + grid.x;
+        m_TileData[index].isDestroyed = true;
+        m_RawTiles[index] = 0;
+    };
+
+
 }
 
-void DigDug::TilemapComponent::Render() const
+glm::vec3 DigDug::TilemapComponent::GridToWorld(const glm::ivec2 &gridPos) const
 {
-    if (!m_texture || m_RenderTiles.empty()) return;
-
-    const auto& position = GetOwner()->GetTransform().GetWorldPosition();
-    const auto& scale = GetOwner()->GetTransform().GetScale();
-
-    float frameW = m_texture->GetSize().x / 9.f;
-    float frameH = m_texture->GetSize().y;
-
-    SDL_FRect dst{};
-    dst.w = frameW * scale.x;
-    dst.h = frameH * scale.y;
-
-    for (const auto& tile : m_RenderTiles)
-    {
-        SDL_FRect src{};
-        src.x = frameW * tile.frameIndex;
-        src.w = frameW;
-        src.h = frameH;
-        dst.x = position.x + (tile.x * dst.w);
-        dst.y = position.y + (tile.y * dst.h);
-        dae::Renderer::GetInstance().RenderTexture(*m_texture, dst, src);
-    }
+    glm::vec3 tilemapPos = GetOwner()->GetTransform().GetWorldPosition();
+    return {
+        tilemapPos.x + gridPos.x * m_TileWidth,
+        tilemapPos.y + gridPos.y * m_TileHeight,
+        0.f
+    };
 }
 
+glm::ivec2 DigDug::TilemapComponent::WorldToGrid(const glm::vec3 &worldPos) const
+{
+    glm::vec3 tilemapPos = GetOwner()->GetTransform().GetWorldPosition();
+    return {
+        static_cast<int>(std::floor((worldPos.x - tilemapPos.x) / m_TileWidth)),
+        static_cast<int>(std::floor((worldPos.y - tilemapPos.y) / m_TileHeight))
+    };
+}
+
+bool DigDug::TilemapComponent::isTileOpen(int x, int y) const
+{
+    return (GetRawValue(x, y) == 0);
+}
+
+
+
+int DigDug::TilemapComponent::GetLayerForWorldPos(const glm::vec3 &worldPos) const
+{
+    glm::vec3 tilemapPos = GetOwner()->GetTransform().GetWorldPosition();
+    int gridY = static_cast<int>(std::round((worldPos.y - tilemapPos.y) / m_TileHeight));
+    // divide gridY into bands, e.g. every N rows = one layer
+    return gridY / 4;
+}
 
 
 void DigDug::TilemapComponent::OnAllTilesLoaded()
 {
+    const float division{16.f};
+    const auto& scale = GetOwner()->GetTransform().GetScale();
+    m_TileWidth  = (m_texture->GetSize().x / division) * scale.x;
+    m_TileHeight = m_texture->GetSize().y * scale.y;
+
+    const auto& tilemapPos = GetOwner()->GetTransform().GetWorldPosition();
+    auto* scene = dae::SceneManager::GetInstance().GetActiveScene();
+
+    m_TileData.resize(m_WidthTiles * m_HeightTiles);
 
     for (int y = 0; y < m_HeightTiles; y++)
     {
@@ -89,30 +103,34 @@ void DigDug::TilemapComponent::OnAllTilesLoaded()
         {
             uint8_t value = m_RawTiles[y * m_WidthTiles + x];
 
-            Tile tile{x, y};
-            tile.isDestroyed = value == 0; // flips it
-            if (!tile.isDestroyed)
-                tile.frameIndex = 0; // solid/filled block
+            float worldX = tilemapPos.x + x * m_TileWidth;
+            float worldY = tilemapPos.y + y * m_TileHeight;
+            auto tile = Utils::CreateTile(worldX, worldY, m_TileWidth, m_TileHeight );
+
+            int index = y * m_WidthTiles + x;
+
+            if (value == 0)
+            {
+                m_TileData[index] = {x, y, true, tile.get()};
+                tile->GetComponent<DigDug::BlockBehaviour>()->ChangeState(std::make_unique<BlockDestroyedState>());
+
+            }
             else
-                tile.frameIndex = OrientationToFrame(DetermineOrientation(x, y));
+            {
+                m_TileData[index] = {x, y, false, tile.get()};
+            }
 
 
-            m_RenderTiles.push_back(tile);
+            tile->GetActor()->AddObserver(this);
+
+            scene->Add(std::move(tile));
+
+
+
         }
     }
 
 
-    const auto& scale = GetOwner()->GetTransform().GetScale();
-    m_TileWidth = m_texture->GetSize().x * scale.x;
-    m_TileHeight = m_texture->GetSize().y * scale.y;
-
-    auto col = GetOwner()->GetComponent<dae::CollisionComponent>();
-    if (col)
-    {
-        std::cout << "Collision added \n";
-        col->SetSize(m_WidthTiles * m_TileWidth , m_HeightTiles * m_TileHeight);
-
-    }
 
 }
 
@@ -123,6 +141,9 @@ void DigDug::TilemapComponent::AddTexture(const std::string &path)
 
 }
 
+void DigDug::TilemapComponent::Update(float ) {
+
+}
 
 
 void DigDug::TilemapComponent::OnMapSizeKnown(int width, int height)
@@ -130,75 +151,92 @@ void DigDug::TilemapComponent::OnMapSizeKnown(int width, int height)
     m_RawTiles.resize(width * height, 0);
 }
 
-void DigDug::TilemapComponent::CollideAt(int gridX, int gridY)
+
+
+
+
+
+
+
+int DigDug::TilemapComponent::BitmaskToFrame(int mask)
 {
-    if (gridX < 0 || gridX >= m_WidthTiles || gridY < 0 || gridY >= m_HeightTiles) return;
-
-    int index = gridY * m_WidthTiles + gridX;
-    if (m_RawTiles[index] == 0) return;
-
-    m_RawTiles[index] = 0;
-    auto& tile = m_RenderTiles[index];
-    tile.isDestroyed = true;
-
-    // reorient this tile and its neighbours
-    for (auto [nx, ny] : { std::pair{gridX,gridY}, {gridX-1,gridY}, {gridX+1,gridY}, {gridX,gridY-1}, {gridX,gridY+1} })
+    switch (mask)
     {
-        if (nx < 0 || nx >= m_WidthTiles || ny < 0 || ny >= m_HeightTiles) continue;
-        if (m_RawTiles[ny * m_WidthTiles + nx] != 0) continue;
-        m_RenderTiles[ny * m_WidthTiles + nx].frameIndex = OrientationToFrame(DetermineOrientation(nx, ny));
-    }
-
-}
-
-int DigDug::TilemapComponent::OrientationToFrame(TileOrientation orientation)
-{
-    switch (orientation)
-    {
-        case TileOrientation::Horizontal:  return 1;
-        case TileOrientation::Vertical:    return 2;
-        case TileOrientation::Middle:      return 3;
-        case TileOrientation::EdgeLeft:    return 5;
-        case TileOrientation::EdgeRight:   return 6;
-        case TileOrientation::EdgeBottom:  return 7;
-        case TileOrientation::EdgeTop:     return 8;
-        default:                           return 1;
+        case 0:  return 13;
+        case 1:  return 6;  // left only       -> EdgeRight
+        case 2:  return 5;  // right only      -> EdgeLeft
+        case 3:  return 1;  // left + right    -> horizontal
+        case 4:  return 7;  // up only         -> EdgeBottom
+        case 5:  return 9;  // left + up       -> CornerLeftUp
+        case 6:  return 10; // right + up      -> CornerRightUp
+        case 7:  return 3;  // left+right+up   -> TTop
+        case 8:  return 8;  // down only       -> EdgeTop
+        case 9:  return 12; // left + down     -> CornerLeftDown
+        case 10: return 11; // right + down    -> CornerRightDown
+        case 11: return 4;  // left+right+down -> TBottom
+        case 12: return 2;  // up + down       -> vertical
+        case 13: return 9;  // left+up+down    -> TLeft  (reuse or add frame)
+        case 14: return 10; // right+up+down   -> TRight (reuse or add frame)
+        case 15: return 13; // all open        -> Empty/cross
+        default: return 13;
     }
 }
 
-DigDug::TilemapComponent::TileOrientation DigDug::TilemapComponent::DetermineOrientation(int x, int y)
-{
-    bool left  = GetRawValue(x - 1, y) == 0;
-    bool right = GetRawValue(x + 1, y) == 0;
-    bool up    = GetRawValue(x, y - 1) == 0;
-    bool down  = GetRawValue(x, y + 1) == 0;
-
-    if (left && right && up) return TileOrientation::Middle;
-
-    if (right && !left) return TileOrientation::EdgeLeft;
-    if (left && !right) return TileOrientation::EdgeRight;
-
-    if (up && !down) return TileOrientation::EdgeBottom;
-    if (down && !up) return TileOrientation::EdgeTop;
-
-
-    // middle of tunnels
-    if (left || right) return TileOrientation::Horizontal;
-    if (up || down)    return TileOrientation::Vertical;
-
-    return TileOrientation::Horizontal;
-}
-
-uint8_t DigDug::TilemapComponent::GetRawValue(int x, int y)
+uint8_t DigDug::TilemapComponent::GetRawValue(int x, int y) const
 {
     if (x < 0 || x >= m_WidthTiles || y < 0 || y >= m_HeightTiles)
         return 0;
-    return m_RawTiles[y * m_WidthTiles + x];
+
+    int index = y * m_WidthTiles + x;
+    if (m_TileData[index].isDestroyed)
+        return 0;
+
+    return m_RawTiles[y * m_WidthTiles + x];;
+}
+
+int DigDug::TilemapComponent::GetBitmask(int x, int y)
+{
+    int mask = 0;
+    if (GetRawValue(x - 1, y) == 0) mask |= 1;  // left
+    if (GetRawValue(x + 1, y) == 0) mask |= 2;  // right
+    if (GetRawValue(x, y - 1) == 0) mask |= 4;  // up
+    if (GetRawValue(x, y + 1) == 0) mask |= 8;  // down
+    return mask;
 }
 
 void DigDug::TilemapComponent::OnTileFound(uint8_t value, int x, int y)
 {
     m_RawTiles[y * m_WidthTiles + x] = value;
+}
+
+void DigDug::TilemapComponent::CheckNeighbours(int x, int y)
+{
+    int neighbours[4][2] = {
+        {x - 1, y},
+        {x + 1, y},
+        {x, y - 1},
+        {x, y + 1}
+    };
+
+    for (auto& neighbour : neighbours)
+    {
+        int nx = neighbour[0];
+        int ny = neighbour[1];
+
+        if (nx < 0 || nx >= m_WidthTiles || ny < 0 || ny >= m_HeightTiles) continue;
+
+        int neighbourIndex = ny * m_WidthTiles + nx;
+        if (m_TileData[neighbourIndex].isDestroyed) continue;
+
+        if (auto spriteComp = m_TileData[neighbourIndex].ptr->GetComponent<dae::SpriteAnimationComponent>())
+        {
+            int frame = BitmaskToFrame(GetBitmask(nx, ny));
+            float frameWidth  = m_texture->GetSize().x / 16.f;
+            float frameHeight = m_texture->GetSize().y;
+            spriteComp->SetAnimation({{ frame * frameWidth, 0, frameWidth, frameHeight }}, 0.f, false);
+        }
+    }
+
 }
 
 
