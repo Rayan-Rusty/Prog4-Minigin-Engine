@@ -18,13 +18,13 @@ void dae::MovementComponent::Update(float deltaTime)
 {
 
 
-    auto pos = GetOwner()->GetTransform().GetLocalPosition();
+    auto pos = GetOwner()->GetTransform().GetWorldPosition();
     pos += m_Direction * m_Speed * deltaTime;
 
     if (m_Gravity)
         pos.y -= m_Speed * deltaTime;
 
-    GetOwner()->GetTransform().SetLocalPosition(pos);
+    GetOwner()->GetTransform().SetWorldPosition(pos);
 
     m_IsMoving = glm::length(m_Direction) > 0.0f;
     m_Direction = glm::vec3{0.0f, 0.0f, 0.0f};
