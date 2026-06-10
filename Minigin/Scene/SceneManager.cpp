@@ -38,11 +38,8 @@ void dae::SceneManager::SetActiveScene(size_t index)
 		m_SceneInitialization[index]();
 
 
-
-	m_scenes[previousIndex]->Clear();
-	//TODO clearup sections
-	m_scenes[m_activeSceneIndex]->RemoveAll();
-	m_activeSceneIndex = index;
+	if (previousIndex != index)
+		m_scenes[previousIndex]->Clear();
 }
 
 dae::Scene* dae::SceneManager::GetActiveScene() const
