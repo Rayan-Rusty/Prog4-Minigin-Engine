@@ -25,7 +25,11 @@ namespace dae
         void Update(float deltaTime) override;
         const SDL_FRect& GetSourceRect() const;
 
+        void SetFlipHorizontal(bool flip);
+        bool GetFlipHorizontal();
 
+        void SetFlipVertical(bool flip);
+        bool GetFlipVertical();
         //void SetAnimation(int row, int startCol, int endCol,  int frameWidth = 1, int frameHeight = 1);
         void SetAnimation(const std::vector<SDL_FRect>& Sizes , float duration , bool looping = true);
         //SetCustomAnimation(std::vector<SDL_FRect>);
@@ -57,6 +61,8 @@ namespace dae
         AnimationClip m_CurrentAnim{};
 
         int m_CurrentFrameIndex{0};
+        bool m_FlipHorizontal{false};
+        bool m_FlipVertical{false};
     };
 }
 

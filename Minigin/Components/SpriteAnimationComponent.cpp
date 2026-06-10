@@ -60,6 +60,26 @@ const SDL_FRect &dae::SpriteAnimationComponent::GetSourceRect() const {
     return m_Src;
 }
 
+void dae::SpriteAnimationComponent::SetFlipHorizontal(bool flip)
+{
+    m_FlipHorizontal = flip;
+}
+
+bool dae::SpriteAnimationComponent::GetFlipHorizontal()
+{
+    return m_FlipHorizontal;
+}
+
+void dae::SpriteAnimationComponent::SetFlipVertical(bool flip)
+{
+    m_FlipVertical = flip;
+}
+
+bool dae::SpriteAnimationComponent::GetFlipVertical()
+{
+    return m_FlipVertical;
+}
+
 void dae::SpriteAnimationComponent::SetAnimation(const std::vector<SDL_FRect>& Sizes, float duration , bool looping)
 {
     m_Timer = 0.f;
