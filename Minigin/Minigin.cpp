@@ -96,6 +96,8 @@ void dae::Minigin::Run()
 {
 
 #ifndef __EMSCRIPTEN__
+	InputManager::GetInstance().AddDevice(std::make_unique<Keyboard>());
+
 	while (!m_quit)
 		RunOneFrame();
 #else
@@ -112,7 +114,6 @@ void dae::Minigin::RunOneFrame()
 
 	m_quit = !InputManager::GetInstance().ProcessInput(deltaTime);
 
-	InputManager::GetInstance().AddDevice(std::make_unique<Keyboard>());
 
 	Renderer::GetInstance().Clear(); // clears up the last things drawn
 	if (m_Game)
