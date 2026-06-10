@@ -13,8 +13,9 @@
 #include "TilemapComponent.h"
 #include "Utils.h"
 #include "MenuNavigateCommand.h"
+#include "Commands/ConfirmedCommand.h"
 #include "Menu/MenuMarker.h"
-#include "Menu/Events/System/MenuNavigateSystem.h"
+
 
 
 //TODO ASYNC noise
@@ -23,9 +24,10 @@
 
 void DigDug::Game::Init()
 {
+
     dae::SceneManager::GetInstance().RegisterScene(0, [this]{ InitializeMenuScreen(); });
     dae::SceneManager::GetInstance().RegisterScene(1, [this]{ InitFirstLevel(); });
-
+    dae::SceneManager::GetInstance().SetActiveScene(0);
 }
 
 void DigDug::Game::Update(float deltaTime)
@@ -42,50 +44,39 @@ void DigDug::Game::Draw() const
 
 void DigDug::Game::InitializeMenuScreen()
 {
-    auto scene = &dae::SceneManager::GetInstance().CreateScene();
+    auto* scene = dae::SceneManager::GetInstance().GetActiveScene();
 
-    //========================
-    //===== Background =======
-    //========================
     auto Background = Utils::CreateBackgroundObject("MainMenu/Background.png");
     Background->GetTransform().SetScale(glm::vec3{2, 2, 2});
     Background->GetTransform().SetWorldPosition(glm::vec3{0, 0, 0});
 
-    //========================
-    //===== Arrow =======
-    //========================
     auto Marker = Utils::CreateBackgroundObject("MainMenu/Marker.png");
     Marker->GetTransform().SetScale(glm::vec3{2, 2, 2});
     Marker->GetTransform().SetWorldPosition(glm::vec3{512 / 2 - 100, 205, 0});
 
-    auto markerComp  = std::make_unique<MenuMarker>(Marker.get());
-    markerComp->AddPosition(glm::vec3{512 / 2 - 100, 205, 0}); // Single Player
-    markerComp->AddPosition(glm::vec3{512 / 2 - 100, 235, 0}); // Multiplayer
-    markerComp->AddPosition(glm::vec3{512 / 2 - 100, 265, 0}); // Options
-
-
+    auto markerComp = std::make_unique<MenuMarker>(Marker.get());
+    markerComp->AddPosition(glm::vec3{512 / 2 - 100, 205, 0});
+    markerComp->AddPosition(glm::vec3{512 / 2 - 100, 235, 0});
+    markerComp->AddPosition(glm::vec3{512 / 2 - 100, 265, 0});
     Marker->AddComponent(std::move(markerComp));
 
-
-    auto menuSystem = std::make_unique<MenuNavigateSystem>(Marker.get());
-    scene->StoreSystem(std::move(menuSystem));
-
-    auto menuUp = std::make_unique<dae::MenuNavigateCommand>(Marker.get() , 1);
+    //  no MenuNavigateSystem
 
     dae::InputManager::GetInstance().AddCommandBinding(
         SDL_SCANCODE_W,
-        std::move(menuUp),
+        std::make_unique<DigDug::MenuNavigateCommand>(Marker.get(), -1),
         dae::InputManager::KeyState::Down
     );
-
-    auto menuDown = std::make_unique<dae::MenuNavigateCommand>(Marker.get() , -1);
-
     dae::InputManager::GetInstance().AddCommandBinding(
         SDL_SCANCODE_S,
-        std::move(menuDown),
+        std::make_unique<DigDug::MenuNavigateCommand>(Marker.get(), 1),
         dae::InputManager::KeyState::Down
     );
-
+    dae::InputManager::GetInstance().AddCommandBinding(
+        SDL_SCANCODE_SPACE,
+        std::make_unique<DigDug::ConfirmedCommand>(Marker.get()),
+        dae::InputManager::KeyState::Down
+    );
     scene->Add(std::move(Background));
     scene->Add(std::move(Marker));
 
@@ -95,7 +86,7 @@ void DigDug::Game::InitializeMenuScreen()
 void DigDug::Game::InitFirstLevel()
 {
     CollisionManager::GetInstance().Clear();
-    auto Scene = &dae::SceneManager::GetInstance().CreateScene();
+    auto* Scene = dae::SceneManager::GetInstance().GetActiveScene();
 
     auto player = Utils::CreatePlayer();
 
