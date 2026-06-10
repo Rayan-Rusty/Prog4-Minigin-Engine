@@ -22,7 +22,8 @@ namespace dae
             ItemCollected,
             Collision,
             LevelCompleted,
-
+            TileDestroyed,
+            EnemyKilled
 
         };
 
