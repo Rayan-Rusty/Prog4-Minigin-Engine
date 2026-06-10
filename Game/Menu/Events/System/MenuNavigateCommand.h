@@ -7,13 +7,13 @@
 #include "GameActorCommand.h"
 
 
-namespace dae
+namespace DigDug
 {
 
-    class MenuNavigateCommand final : public GameActorCommand
+    class MenuNavigateCommand final : public dae::GameActorCommand
     {
     public:
-        MenuNavigateCommand(GameObject* actor , int dir);
+        MenuNavigateCommand(dae::GameObject* actor , int dir);
         ~MenuNavigateCommand();
 
         void Execute() override;

@@ -30,20 +30,17 @@ void DigDug::MenuMarker::RemovePosition(const glm::vec3 &position)
 
 void DigDug::MenuMarker::Move(int direction)
 {
-    if (m_MenuPositions.empty())
-        return;
 
-    m_CurrentIndex += direction;
 
-    if (m_CurrentIndex < 0)
-        m_CurrentIndex = static_cast<int>(m_MenuPositions.size()) - 1;
-
-    if (m_CurrentIndex >= static_cast<int>(m_MenuPositions.size()))
-        m_CurrentIndex = 0;
-
-    GetOwner()->GetTransform().SetWorldPosition(
-        m_MenuPositions[m_CurrentIndex]
+    m_CurrentIndex = std::clamp(
+        m_CurrentIndex + direction,
+        0,
+        static_cast<int>(m_MenuPositions.size()) - 1
     );
+
+
+    GetOwner()->GetTransform().SetWorldPosition(m_MenuPositions[m_CurrentIndex]);
+
 }
 
 void DigDug::MenuMarker::Update(float)

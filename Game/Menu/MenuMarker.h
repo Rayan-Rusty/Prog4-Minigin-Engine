@@ -19,6 +19,7 @@ namespace DigDug
         void AddPosition(const glm::vec3& position);
         void RemovePosition(const glm::vec3& position);
         void Move(int direction);
+        int GetcurrentSelection() const{return m_CurrentIndex;};
 
         int GetCurrentSelection() const;
 
@@ -30,7 +31,9 @@ namespace DigDug
     private:
 
         std::vector<glm::vec3> m_MenuPositions;
-        int m_CurrentIndex;
+        int m_CurrentIndex{0};
+        float m_MoveSpeed{300.f};
+        glm::vec3 m_TargetPosition{};
     };
 } // DigDug
 

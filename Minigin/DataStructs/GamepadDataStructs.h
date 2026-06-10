@@ -2,8 +2,8 @@
 // Created by omen on 19/04/2026.
 //
 
-#ifndef MINIGIN_DATATYPES_H
-#define MINIGIN_DATATYPES_H
+#ifndef MINIGIN_DATASTRUCTS_H
+#define MINIGIN_DATASTRUCTS_H
 namespace  dae
 {
     enum class GamepadButton
@@ -24,4 +24,4 @@ namespace  dae
     };
 
 }
-#endif //MINIGIN_DATATYPES_H
+#endif //MINIGIN_DATASTRUCTS_H
