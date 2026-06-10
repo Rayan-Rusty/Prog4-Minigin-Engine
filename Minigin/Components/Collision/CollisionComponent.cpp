@@ -48,8 +48,8 @@ SDL_FRect dae::CollisionComponent::GetBounds() const
     const auto& scale = GetOwner()->GetTransform().GetScale();
 
     SDL_FRect worldBounds;
-    worldBounds.x = worldPos.x;
-    worldBounds.y = worldPos.y;
+    worldBounds.x = worldPos.x + m_OffsetX * scale.x;
+    worldBounds.y = worldPos.y + m_OffsetY * scale.y;
     worldBounds.w = m_Width * scale.x;
     worldBounds.h = m_Height * scale.y;
     //
@@ -68,8 +68,8 @@ bool dae::CollisionComponent::Intersect(const CollisionComponent *other) const
 
 void dae::CollisionComponent::SetSize(float width, float height)
 {
-    m_bounds.h = height;
-    m_bounds.w = width;
+    m_Width  = width;
+    m_Height = height;
 }
 
 

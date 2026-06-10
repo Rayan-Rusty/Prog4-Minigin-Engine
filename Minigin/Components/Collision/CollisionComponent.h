@@ -42,12 +42,20 @@ namespace dae
         void SetLayer(Layer layer) { m_layer = layer; }
         Layer GetLayer() const { return m_layer; }
 
+        void SetOnCollision(std::function<void(CollisionComponent*)> callback) { m_onCollision = callback; }
+        void TriggerCollision(CollisionComponent* other) { if (m_onCollision) m_onCollision(other); }
+        void SetOffset(float x, float y) { m_OffsetX = x; m_OffsetY = y; }
+
+
     private:
+        std::function<void(CollisionComponent*)> m_onCollision;
         SDL_FRect m_bounds;
         bool m_Enabled{true};
         float m_Width{0.0f};
         float m_Height{0.0f};
         Layer m_layer{ Layer::Default };
+        float m_OffsetX{0.f};
+        float m_OffsetY{0.f};
     };
 } // dae
 

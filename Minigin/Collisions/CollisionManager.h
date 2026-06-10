@@ -15,12 +15,12 @@ public:
 
     void Register(dae::CollisionComponent* col);
     void Unregister(dae::CollisionComponent* col);
-
+    void Clear();
     void Update();
 
 private:
     friend class Singleton<CollisionManager>;
-    CollisionManager();
+    CollisionManager() = default;
 
     std::vector<dae::CollisionComponent*> m_cols;
 };

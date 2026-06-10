@@ -16,6 +16,11 @@ void CollisionManager::Unregister(dae::CollisionComponent *col)
     std::erase(m_cols, col);
 }
 
+void CollisionManager::Clear()
+{
+    m_cols.clear();
+}
+
 void CollisionManager::Update()
 {
     for (size_t i = 0; i < m_cols.size(); ++i)
@@ -29,13 +34,12 @@ void CollisionManager::Update()
 
             if (a->Intersect(b))
             {
-                a->GetOwner()->GetActor()->NotifyObservers(
-                    dae::IObserver::Event::Collision
-                );
+
+                a->TriggerCollision(b);
+                b->TriggerCollision(a);
             }
         }
     }
 }
 
-CollisionManager::CollisionManager() {
-}
+
