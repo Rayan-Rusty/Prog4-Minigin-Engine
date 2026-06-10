@@ -33,7 +33,7 @@ namespace dae
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
 		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
 		void RenderTexture(const Texture2D& texture, const SDL_FRect& dst) const;
-		void RenderTexture(const Texture2D& texture , const SDL_FRect& dst,const SDL_FRect& src) const;
+		void RenderTexture(const Texture2D& texture , const SDL_FRect& dst,const SDL_FRect& src , SDL_FlipMode flip) const;
 		void RenderDebugRect(const SDL_FRect& rect, SDL_Color color) const;
 		void Submit(bool isUI, const std::shared_ptr<Texture2D>& texture,const SDL_FRect& dst , const SDL_FRect& src);
 

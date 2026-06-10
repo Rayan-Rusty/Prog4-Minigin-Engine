@@ -5,6 +5,7 @@
 #include "PookaNormalState.h"
 
 
+#include "CollisionComponent.h"
 #include "PookaBehaviour.h"
 #include "PookaInflatedState.h"
 #include "SpriteAnimationComponent.h"
@@ -15,6 +16,9 @@ void DigDug::PookaNormalState::Enter(PookaBehaviour& Data )
 {
     m_timer = 0;
     auto* obj = Data.GetOwner();
+
+    auto* col = obj->GetComponent<dae::CollisionComponent>();
+    if (col) col->SetEnabled(true);
 
     if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
     {

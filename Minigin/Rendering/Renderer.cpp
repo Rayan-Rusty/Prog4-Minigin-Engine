@@ -113,14 +113,17 @@ void dae::Renderer::RenderTexture(const Texture2D &texture, const SDL_FRect &dst
 }
 
 
-void dae::Renderer::RenderTexture(const Texture2D &texture, const SDL_FRect &dst, const SDL_FRect &src) const
+void dae::Renderer::RenderTexture(const Texture2D &texture, const SDL_FRect &dst, const SDL_FRect &src , SDL_FlipMode flip) const
 {
-	SDL_RenderTexture(
+	SDL_RenderTextureRotated(
 		m_renderer,
 		texture.GetSDLTexture(),
 		&src,
-		&dst
-		);
+		&dst,
+		0.0,        // angle
+		nullptr,    // center
+		flip
+	);
 }
 
 void dae::Renderer::RenderDebugRect(const SDL_FRect &rect, SDL_Color color) const

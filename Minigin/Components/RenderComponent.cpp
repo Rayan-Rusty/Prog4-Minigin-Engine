@@ -48,19 +48,29 @@ void dae::RenderComponent::Render() const
     if (spriteComp)
     {
         const auto& srcComp = spriteComp->GetSourceRect();
-        dst.w = srcComp.w * scale.x;
-        dst.h = srcComp.h * scale.y;
+        dst.w = srcComp.w * std::abs(scale.x);
+        dst.h = srcComp.h * std::abs(scale.y);
         src = spriteComp->GetSourceRect();
     }
     else
     {
-        dst.w = m_Texture->GetSize().x * scale.x;
-        dst.h = m_Texture->GetSize().y * scale.y;
+        dst.w = m_Texture->GetSize().x * std::abs(scale.x);
+        dst.h = m_Texture->GetSize().y * std::abs(scale.y);
         src = {0,0, m_Texture->GetSize().x , m_Texture->GetSize().y};
     }
 
+    SDL_FlipMode flip = SDL_FLIP_NONE;
+    if (spriteComp)
+    {
+        int flipFlags = SDL_FLIP_NONE;
+        if (spriteComp->GetFlipHorizontal()) flipFlags |= SDL_FLIP_HORIZONTAL;
+        if (spriteComp->GetFlipVertical())   flipFlags |= SDL_FLIP_VERTICAL;
+        flip = static_cast<SDL_FlipMode>(flipFlags);
+    }
 
-    Renderer::GetInstance().RenderTexture(*m_Texture, dst, src);
+
+
+    Renderer::GetInstance().RenderTexture(*m_Texture, dst, src , flip);
 
 
 }
