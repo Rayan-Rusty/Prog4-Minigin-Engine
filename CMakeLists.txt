@@ -179,8 +179,8 @@ add_executable(${GAME_NAME}
         Game/Player/States/PlayerWalkingState.h
         Game/Menu/MenuMarker.cpp
         Game/Menu/MenuMarker.h
-        Minigin/Commands/MenuNavigateCommand.cpp
-        Minigin/Commands/MenuNavigateCommand.h
+        Game/Menu/Events/System/MenuNavigateCommand.cpp
+        Game/Menu/Events/System/MenuNavigateCommand.h
         Game/Menu/Events/System/MenuNavigateSystem.cpp
         Game/Menu/Events/System/MenuNavigateSystem.h
         Game/Player/CollisionObserver/PlayerCollisionHandler.cpp
@@ -191,6 +191,22 @@ add_executable(${GAME_NAME}
         Game/TileMap/EnemySpawnerComponent.h
         Game/TileMap/EnemyTraits.h
         Game/TileMap/Layers/GameLayers.h
+        Game/Blocks/BlockBehaviour.cpp
+        Game/Blocks/BlockBehaviour.h
+        Game/Blocks/States/BlockDestroyedState.cpp
+        Game/Blocks/States/BlockDestroyedState.h
+        Game/Blocks/States/BlockSolidState.cpp
+        Game/Blocks/States/BlockSolidState.h
+        Game/Player/Movement/PlayerMovement.cpp
+        Game/Player/Movement/PlayerMovement.h
+        Game/Components/ScoreComponent.cpp
+        Game/Components/ScoreComponent.h
+        Game/Commands/ConfirmedCommand.cpp
+        Game/Commands/ConfirmedCommand.h
+        Game/Enemies/Pooka/Movement/PookaMovement.cpp
+        Game/Enemies/Pooka/Movement/PookaMovement.h
+        Game/Menu/BackGround/Movement/MenuMovement.cpp
+        Game/Menu/BackGround/Movement/MenuMovement.h
 )
 
 target_include_directories(${GAME_NAME} PRIVATE
@@ -205,6 +221,9 @@ target_include_directories(${GAME_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/Game/Player
         ${CMAKE_SOURCE_DIR}/Game/Level
         ${CMAKE_SOURCE_DIR}/Game/TileMap
+        ${CMAKE_SOURCE_DIR}/Game/Menu/
+        ${CMAKE_SOURCE_DIR}/Game/Menu/Events/
+        ${CMAKE_SOURCE_DIR}/Game/Menu/Events/System
 )
 
 target_compile_features(${GAME_NAME} PUBLIC cxx_std_20)
