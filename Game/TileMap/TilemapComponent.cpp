@@ -23,8 +23,6 @@
 DigDug::TilemapComponent::TilemapComponent(dae::GameObject* pOwner)
     :BaseTilemapLoader(pOwner)
 {
-    auto players = dae::SceneManager::GetInstance().GetActiveScene()->GetObjectByTag(static_cast<int>(GameTag::Player));
-
 }
 
 DigDug::TilemapComponent::~TilemapComponent()
