@@ -258,3 +258,54 @@ std::unique_ptr<dae::GameObject> Utils::CreateMenuMarker()
     );
     return Marker;
 }
+
+bool Utils::IsIntersection(DigDug::TilemapComponent *tilemap, glm::ivec2 currentGrid, glm::vec2 currentDir)
+{
+    std::vector<glm::vec2> perpendiculars;
+    if (currentDir.x != 0)
+        perpendiculars = {{ 0,1 }, { 0,-1 }};
+    else
+        perpendiculars = {{ 1,0 }, { -1,0 }};
+
+    for (auto& p : perpendiculars)
+    {
+        if (tilemap->isTileOpen(
+            currentGrid.x + static_cast<int>(p.x),
+            currentGrid.y + static_cast<int>(p.y)))
+            return true;
+    }
+    return false;
+}
+
+glm::vec2 Utils::PickBestDirection(DigDug::TilemapComponent *tilemap, dae::GameObject *player, glm::ivec2 fromGrid,
+    glm::vec2 currentDir)
+{
+    auto playerGrid = tilemap->WorldToGrid(player->GetTransform().GetWorldPosition());
+
+    std::vector<glm::vec2> directions = {{ 1,0 }, { -1,0 }, { 0,1 }, { 0,-1 }};
+
+    glm::vec2 bestDir = currentDir;
+    int bestDist      = INT_MAX;
+
+    for (auto& d : directions)
+    {
+        if (d == -currentDir) continue;
+
+        int nx = fromGrid.x + static_cast<int>(d.x);
+        int ny = fromGrid.y + static_cast<int>(d.y);
+        if (!tilemap->isTileOpen(nx, ny)) continue;
+
+        int dist = std::abs(nx - playerGrid.x) + std::abs(ny - playerGrid.y);
+        if (dist < bestDist)
+        {
+            bestDist = dist;
+            bestDir  = d;
+        }
+    }
+
+    // dead end fallback
+    if (bestDist == INT_MAX)
+        bestDir = -currentDir;
+
+    return bestDir;
+}

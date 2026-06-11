@@ -7,6 +7,7 @@
 
 
 #include "GameObject.h"
+#include "TilemapComponent.h"
 
 
 namespace Utils
@@ -26,6 +27,9 @@ namespace Utils
     std::unique_ptr<dae::GameObject> CreateTile(float worldX, float worldY, float w, float h);
     std::unique_ptr<dae::GameObject> CreateMenuMarker();
 
+
+    bool IsIntersection(DigDug::TilemapComponent* tilemap, glm::ivec2 currentGrid, glm::vec2 currentDir);
+    glm::vec2 PickBestDirection(DigDug::TilemapComponent* tilemap , dae::GameObject* player, glm::ivec2 fromGrid, glm::vec2 currentDir);
     //void DebugObject();
 }
 
