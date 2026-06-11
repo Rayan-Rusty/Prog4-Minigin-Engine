@@ -19,6 +19,9 @@ namespace DigDug
         void Enter(FygarBehaviour& Data) override;
         std::unique_ptr<State> Update(float DeltaTime, FygarBehaviour& Data) override;
         void Exit(FygarBehaviour& Data) override;
+
+        std::type_index GetType() const override;
+
     private:
     };
 } // game

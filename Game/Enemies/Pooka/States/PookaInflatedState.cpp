@@ -37,3 +37,8 @@ std::unique_ptr<State<DigDug::PookaBehaviour>> DigDug::PookaInflatedState::Updat
 void DigDug::PookaInflatedState::Exit(PookaBehaviour& ) {
 
 }
+
+std::type_index DigDug::PookaInflatedState::GetType() const
+{
+    return std::type_index(typeid(PookaInflatedState));
+}

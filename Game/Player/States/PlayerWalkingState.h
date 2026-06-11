@@ -20,6 +20,9 @@ namespace DigDug {
         void Enter(PlayerBehaviour& Data) override;
         std::unique_ptr<State<PlayerBehaviour>> Update(float DeltaTime, PlayerBehaviour& Data) override;
         void Exit(PlayerBehaviour& Data) override;
+
+        std::type_index GetType() const override;
+
     private:
         int m_Timer{0};
 

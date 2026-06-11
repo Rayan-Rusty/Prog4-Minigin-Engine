@@ -18,6 +18,8 @@ namespace DigDug
 
         void Exit(BlockBehaviour &owner) override;
 
+        std::type_index GetType() const override;
+
     private:
     };
 }

@@ -18,8 +18,7 @@ namespace DigDug
         void Update(float deltaTime) override;
         std::type_index GetType() const override;
         void Move(float dt);
-        void MoveGhost(float dt);
-
+        void SetGhost(bool Ghost);
         void SetSpeed(float speed);
 
     private:
@@ -27,6 +26,7 @@ namespace DigDug
         glm::ivec2 m_lastGrid{ -1, -1 };
         glm::vec2 m_Dir{1.f,0.f};
         bool m_FacingLeft{false};
+        bool m_IsGhost{false};
         void ChangeDirection(glm::ivec2 wallGrid);
         void CheckWallCollision();
         TilemapComponent* m_pSceneTileMap{nullptr};

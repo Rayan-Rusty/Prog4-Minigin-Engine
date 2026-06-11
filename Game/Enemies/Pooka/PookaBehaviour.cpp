@@ -25,7 +25,8 @@ void DigDug::PookaBehaviour::Notify(Event event, dae::GameActor *)
 {
     if (event == dae::IObserver::Event::EnemyHitWall)
     {
-        ChangeState(std::make_unique<PookaGhostState>());
+        if (m_dist(m_Rng) < m_GhostChance)
+            ChangeState(std::make_unique<PookaGhostState>());
     }
 }
 
@@ -44,6 +45,11 @@ void  DigDug::PookaBehaviour::ChangeState(std::unique_ptr<State<PookaBehaviour>>
 
      m_state = std::move(newState);
      m_state->Enter(*this);
+}
+
+State<DigDug::PookaBehaviour> * DigDug::PookaBehaviour::GetState() const
+{
+    return m_state.get();
 }
 
 

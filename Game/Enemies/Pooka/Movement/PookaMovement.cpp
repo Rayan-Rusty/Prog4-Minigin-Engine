@@ -3,6 +3,7 @@
 #include "CollisionComponent.h"
 #include "CollisionManager.h"
 #include "GameObject.h"
+#include "PookaGhostState.h"
 #include "SceneManager.h"
 #include "SpriteAnimationComponent.h"
 #include "Layers/GameLayers.h"
@@ -28,12 +29,27 @@ DigDug::PookaMovement::PookaMovement(dae::GameObject *parent)
 
     col->SetOnCollision([this](dae::CollisionComponent* other)
     {
+
         if (other->GetOwner()->GetTag() != static_cast<int>(DigDug::GameTag::Tilemap))
             return;
 
-        auto tileWorldPos = other->GetOwner()->GetTransform().GetWorldPosition();
-        auto tileGrid     = m_pSceneTileMap->WorldToGrid(tileWorldPos);
-        ChangeDirection(tileGrid);
+        auto* pookaBehaviour = GetOwner()->GetComponent<PookaBehaviour>();
+        if (pookaBehaviour && pookaBehaviour->GetState())
+        {
+
+            bool isGhost = (pookaBehaviour->GetState()->GetType() == typeid(PookaGhostState));
+
+
+            if (other->GetOwner()->GetTag() == static_cast<int>(DigDug::GameTag::Tilemap) && isGhost)
+                return;
+
+
+            auto tileWorldPos = other->GetOwner()->GetTransform().GetWorldPosition();
+            auto tileGrid     = m_pSceneTileMap->WorldToGrid(tileWorldPos);
+            ChangeDirection(tileGrid);
+
+        }
+
 
 
     });
@@ -89,28 +105,9 @@ void DigDug::PookaMovement::Move(float dt)
     if (currentGrid == m_lastGrid) return;
     m_lastGrid = currentGrid;
 
-    glm::ivec2 ahead = {
-        currentGrid.x + static_cast<int>(m_Dir.x),
-        currentGrid.y + static_cast<int>(m_Dir.y)
-    };
-
-    if (Utils::IsIntersection(m_pSceneTileMap, currentGrid, m_Dir))
-        ChangeDirection(ahead);
 }
 
-void DigDug::PookaMovement::MoveGhost(float dt)
-{
-    if (!m_pPlayer || !m_pSceneTileMap) return;
 
-    auto pos    = GetOwner()->GetTransform().GetWorldPosition();
-    auto target = m_pPlayer->GetTransform().GetWorldPosition();
-
-    glm::vec2 dir = glm::normalize(glm::vec2(target) - glm::vec2(pos));
-    pos.x += m_Speed * dir.x * dt;
-    pos.y += m_Speed * dir.y * dt;
-    GetOwner()->GetTransform().SetWorldPosition(pos);
-
-}
 
 void DigDug::PookaMovement::SetSpeed(float speed)
 {

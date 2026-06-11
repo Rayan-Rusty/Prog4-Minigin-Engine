@@ -49,3 +49,8 @@ void DigDug::PlayerIdleState::Exit(PlayerBehaviour &)
 {
 
 }
+
+std::type_index DigDug::PlayerIdleState::GetType() const
+{
+    return std::type_index(typeid(PlayerIdleState));
+}

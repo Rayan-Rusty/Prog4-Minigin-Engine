@@ -14,6 +14,8 @@ namespace DigDug
         std::unique_ptr<State> Update(float DeltaTime, BlockBehaviour &Data) override;
         void Exit(BlockBehaviour &Data) override;
 
+        std::type_index GetType() const override;
+
     private:
 
     };

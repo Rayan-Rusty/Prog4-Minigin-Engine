@@ -24,4 +24,9 @@ namespace DigDug {
 
     void BlockSolidState::Exit(BlockBehaviour &) {
     }
+
+    std::type_index BlockSolidState::GetType() const
+    {
+        return std::type_index(typeid(BlockSolidState));
+    }
 } // DigDug

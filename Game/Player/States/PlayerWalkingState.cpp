@@ -50,3 +50,8 @@ std::unique_ptr<State<DigDug::PlayerBehaviour>> DigDug::PlayerWalkingState::Upda
 void DigDug::PlayerWalkingState::Exit(PlayerBehaviour &) {
 
 }
+
+std::type_index DigDug::PlayerWalkingState::GetType() const
+{
+    return std::type_index(typeid(PlayerWalkingState));
+}

@@ -40,3 +40,8 @@ std::unique_ptr<State<DigDug::FygarBehaviour>> DigDug::FygarAttackState::Update(
 void DigDug::FygarAttackState::Exit(FygarBehaviour &) {
 
 }
+
+std::type_index DigDug::FygarAttackState::GetType() const
+{
+    return std::type_index(typeid(FygarAttackState));
+}

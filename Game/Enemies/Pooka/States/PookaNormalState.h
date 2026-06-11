@@ -16,6 +16,9 @@ namespace DigDug
         void Enter(PookaBehaviour& Data) override;
         std::unique_ptr<State> Update(float DeltaTime, PookaBehaviour& Data) override;
         void Exit(PookaBehaviour& Data) override;
+
+        std::type_index GetType() const override;
+
     private:
         float m_timer = 0.0f;
 

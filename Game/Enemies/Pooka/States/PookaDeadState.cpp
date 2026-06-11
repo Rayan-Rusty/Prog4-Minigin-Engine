@@ -38,3 +38,8 @@ void DigDug::PookaDeadState::Exit(PookaBehaviour& )
 {
 
 }
+
+std::type_index DigDug::PookaDeadState::GetType() const
+{
+    return std::type_index(typeid(PookaDeadState));
+}

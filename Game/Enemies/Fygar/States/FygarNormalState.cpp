@@ -34,3 +34,8 @@ void DigDug::FygarNormalState::Exit(FygarBehaviour &)
 {
 
 }
+
+std::type_index DigDug::FygarNormalState::GetType() const
+{
+    return std::type_index(typeid(FygarNormalState));
+}

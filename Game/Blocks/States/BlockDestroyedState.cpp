@@ -36,4 +36,9 @@ namespace DigDug {
     {
 
     }
+
+    std::type_index BlockDestroyedState::GetType() const
+    {
+        return std::type_index(typeid(BlockDestroyedState));
+    }
 } // DigDug

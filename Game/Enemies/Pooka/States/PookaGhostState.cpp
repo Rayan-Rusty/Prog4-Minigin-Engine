@@ -4,8 +4,11 @@
 
 #include "PookaGhostState.h"
 
+#include "CollisionComponent.h"
 #include "PookaBehaviour.h"
+#include "SceneManager.h"
 #include "SpriteAnimationComponent.h"
+#include "Layers/GameLayers.h"
 #include "Movement/PookaMovement.h"
 
 
@@ -13,6 +16,18 @@ void DigDug::PookaGhostState::Enter(PookaBehaviour& Data )
 {
     m_timer = 0;
     auto* obj = Data.GetOwner();
+
+
+    // if (auto* col = obj->GetComponent<dae::CollisionComponent>())
+    //     col->SetEnabled(false);
+
+
+
+    auto playerObjs = dae::SceneManager::GetInstance().GetActiveScene()
+                  ->GetObjectByTag(static_cast<int>(GameTag::Player));
+    if (!playerObjs.empty())
+        m_pPlayer = playerObjs[0];
+
 
     if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
     {
@@ -31,20 +46,31 @@ void DigDug::PookaGhostState::Enter(PookaBehaviour& Data )
 std::unique_ptr<State<DigDug::PookaBehaviour>> DigDug::PookaGhostState::Update(float DeltaTime , PookaBehaviour &Data)
 {
 
+    auto pos    = Data.GetOwner()->GetTransform().GetWorldPosition();
+    auto target = m_pPlayer->GetTransform().GetWorldPosition();
 
-    if (auto* movement = Data.GetOwner()->GetComponent<PookaMovement>())
-    {
-        movement->SetSpeed(60.f);
-        movement->MoveGhost(DeltaTime);
-    }
+    glm::vec2 dir = glm::normalize(glm::vec2(target) - glm::vec2(pos));
+    pos.x += m_Speed * dir.x * DeltaTime;
+    pos.y += m_Speed * dir.y * DeltaTime;
+    Data.GetOwner()->GetTransform().SetWorldPosition(pos);
 
-
+    // if (m_pSceneTileMap->IsTunnel(m_pSceneTileMap->WorldToGrid(pos)))
+    //     return std::make_unique<PookaNormalState>();
 
 
     return nullptr;
 }
 
 
-void DigDug::PookaGhostState::Exit(PookaBehaviour& ) {
+void DigDug::PookaGhostState::Exit(PookaBehaviour&   )
+{
+    // auto* obj = Data.GetOwner();
+    // if (auto* col = obj->GetComponent<dae::CollisionComponent>())
+    //     col->SetEnabled(false);
 
+}
+
+std::type_index DigDug::PookaGhostState::GetType() const
+{
+    return std::type_index(typeid(PookaGhostState));
 }

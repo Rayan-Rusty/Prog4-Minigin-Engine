@@ -5,6 +5,7 @@
 #ifndef MINIGIN_POOKA_H
 #define MINIGIN_POOKA_H
 #include <memory>
+#include <random>
 
 #include "GameObject.h"
 #include "PookaNormalState.h"
@@ -29,6 +30,7 @@ namespace DigDug
 
         void Update(float dt) override;
         void ChangeState(std::unique_ptr<State<PookaBehaviour>> newState);
+        State<PookaBehaviour>* GetState() const;
         std::type_index GetType() const override;
 
 
@@ -40,6 +42,9 @@ namespace DigDug
 
 
     private:
+        float m_GhostChance{ 0.1f };
+        std::mt19937 m_Rng{ std::random_device{}() };
+        std::uniform_real_distribution<float> m_dist{ 0.f, 1.f };
         std::unique_ptr<State<PookaBehaviour>> m_state{std::make_unique<PookaNormalState>()};
 
     };
