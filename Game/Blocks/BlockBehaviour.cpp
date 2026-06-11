@@ -39,9 +39,9 @@ void DigDug::BlockBehaviour::Notify(dae::IObserver::Event  , dae::GameActor *)
 
 }
 
-void DigDug::BlockBehaviour::Update(float )
+void DigDug::BlockBehaviour::Update(float dt)
 {
-    if (auto newState= m_state->Update(*this))
+    if (auto newState= m_state->Update(dt, *this))
         ChangeState(std::move(newState));
 }
 

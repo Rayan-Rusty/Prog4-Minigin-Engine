@@ -16,7 +16,7 @@ namespace DigDug
         PlayerIdleState()  = default;
         ~PlayerIdleState() override = default;
         void Enter(PlayerBehaviour& Data) override;
-        std::unique_ptr<State> Update(PlayerBehaviour& Data) override;
+        std::unique_ptr<State> Update(float DeltaTime, PlayerBehaviour& Data) override;
         void Exit(PlayerBehaviour& Data) override;
     private:
         float m_Timer { 0.0f};

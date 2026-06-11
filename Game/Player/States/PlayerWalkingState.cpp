@@ -31,7 +31,7 @@ void DigDug::PlayerWalkingState::Enter(PlayerBehaviour &Data)
     }
 }
 
-std::unique_ptr<State<DigDug::PlayerBehaviour>> DigDug::PlayerWalkingState::Update(PlayerBehaviour& Data)  // Fixed return type
+std::unique_ptr<State<DigDug::PlayerBehaviour>> DigDug::PlayerWalkingState::Update(float , PlayerBehaviour& Data)  // Fixed return type
 {
 
 

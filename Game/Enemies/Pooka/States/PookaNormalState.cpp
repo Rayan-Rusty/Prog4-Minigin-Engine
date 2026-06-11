@@ -9,7 +9,7 @@
 #include "PookaBehaviour.h"
 #include "PookaInflatedState.h"
 #include "SpriteAnimationComponent.h"
-
+#include "Movement/PookaMovement.h"
 
 
 void DigDug::PookaNormalState::Enter(PookaBehaviour& Data )
@@ -35,8 +35,13 @@ void DigDug::PookaNormalState::Enter(PookaBehaviour& Data )
 
 }
 
-std::unique_ptr<State<DigDug::PookaBehaviour>> DigDug::PookaNormalState::Update(PookaBehaviour &)
+std::unique_ptr<State<DigDug::PookaBehaviour>> DigDug::PookaNormalState::Update(float DeltaTime, PookaBehaviour &Data)
 {
+    auto* movement = Data.GetOwner()->GetComponent<PookaMovement>();
+    if (movement)
+        movement->Move(DeltaTime);
+
+
     return nullptr;
 }
 

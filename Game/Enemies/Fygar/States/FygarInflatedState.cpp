@@ -29,7 +29,7 @@ void DigDug::FygarInflatedState::Enter(FygarBehaviour& Data)
 
 }
 
-std::unique_ptr<State<DigDug::FygarBehaviour>> DigDug::FygarInflatedState::Update(FygarBehaviour &)
+std::unique_ptr<State<DigDug::FygarBehaviour>> DigDug::FygarInflatedState::Update(float , FygarBehaviour &)
 {
     return nullptr;
 }

@@ -13,7 +13,7 @@ public:
     virtual ~State() = default;
 
     virtual void Enter(Data& owner) = 0;
-    virtual std::unique_ptr<State<Data>> Update(Data& Data) = 0;
+    virtual std::unique_ptr<State<Data>> Update(float DeltaTime, Data& Data) = 0;
     virtual void Exit(Data& owner) = 0;
 };
 

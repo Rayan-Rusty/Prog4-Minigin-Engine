@@ -30,7 +30,7 @@ void DigDug::PookaInflatedState::Enter(PookaBehaviour& Data )
 
 }
 
-std::unique_ptr<State<DigDug::PookaBehaviour>> DigDug::PookaInflatedState::Update(PookaBehaviour &)
+std::unique_ptr<State<DigDug::PookaBehaviour>> DigDug::PookaInflatedState::Update(float , PookaBehaviour &)
 {
     return nullptr;
 }

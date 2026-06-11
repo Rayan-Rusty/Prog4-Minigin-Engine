@@ -6,6 +6,7 @@
 
 #include "PookaBehaviour.h"
 #include "SpriteAnimationComponent.h"
+#include "Movement/PookaMovement.h"
 
 
 void DigDug::PookaGhostState::Enter(PookaBehaviour& Data )
@@ -27,7 +28,19 @@ void DigDug::PookaGhostState::Enter(PookaBehaviour& Data )
 
 }
 
-std::unique_ptr<State<DigDug::PookaBehaviour>> DigDug::PookaGhostState::Update(PookaBehaviour &) {
+std::unique_ptr<State<DigDug::PookaBehaviour>> DigDug::PookaGhostState::Update(float DeltaTime , PookaBehaviour &Data)
+{
+
+
+    if (auto* movement = Data.GetOwner()->GetComponent<PookaMovement>())
+    {
+        movement->SetSpeed(60.f);
+        movement->MoveGhost(DeltaTime);
+    }
+
+
+
+
     return nullptr;
 }
 

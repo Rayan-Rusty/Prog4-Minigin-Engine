@@ -11,7 +11,7 @@ namespace DigDug
         ~BlockSolidState() override = default;
 
         void Enter(BlockBehaviour &owner) override;
-        std::unique_ptr<State> Update(BlockBehaviour &Data) override;
+        std::unique_ptr<State> Update(float DeltaTime, BlockBehaviour &Data) override;
         void Exit(BlockBehaviour &Data) override;
 
     private:

@@ -27,7 +27,7 @@ namespace DigDug {
 
     }
 
-    std::unique_ptr<State<BlockBehaviour>> BlockDestroyedState::Update(BlockBehaviour &)
+    std::unique_ptr<State<BlockBehaviour>> BlockDestroyedState::Update(float , BlockBehaviour &)
     {
         return nullptr;
     }

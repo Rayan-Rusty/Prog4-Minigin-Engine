@@ -17,7 +17,7 @@ namespace DigDug {
         }
     }
 
-    std::unique_ptr<State<BlockBehaviour>> BlockSolidState::Update(BlockBehaviour &)
+    std::unique_ptr<State<BlockBehaviour>> BlockSolidState::Update(float , BlockBehaviour &)
     {
         return nullptr;
     }

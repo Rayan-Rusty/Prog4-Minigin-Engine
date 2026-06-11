@@ -14,7 +14,7 @@ namespace DigDug {
     public:
         ~FygarInflatedState() override = default;
         void Enter(FygarBehaviour& Data) override;
-        std::unique_ptr<State> Update(FygarBehaviour& Data) override;
+        std::unique_ptr<State> Update(float DeltaTime, FygarBehaviour& Data) override;
         void Exit(FygarBehaviour& Data) override;
     private:
     };

@@ -4,21 +4,34 @@
 
 #include "PookaBehaviour.h"
 
+#include "PookaGhostState.h"
 #include "PookaNormalState.h"
+#include "Movement/PookaMovement.h"
 
 
- DigDug::PookaBehaviour::PookaBehaviour(dae::GameObject* owner)
+DigDug::PookaBehaviour::PookaBehaviour(dae::GameObject* owner)
     :Component(owner)
 {
+
+    auto* movement = GetOwner()->GetComponent<PookaMovement>();
+    if (movement)
+        movement->GetOwner()->GetActor()->AddObserver(this);
 
     ChangeState(std::make_unique<PookaNormalState>());
 }
 
 
-
-void  DigDug::PookaBehaviour::Update(float )
+void DigDug::PookaBehaviour::Notify(Event event, dae::GameActor *)
 {
-     auto newState = m_state->Update(*this);
+    if (event == dae::IObserver::Event::EnemyHitWall)
+    {
+        ChangeState(std::make_unique<PookaGhostState>());
+    }
+}
+
+void  DigDug::PookaBehaviour::Update(float dt )
+{
+     auto newState = m_state->Update(dt, *this);
      if (newState)
          ChangeState(std::move(newState));
 }

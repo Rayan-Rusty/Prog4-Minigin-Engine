@@ -18,12 +18,14 @@ namespace DigDug
 {
     class PookaState;
 
-    class PookaBehaviour : public dae::Component
+    class PookaBehaviour final : public dae::Component , public dae::IObserver
     {
     public:
         PookaBehaviour(dae::GameObject* owner);
         ~PookaBehaviour() override = default ;
 
+
+        void Notify(Event event, dae::GameActor *actor) override;
 
         void Update(float dt) override;
         void ChangeState(std::unique_ptr<State<PookaBehaviour>> newState);

@@ -18,7 +18,7 @@ namespace DigDug {
         PlayerWalkingState() = default;
         ~PlayerWalkingState() override = default;
         void Enter(PlayerBehaviour& Data) override;
-        std::unique_ptr<State<PlayerBehaviour>> Update(PlayerBehaviour& Data) override;
+        std::unique_ptr<State<PlayerBehaviour>> Update(float DeltaTime, PlayerBehaviour& Data) override;
         void Exit(PlayerBehaviour& Data) override;
     private:
         int m_Timer{0};

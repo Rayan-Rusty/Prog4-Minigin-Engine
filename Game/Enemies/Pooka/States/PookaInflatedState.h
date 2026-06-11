@@ -15,7 +15,7 @@ namespace DigDug
     public:
         ~PookaInflatedState() override = default;
         void Enter(PookaBehaviour& Data) override;
-        std::unique_ptr<State> Update(PookaBehaviour& Data) override;
+        std::unique_ptr<State> Update(float DeltaTime, PookaBehaviour& Data) override;
         void Exit(PookaBehaviour& Data) override;
     private:
         float m_timer{0.f};
