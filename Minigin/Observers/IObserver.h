@@ -23,7 +23,8 @@ namespace dae
             Collision,
             LevelCompleted,
             TileDestroyed,
-            EnemyKilled
+            EnemyKilled,
+            EnemyHitWall
 
         };
 
