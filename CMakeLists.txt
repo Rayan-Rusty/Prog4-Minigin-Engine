@@ -207,6 +207,31 @@ add_executable(${GAME_NAME}
         Game/Enemies/Pooka/Movement/PookaMovement.h
         Game/Menu/BackGround/Movement/MenuMovement.cpp
         Game/Menu/BackGround/Movement/MenuMovement.h
+        Game/Enemies/Fygar/Movement/FygarMovement.cpp
+        Game/Enemies/Fygar/Movement/FygarMovement.h
+        Game/Player/Command/PlayerMoveCommand.cpp
+        Game/Player/Command/PlayerMoveCommand.h
+        Game/Player/Pump/PumpBehaviour.cpp
+        Game/Player/Pump/PumpBehaviour.h
+        Game/Player/Pump/State/PumpIdleState.cpp
+        Game/Player/Pump/State/PumpIdleState.h
+        Game/Player/Pump/State/PumpAttackState.cpp
+        Game/Player/Pump/State/PumpAttackState.h
+        Game/Player/States/PlayerAttackState.cpp
+        Game/Player/States/PlayerAttackState.h
+        Game/Player/States/PlayerInflatingState.cpp
+        Game/Player/States/PlayerInflatingState.h
+        Game/Player/Command/AttackCommand.h
+        Game/Player/Command/AttackCommand.cpp
+        Game/Level/LevelComponent.cpp
+        Game/Level/LevelComponent.h
+        Game/Level/LevelStruct.h
+        Game/Components/HighScoreComponent.cpp
+        Game/Components/HighScoreComponent.h
+        Game/Level/HighScore/HighScoreNavigatecommand.cpp
+        Game/Level/HighScore/HighScoreNavigatecommand.h
+        Game/Level/HighScore/HighScoreConfirmCommand.cpp
+        Game/Level/HighScore/HighScoreConfirmCommand.h
 )
 
 target_include_directories(${GAME_NAME} PRIVATE
