@@ -1,14 +1,11 @@
-//
-// Created by omen on 09/05/2026.
-//
 
 #include "PlayerWalkingState.h"
 
 #include "GameObject.h"
-#include "MovementComponent.h"
 #include "PlayerIdleState.h"
 #include "SpriteAnimationComponent.h"
 #include "PlayerBehaviour.h"
+
 
 
 void DigDug::PlayerWalkingState::Enter(PlayerBehaviour &Data)
@@ -31,15 +28,11 @@ void DigDug::PlayerWalkingState::Enter(PlayerBehaviour &Data)
     }
 }
 
-std::unique_ptr<State<DigDug::PlayerBehaviour>> DigDug::PlayerWalkingState::Update(float , PlayerBehaviour& Data)  // Fixed return type
+std::unique_ptr<State<DigDug::PlayerBehaviour>> DigDug::PlayerWalkingState::Update(float , PlayerBehaviour&Data )
 {
 
-
-    auto* moveComp = Data.GetOwner()->GetComponent<dae::MovementComponent>();
-
-    if (moveComp && !moveComp->IsMoving())
+    if (!Data.GetIsMoving())
     {
-
         return std::make_unique<PlayerIdleState>();
     }
 
