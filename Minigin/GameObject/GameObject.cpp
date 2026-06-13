@@ -7,9 +7,10 @@
 
 dae::GameObject::~GameObject()
 {
+	auto childrenCopy = std::move( m_Children);
 	for (auto* child : m_Children)
 	{
-		child->SetParent(nullptr, true);
+		child->m_parent = nullptr;
 	}
 
 	if (m_parent)
@@ -156,9 +157,9 @@ void dae::GameObject::AddChild(GameObject* child)
 
 void dae::GameObject::RemoveChild(GameObject* child)
 {
-
 	auto iteration = std::find(m_Children.begin(), m_Children.end(), child);
-	m_Children.erase(iteration);
+	if (iteration != m_Children.end())
+		m_Children.erase(iteration);
 
 }
 
