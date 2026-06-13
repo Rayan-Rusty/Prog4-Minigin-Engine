@@ -6,6 +6,7 @@
 #include "FygarBehaviour.h"
 #include "GameObject.h"
 #include "SpriteAnimationComponent.h"
+#include "Movement/FygarMovement.h"
 
 void DigDug::FygarNormalState::Enter(FygarBehaviour &Data)
 {
@@ -25,8 +26,13 @@ void DigDug::FygarNormalState::Enter(FygarBehaviour &Data)
     }
 }
 
-std::unique_ptr<State<DigDug::FygarBehaviour>> DigDug::FygarNormalState::Update(float , FygarBehaviour &)
+std::unique_ptr<State<DigDug::FygarBehaviour>> DigDug::FygarNormalState::Update(float DeltaTime, FygarBehaviour &Data)
 {
+    auto* movement = Data.GetOwner()->GetComponent<FygarMovement>();
+    if (movement)
+        movement->Move(DeltaTime);
+
+
     return nullptr;
 }
 
