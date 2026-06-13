@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include "LevelStruct.h"
-#include "Component.h"
+#include "../../Minigin/Components/BaseComp/Component.h"
 #include "IEventListener.h"
 
 namespace DigDug

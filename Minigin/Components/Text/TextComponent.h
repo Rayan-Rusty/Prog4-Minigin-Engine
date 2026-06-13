@@ -5,7 +5,7 @@
 
 #include <SDL3/SDL.h>
 
-#include "Component.h"
+#include "../BaseComp/Component.h"
 
 namespace dae
 {

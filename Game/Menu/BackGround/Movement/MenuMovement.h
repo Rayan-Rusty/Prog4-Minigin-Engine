@@ -1,6 +1,6 @@
 #ifndef MINIGIN_MENUMOVEMENT_H
 #define MINIGIN_MENUMOVEMENT_H
-#include "Component.h"
+#include "../../../../Minigin/Components/BaseComp/Component.h"
 #include "glm/vec2.hpp"
 
 namespace DigDug {

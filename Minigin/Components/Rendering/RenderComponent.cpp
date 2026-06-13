@@ -1,7 +1,7 @@
 
-#include "RenderComponent.h"
+#include "../RenderComponent.h"
 
-#include "SpriteAnimationComponent.h"
+#include "../Text/SpriteAnimationComponent.h"
 #include "Texture2D.h"
 #include "GameObject.h"
 

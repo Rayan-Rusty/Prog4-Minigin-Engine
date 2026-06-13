@@ -6,7 +6,7 @@
 #include "CollisionManager.h"
 #include "GameObject.h"
 #include "SceneManager.h"
-#include "SpriteAnimationComponent.h"
+#include "../../../Minigin/Components/Sprites/SpriteAnimationComponent.h"
 #include "TilemapComponent.h"
 #include "Layers/GameLayers.h"
 

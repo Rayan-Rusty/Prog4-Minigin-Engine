@@ -50,13 +50,13 @@ add_library(${ENGINE_NAME} STATIC
         Minigin/Scene/SceneManager.cpp
 
         # Components
-        Minigin/Components/TextComponent.cpp
-        Minigin/Components/FPSComponent.cpp
-        Minigin/Components/Component.cpp
-        Minigin/Components/RenderComponent.cpp
-        Minigin/Components/RotationComponent.cpp
-        Minigin/Components/MovementComponent.cpp
-        Minigin/Components/SpriteAnimationComponent.cpp
+        Minigin/Components/Text/TextComponent.cpp
+        Minigin/Components/Fps/FPSComponent.cpp
+        Minigin/Components/BaseComp/Component.cpp
+        Minigin/Components/Rendering/RenderComponent.cpp
+        Minigin/Components/Rotation/RotationComponent.cpp
+        Minigin/Components/Movement/MovementComponent.cpp
+        Minigin/Components/Sprites/SpriteAnimationComponent.cpp
 
         # Commands
         Minigin/Commands/Command.cpp
@@ -96,8 +96,6 @@ add_library(${ENGINE_NAME} STATIC
         Minigin/Components/Collision/CollisionComponent.h
         Minigin/Collisions/CollisionManager.cpp
         Minigin/Collisions/CollisionManager.h
-        Minigin/Components/HealthComponent.cpp
-        Minigin/Components/HealthComponent.h
         Minigin/Components/Health/HealthComponent.cpp
         Minigin/Components/Health/HealthComponent.h
 
@@ -118,6 +116,15 @@ target_include_directories(${ENGINE_NAME} PUBLIC
         ${CMAKE_SOURCE_DIR}/Minigin/Transform
         ${CMAKE_SOURCE_DIR}/Minigin/Components
         ${CMAKE_SOURCE_DIR}/Minigin/Components/Collision
+        ${CMAKE_SOURCE_DIR}/Minigin/Components/BaseComp
+        ${CMAKE_SOURCE_DIR}/Minigin/Components/Debug
+        ${CMAKE_SOURCE_DIR}/Minigin/Components/Fps
+        ${CMAKE_SOURCE_DIR}/Minigin/Components/Health
+        ${CMAKE_SOURCE_DIR}/Minigin/Components/Movement
+        ${CMAKE_SOURCE_DIR}/Minigin/Components/Rendering
+        ${CMAKE_SOURCE_DIR}/Minigin/Components/Rotation
+        ${CMAKE_SOURCE_DIR}/Minigin/Components/Sprites
+        ${CMAKE_SOURCE_DIR}/Minigin/Components/Text
         ${CMAKE_SOURCE_DIR}/Minigin/Commands
         ${CMAKE_SOURCE_DIR}/Minigin/Systems
         ${CMAKE_SOURCE_DIR}/Minigin/EventQueue

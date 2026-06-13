@@ -9,7 +9,7 @@
 #include "PookaBehaviour.h"
 #include "PookaInflatedState.h"
 #include "SceneManager.h"
-#include "SpriteAnimationComponent.h"
+#include "../../../../Minigin/Components/Sprites/SpriteAnimationComponent.h"
 #include "Layers/GameLayers.h"
 #include "Movement/PookaMovement.h"
 

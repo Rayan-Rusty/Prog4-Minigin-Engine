@@ -2,7 +2,7 @@
 
 #include "CollisionComponent.h"
 #include "GameObject.h"
-#include "RenderComponent.h"
+#include "../../../../Minigin/Components/Rendering/RenderComponent.h"
 
 void DigDug::PumpIdleState::Enter(PumpBehaviour &Data)
 {

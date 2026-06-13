@@ -7,7 +7,7 @@
 
 #include "Minigin.h"
 #include "SceneManager.h"
-#include "TextComponent.h"
+#include "../Minigin/Components/Text/TextComponent.h"
 
 #include "IGame.h"
 #include "DigDug.h"

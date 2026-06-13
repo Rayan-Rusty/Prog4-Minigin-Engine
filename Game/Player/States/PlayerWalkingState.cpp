@@ -3,7 +3,7 @@
 
 #include "GameObject.h"
 #include "PlayerIdleState.h"
-#include "SpriteAnimationComponent.h"
+#include "../../../Minigin/Components/Text/SpriteAnimationComponent.h"
 #include "PlayerBehaviour.h"
 
 

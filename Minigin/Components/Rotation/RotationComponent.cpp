@@ -2,7 +2,7 @@
 // Created by omen on 25/02/2026.
 //
 
-#include "RotationComponent.h"
+#include "../RotationComponent.h"
 #include "GameObject.h"
 //TODO REMOVE PIVOT , WRAP , ANGLE
 

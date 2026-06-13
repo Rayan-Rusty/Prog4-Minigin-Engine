@@ -1,11 +1,9 @@
 #include "HighScoreComponent.h"
-
 #include <filesystem>
 #include <fstream>
-
 #include "EventsIds.h"
 #include "SceneManager.h"
-#include "TextComponent.h"
+#include "../../Minigin/Components/Text/TextComponent.h"
 
 
 DigDug::HighScoreComponent::HighScoreComponent(dae::GameObject *pOwner,
@@ -170,7 +168,7 @@ void DigDug::HighScoreComponent::SetHighScore()
     SetTextComponents();
     SaveHighScore();
 
-    //dae::SceneManager::GetInstance().SetActiveScene(0);
+    dae::SceneManager::GetInstance().SetActiveScene(0);
 }
 
 void DigDug::HighScoreComponent::SaveHighScore()

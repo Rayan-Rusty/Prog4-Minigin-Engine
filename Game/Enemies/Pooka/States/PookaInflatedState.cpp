@@ -8,7 +8,7 @@
 #include "CollisionComponent.h"
 #include "PookaBehaviour.h"
 #include "PookaDeadState.h"
-#include "SpriteAnimationComponent.h"
+#include "../../../../Minigin/Components/Text/SpriteAnimationComponent.h"
 
 
 void DigDug::PookaInflatedState::Enter(PookaBehaviour& Data )

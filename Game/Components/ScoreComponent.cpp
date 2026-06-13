@@ -5,7 +5,7 @@
 #include "TilemapComponent.h"
 #include "Layers/GameLayers.h"
 #include "GameObject.h"
-#include "TextComponent.h"
+#include "../../Minigin/Components/Text/TextComponent.h"
 
 namespace DigDug {
 

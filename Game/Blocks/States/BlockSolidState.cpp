@@ -1,7 +1,7 @@
 #include "BlockSolidState.h"
 
 #include "GameObject.h"
-#include "SpriteAnimationComponent.h"
+#include "../../../Minigin/Components/Text/SpriteAnimationComponent.h"
 
 namespace DigDug {
     void BlockSolidState::Enter(BlockBehaviour &owner)

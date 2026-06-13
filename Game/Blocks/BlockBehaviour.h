@@ -1,6 +1,6 @@
 #ifndef MINIGIN_BLOCKBEHAVIOUR_H
 #define MINIGIN_BLOCKBEHAVIOUR_H
-#include "Component.h"
+#include "../../Minigin/Components/BaseComp/Component.h"
 #include "IObserver.h"
 #include "State.h"
 

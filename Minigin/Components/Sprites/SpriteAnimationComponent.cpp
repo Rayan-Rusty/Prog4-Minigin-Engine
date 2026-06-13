@@ -4,7 +4,7 @@
 
 #include "SpriteAnimationComponent.h"
 
-#include "RenderComponent.h"
+#include "../Rendering/RenderComponent.h"
 #include "Renderer.h"
 #include "GameObject.h"
 

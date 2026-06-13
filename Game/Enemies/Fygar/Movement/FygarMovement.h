@@ -1,6 +1,6 @@
 #ifndef MINIGIN_FYGARMOVEMENT_H
 #define MINIGIN_FYGARMOVEMENT_H
-#include "Component.h"
+#include "../../../../Minigin/Components/BaseComp/Component.h"
 #include "EnemyTraits.h"
 #include "TilemapComponent.h"
 #include "glm/vec2.hpp"

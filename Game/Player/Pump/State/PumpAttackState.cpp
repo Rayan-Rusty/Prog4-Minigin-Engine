@@ -6,9 +6,9 @@
 #include "GameObject.h"
 #include "IObserver.h"
 #include "PumpIdleState.h"
-#include "RenderComponent.h"
+#include "../../../../Minigin/Components/Rendering/RenderComponent.h"
 #include "SceneManager.h"
-#include "SpriteAnimationComponent.h"
+#include "../../../../Minigin/Components/Text/SpriteAnimationComponent.h"
 #include "Layers/GameLayers.h"
 #include "Movement/PlayerMovement.h"
 
