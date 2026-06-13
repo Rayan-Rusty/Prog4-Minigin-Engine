@@ -1,10 +1,14 @@
 #include "ScoreComponent.h"
 
+#include "IObserver.h"
 #include "SceneManager.h"
 #include "TilemapComponent.h"
 #include "Layers/GameLayers.h"
+#include "GameObject.h"
+#include "TextComponent.h"
 
 namespace DigDug {
+
     ScoreComponent::ScoreComponent(dae::GameObject *owner)
         : Component(owner)
     {
@@ -14,24 +18,31 @@ namespace DigDug {
             player->GetActor()->AddObserver(this);
     }
 
-    ScoreComponent::~ScoreComponent() {
+    ScoreComponent::~ScoreComponent()
+    {
+
     }
 
-    void ScoreComponent::Notify(dae::GameActor *actor, Event event)
+    void ScoreComponent::Notify( dae::IObserver::Event event, dae::GameActor *actor)
     {
-        if (event == Event::EnemyKilled)
+        if (event == Event::PookaKilled || event == Event::FygarKilled)
         {
             // Ask the tilemap what layer this enemy was on
             auto tilemaps = dae::SceneManager::GetInstance()
                 .GetActiveScene()
-                ->GetObjectByTag(static_cast<int>(GameTag::Tilemap));
+                ->GetObjectByTag(static_cast<int>(GameTag::TilemapComponent));
 
             if (!tilemaps.empty())
             {
                 auto* tilemap = tilemaps[0]->GetComponent<TilemapComponent>();
                 int layer = tilemap->GetLayerForWorldPos(
                     actor->GetOwner()->GetTransform().GetWorldPosition());
-                m_score += PointsForPooka(layer);
+
+                m_score += (event == Event::FygarKilled) ? PointsForFygar(layer) : PointsForPooka(layer);
+                s_LastScore = m_score;
+
+                if (auto* text = GetOwner()->GetComponent<dae::TextComponent>())
+                    text->SetText("Score: " + std::to_string(m_score));
             }
         }
     }
@@ -40,4 +51,9 @@ namespace DigDug {
     {
         return m_score;
     }
+    std::type_index ScoreComponent::GetType() const
+    {
+        return std::type_index(typeid(ScoreComponent));
+    }
+
 } // DigDug
