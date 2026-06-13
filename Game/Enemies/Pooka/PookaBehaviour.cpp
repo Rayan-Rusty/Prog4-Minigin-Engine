@@ -3,9 +3,12 @@
 //
 
 #include "PookaBehaviour.h"
-
 #include "PookaGhostState.h"
+#include "PookaInflatedState.h"
 #include "PookaNormalState.h"
+#include "SceneManager.h"
+#include "Components/ScoreComponent.h"
+#include "Layers/GameLayers.h"
 #include "Movement/PookaMovement.h"
 
 
@@ -13,11 +16,40 @@ DigDug::PookaBehaviour::PookaBehaviour(dae::GameObject* owner)
     :Component(owner)
 {
 
+    auto* scene = dae::SceneManager::GetInstance().GetActiveScene();
+    auto pumpObjs = scene->GetObjectByTag(static_cast<int>(GameTag::Pump));
+    if (!pumpObjs.empty())
+    {
+        m_pumpActor = pumpObjs[0]->GetActor();
+        m_pumpActor->AddObserver(this);
+    }
+
+    auto scoreObjs = scene->GetObjectByTag(static_cast<int>(GameTag::UI));
+    if (!scoreObjs.empty())
+    {
+        if (auto* scoreComp = scoreObjs[0]->GetComponent<ScoreComponent>())
+            GetOwner()->GetActor()->AddObserver(scoreComp);
+    }
+
+
     auto* movement = GetOwner()->GetComponent<PookaMovement>();
     if (movement)
-        movement->GetOwner()->GetActor()->AddObserver(this);
+    {
+        m_movementActor = movement->GetOwner()->GetActor();
+        m_movementActor->AddObserver(this);
+    }
+
 
     ChangeState(std::make_unique<PookaNormalState>());
+
+
+
+}
+
+DigDug::PookaBehaviour::~PookaBehaviour()
+{
+    m_pumpActor = nullptr;
+    m_movementActor = nullptr;
 }
 
 
@@ -27,6 +59,10 @@ void DigDug::PookaBehaviour::Notify(Event event, dae::GameActor *)
     {
         if (m_dist(m_Rng) < m_GhostChance)
             ChangeState(std::make_unique<PookaGhostState>());
+    }
+    if (event == dae::IObserver::Event::PumpHitEnemy)
+    {
+        ChangeState(std::make_unique<PookaInflatedState>());
     }
 }
 

@@ -5,8 +5,10 @@
 #include "PookaDeadState.h"
 
 
-
+#include "CollisionComponent.h"
+#include "EventsIds.h"
 #include "PookaBehaviour.h"
+#include "SceneManager.h"
 #include "SpriteAnimationComponent.h"
 
 
@@ -15,18 +17,15 @@ void DigDug::PookaDeadState::Enter(PookaBehaviour& Data )
     m_timer = 0;
     auto* obj = Data.GetOwner();
 
+    obj->SetRenderObject(false);
+    auto col = obj->GetComponent<dae::CollisionComponent>();
 
-    if (auto spriteComp = obj->GetComponent<dae::SpriteAnimationComponent>())
-    {
-        std::vector<SDL_FRect> normalState =
-        {
-            {0, 16, 16, 16},
-            {16 , 16, 16, 16}
-        };
+    col->SetEnabled(false);
 
-        spriteComp->SetAnimation( normalState, 0.2f , true);
-    }
-
+    obj->GetActor()->NotifyObservers((dae::IObserver::Event::PookaKilled));
+    auto* scene = dae::SceneManager::GetInstance().GetActiveScene();
+    scene->GetEventBus().QueueEvent(dae::Event{ EnemyDied });
+    obj->SetDeletion(true);
 }
 
 std::unique_ptr<State<DigDug::PookaBehaviour>> DigDug::PookaDeadState::Update(float , PookaBehaviour &) {

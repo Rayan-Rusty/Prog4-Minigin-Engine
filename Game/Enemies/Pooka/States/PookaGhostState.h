@@ -13,6 +13,7 @@ namespace dae {
 
 namespace DigDug
 {
+    class TilemapComponent;
     class PookaBehaviour;
     class PookaGhostState :  public State<PookaBehaviour>
     {
@@ -28,6 +29,7 @@ namespace DigDug
         float m_timer = 0.0f;
         float m_Speed{60.f};
         dae::GameObject* m_pPlayer{nullptr};
+        DigDug::TilemapComponent* m_pTilemap{nullptr};
     };
 }
 

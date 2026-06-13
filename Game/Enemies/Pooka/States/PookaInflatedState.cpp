@@ -5,7 +5,9 @@
 #include "PookaInflatedState.h"
 
 
+#include "CollisionComponent.h"
 #include "PookaBehaviour.h"
+#include "PookaDeadState.h"
 #include "SpriteAnimationComponent.h"
 
 
@@ -26,12 +28,25 @@ void DigDug::PookaInflatedState::Enter(PookaBehaviour& Data )
 
         spriteComp->SetAnimation( InflateFrames, 0.2f , true);
     }
+    auto col = obj->GetComponent<dae::CollisionComponent>();
+
+    col->SetEnabled(false);
 
 
 }
 
-std::unique_ptr<State<DigDug::PookaBehaviour>> DigDug::PookaInflatedState::Update(float , PookaBehaviour &)
+std::unique_ptr<State<DigDug::PookaBehaviour>> DigDug::PookaInflatedState::Update(float dt , PookaBehaviour & )
 {
+    m_timer += dt;
+
+    if (m_timer >= m_DeflateTime)
+    {
+
+        return std::make_unique<PookaDeadState>();
+    }
+
+
+
     return nullptr;
 }
 void DigDug::PookaInflatedState::Exit(PookaBehaviour& ) {

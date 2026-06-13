@@ -17,12 +17,6 @@ void DigDug::PookaGhostState::Enter(PookaBehaviour& Data )
     m_timer = 0;
     auto* obj = Data.GetOwner();
 
-
-    // if (auto* col = obj->GetComponent<dae::CollisionComponent>())
-    //     col->SetEnabled(false);
-
-
-
     auto playerObjs = dae::SceneManager::GetInstance().GetActiveScene()
                   ->GetObjectByTag(static_cast<int>(GameTag::Player));
     if (!playerObjs.empty())
@@ -54,9 +48,20 @@ std::unique_ptr<State<DigDug::PookaBehaviour>> DigDug::PookaGhostState::Update(f
     pos.y += m_Speed * dir.y * DeltaTime;
     Data.GetOwner()->GetTransform().SetWorldPosition(pos);
 
-    // if (m_pSceneTileMap->IsTunnel(m_pSceneTileMap->WorldToGrid(pos)))
-    //     return std::make_unique<PookaNormalState>();
+    if (!m_pTilemap)
+    {
+        auto tilemapObjs = dae::SceneManager::GetInstance().GetActiveScene()
+                           ->GetObjectByTag(static_cast<int>(GameTag::TilemapComponent));
+        if (!tilemapObjs.empty())
+            m_pTilemap = tilemapObjs[0]->GetComponent<TilemapComponent>();
+    }
 
+    if (m_pTilemap)
+    {
+        auto grid = m_pTilemap->WorldToGrid(pos);
+        if (m_pTilemap->isTileOpen(grid.x, grid.y))
+            return std::make_unique<PookaNormalState>();
+    }
 
     return nullptr;
 }

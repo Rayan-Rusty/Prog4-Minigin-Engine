@@ -17,13 +17,14 @@ namespace dae {
 }
 namespace DigDug
 {
+    class ScoreComponent;
     class PookaState;
 
     class PookaBehaviour final : public dae::Component , public dae::IObserver
     {
     public:
         PookaBehaviour(dae::GameObject* owner);
-        ~PookaBehaviour() override = default ;
+        ~PookaBehaviour() override ;
 
 
         void Notify(Event event, dae::GameActor *actor) override;
@@ -46,7 +47,9 @@ namespace DigDug
         std::mt19937 m_Rng{ std::random_device{}() };
         std::uniform_real_distribution<float> m_dist{ 0.f, 1.f };
         std::unique_ptr<State<PookaBehaviour>> m_state{std::make_unique<PookaNormalState>()};
-
+        dae::GameActor* m_pumpActor = nullptr;
+        dae::GameActor* m_movementActor = nullptr;
+        ScoreComponent* m_scoreComp{nullptr};
     };
 }
 
