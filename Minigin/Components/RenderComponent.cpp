@@ -35,15 +35,16 @@ void dae::RenderComponent::SetIsUI(bool isUI) {
 void dae::RenderComponent::Render() const
 {
 
-    if (!m_Texture) return;
+    if (!m_Texture || !GetOwner()->GetRenderObject()) return;
+
     auto spriteComp = GetOwner()->GetComponent<SpriteAnimationComponent>();
     const auto& pos = GetOwner()->GetWorldPosition();
     const auto& scale = GetOwner()->GetTransform().GetScale();
 
     SDL_FRect dst{};
     SDL_FRect src{};
-    dst.x = pos.x;
-    dst.y = pos.y;
+    dst.x = pos.x + m_DestOffsetX;
+    dst.y = pos.y + m_DestOffsetY;
 
     if (spriteComp)
     {
@@ -58,6 +59,10 @@ void dae::RenderComponent::Render() const
         dst.h = m_Texture->GetSize().y * std::abs(scale.y);
         src = {0,0, m_Texture->GetSize().x , m_Texture->GetSize().y};
     }
+
+    if (m_DestOverrideW >= 0.f) dst.w = m_DestOverrideW;
+    if (m_DestOverrideH >= 0.f) dst.h = m_DestOverrideH;
+
 
     SDL_FlipMode flip = SDL_FLIP_NONE;
     if (spriteComp)
