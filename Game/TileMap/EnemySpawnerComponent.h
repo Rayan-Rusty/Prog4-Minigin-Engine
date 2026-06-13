@@ -9,6 +9,7 @@
 
 #include "BaseTilemapLoader.h"
 #include "CollisionManager.h"
+#include "EventsIds.h"
 #include "Utils.h"
 #include "glm/vec2.hpp"
 #include "Scene.h"
@@ -37,12 +38,11 @@ namespace DigDug
 
         void OnAllTilesLoaded() override
         {
+            std::cout << "[Spawner] OnAllTilesLoaded positions=" << m_positions.size() << "\n";
             constexpr  float tileSize = 16.f;
             constexpr  float scale = 2.f;
 
-            auto tilemapObjs = m_pScene->GetObjectByTag(
-    static_cast<int>(DigDug::GameTag::TilemapComponent)
-);
+            auto tilemapObjs = m_pScene->GetObjectByTag(static_cast<int>(DigDug::GameTag::TilemapComponent));
 
             glm::vec3 tilemapPos{0, 0, 0};
             if (!tilemapObjs.empty())
@@ -60,6 +60,7 @@ namespace DigDug
 
                 enemy->GetTransform().SetScale(glm::vec3{scale, scale, scale});
                 m_pScene->Add(std::move(enemy));
+                m_pScene->GetEventBus().QueueEvent(dae::Event{ EnemySpawned });
             }
         };
 
@@ -73,6 +74,7 @@ namespace DigDug
 
         void OnTileFound(uint8_t value, int x, int y) override
         {
+
             if (value == 1)
                 m_positions.emplace_back(x, y);
 
