@@ -33,7 +33,7 @@ DigDug::PookaMovement::PookaMovement(dae::GameObject *parent)
         if (other->GetOwner()->GetTag() != static_cast<int>(DigDug::GameTag::Tilemap))
             return;
 
-        auto* pookaBehaviour = GetOwner()->GetComponent<PookaBehaviour>();
+        auto* pookaBehaviour = GetOwner()->GetComponent<DigDug::PookaBehaviour>();
         if (pookaBehaviour && pookaBehaviour->GetState())
         {
 
@@ -99,6 +99,15 @@ void DigDug::PookaMovement::Move(float dt)
     auto pos = transform->GetWorldPosition();
     pos.x += m_Speed * m_Dir.x * dt;
     pos.y += m_Speed * m_Dir.y * dt;
+    transform->SetWorldPosition(pos);
+
+    glm::vec3 tilemapPos = m_pSceneTileMap->GetOwner()->GetTransform().GetWorldPosition();
+    float maxX = tilemapPos.x + (m_pSceneTileMap->GetWidthTiles()  - 1) * m_pSceneTileMap->GetTileWidth();
+    float maxY = tilemapPos.y + (m_pSceneTileMap->GetHeightTiles() - 1) * m_pSceneTileMap->GetTileHeight();
+
+    pos.x = std::clamp(pos.x, tilemapPos.x, maxX);
+    pos.y = std::clamp(pos.y, tilemapPos.y, maxY);
+
     transform->SetWorldPosition(pos);
 
     auto currentGrid = m_pSceneTileMap->WorldToGrid(pos);
