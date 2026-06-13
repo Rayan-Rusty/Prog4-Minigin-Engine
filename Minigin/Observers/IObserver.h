@@ -23,9 +23,14 @@ namespace dae
             Collision,
             LevelCompleted,
             TileDestroyed,
-            EnemyKilled,
-            EnemyHitWall
-
+            PookaKilled,
+            FygarKilled,
+            EnemyHitWall,
+            EnemyDies,
+            EnemyReachedTunnel,
+            PumpHitEnemy,
+            PumpHitWall,
+            EnemyMoving
         };
 
         virtual void Notify(Event event, GameActor* actor) = 0;
