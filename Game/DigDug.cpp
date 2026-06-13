@@ -6,10 +6,14 @@
 #include "Scene.h"
 #include "EnemySpawnerComponent.h"
 #include "EnemyTraits.h"
+#include "LevelComponent.h"
+#include "PlayerBehaviour.h"
+
 #include "TilemapComponent.h"
 #include "Utils.h"
 
-
+#include "Components/ScoreComponent.h"
+#include "Pump/PumpBehaviour.h"
 
 
 //TODO ASYNC noise
@@ -21,6 +25,7 @@ void DigDug::Game::Init()
 
     dae::SceneManager::GetInstance().RegisterScene(0, [this]{ InitializeMenuScreen(); });
     dae::SceneManager::GetInstance().RegisterScene(1, [this]{ InitFirstLevel(); });
+    dae::SceneManager::GetInstance().RegisterScene(2, [this]{ HighScoreLevel(); });
     dae::SceneManager::GetInstance().SetActiveScene(0);
 }
 
@@ -53,28 +58,62 @@ void DigDug::Game::InitializeMenuScreen()
 
 void DigDug::Game::InitFirstLevel()
 {
-    CollisionManager::GetInstance().Clear();
+
     auto* Scene = dae::SceneManager::GetInstance().GetActiveScene();
+    Scene->Clear();
 
-    auto player = Utils::CreatePlayer();
+    CollisionManager::GetInstance().Clear();
+    Scene->Clear();
 
-    Scene->Add(std::move(player));
-    auto Tilemap = Utils::CreateTilemap("Sprites/Block.png", "Data/Sprites/IndexedFile.png");
-
+    auto Tilemap = Utils::CreateTilemap("Sprites/Blocks.png", "");
     Tilemap->GetTransform().SetWorldPosition(glm::vec3{0, 0, 0});
-
-
     Scene->Add(std::move(Tilemap));
 
-    auto SpawnerObject = std::make_unique<dae::GameObject>();
+    auto player = Utils::CreatePlayer();
+    Scene->Add(std::move(player));
 
-    auto spawner = std::make_unique<EnemySpawnerComponent<PookaTraits>>(SpawnerObject.get(), Scene);
-    spawner->LoadFromFile("Data/Sprites/EnemyMap.png");
+    auto levelMgr = Utils::CreateLevelManager(Utils::CreateLevelList());
+    auto* levelComp = levelMgr->GetComponent<DigDug::LevelComponent>();
+    Scene->Add(std::move(levelMgr));
+    auto scoreObj = Utils::CreateText("Score: 0", glm::vec3{10, 10, 0});
+    scoreObj->AddComponent(std::make_unique<DigDug::ScoreComponent>(scoreObj.get()));
+    Scene->Add(std::move(scoreObj));
+    levelComp->LoadCurrentLevel();
 
-    SpawnerObject->AddComponent(std::move(spawner));
 
-    Scene->Add(std::move(SpawnerObject));
+    auto playerObjs = Scene->GetObjectByTag(static_cast<int>(DigDug::GameTag::Player));
+    if (!playerObjs.empty())
+    {
+        auto pump = Utils::CreatePump(playerObjs[0]);
+        auto* pumpRaw = pump.get();
+        Scene->Add(std::move(pump));
+        pumpRaw->SetParent(playerObjs[0], false);
 
-    Scene->SortByLayer();
+        if (auto* pb = pumpRaw->GetComponent<DigDug::PumpBehaviour>())
+            Scene->GetEventBus().AddListener(pb);
+        if (auto* pb = playerObjs[0]->GetComponent<DigDug::PlayerBehaviour>())
+            Scene->GetEventBus().AddListener(pb);
+    }
+
+
+
+
+}
+
+void DigDug::Game::HighScoreLevel()
+{
+
+    auto* scene = dae::SceneManager::GetInstance().GetActiveScene();
+    scene->Clear();
+
+
+
+    auto bg = Utils::CreateBackgroundObject("Sprites/HighScoreScreen/BackgroundScore.png");
+    bg->GetTransform().SetScale(glm::vec3{2, 2, 2});
+    scene->Add(std::move(bg));
+
+    //event passed arg
+    auto hsObj = Utils::CreateHighscoreObject(scene, DigDug::ScoreComponent::s_LastScore);
+    scene->Add(std::move(hsObj));
 
 }

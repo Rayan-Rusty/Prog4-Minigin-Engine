@@ -20,6 +20,7 @@ namespace DigDug
 
         void InitializeMenuScreen();
         void InitFirstLevel();
+        void HighScoreLevel();
 
     };
 }
