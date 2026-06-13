@@ -49,7 +49,7 @@ namespace dae
 
 
 			m_components.emplace_back(std::move(component));
-			std::cout << std::format("The following component was added: {}\n", typeid(T).name());
+
 		}
 
 		//cash it with an ID so you dotn need to iterate constantly
@@ -95,6 +95,8 @@ namespace dae
 
 		int GetTag() const;
 		int GetLayer() const;
+		bool GetRenderObject() const {return m_RenderObject;}
+		void SetRenderObject(bool render)  {m_RenderObject = render;};
 
 		GameObject(int layer = 0 , int tag = 0);
 		~GameObject();
@@ -111,11 +113,12 @@ namespace dae
 		int m_layer{ 0 };
 		GameObject* m_parent{nullptr};
 		std::vector<GameObject*> m_Children;
-
+		bool m_RenderObject{true};
 		Transform m_Transform{this};
 		std::vector<std::unique_ptr<Component>> m_components;
-		std::unique_ptr<GameActor> m_Actor{std::make_unique<GameActor>(this)};
+
 		bool m_ShouldDelete{ false };
 		bool m_positionIsDirty {false};
+		std::unique_ptr<GameActor> m_Actor{std::make_unique<GameActor>(this)};
 	};
 }
