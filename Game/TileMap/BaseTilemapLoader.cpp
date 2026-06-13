@@ -1,6 +1,3 @@
-//
-// Created by omen on 31/05/2026.
-//
 
 #include "BaseTilemapLoader.h"
 
@@ -40,9 +37,9 @@ void DigDug::BaseTilemapLoader::LoadFromFile(const std::string& path)
         for (int x = 0; x < m_WidthTiles; x++)
         {
             int pixelIndex = (y * 16) * surface->pitch + (x * 16) * bytesPerPixel;
-            std::cout << static_cast<int>(pixels[pixelIndex]) << " ";
+
         }
-        std::cout << "\n";
+
     }
 
     SDL_DestroySurface(surface);
