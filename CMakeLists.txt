@@ -143,22 +143,60 @@ target_compile_features(${ENGINE_NAME} PUBLIC cxx_std_20)
 add_executable(${GAME_NAME}
         Game/Main.cpp
         Game/DigDug.cpp
-        Game/Player/PlayerBehaviour.cpp
-        Game/Player/PlayerBehaviour.h
         Game/Utils.cpp
         Game/Utils.h
+
+        # Player
+        Game/Player/PlayerBehaviour.cpp
+        Game/Player/PlayerBehaviour.h
+        Game/Player/Movement/PlayerMovement.cpp
+        Game/Player/Movement/PlayerMovement.h
+        Game/Player/CollisionObserver/PlayerCollisionHandler.cpp
+        Game/Player/CollisionObserver/PlayerCollisionHandler.h
+
+        # Player States
+        Game/Player/States/PlayerIdleState.cpp
+        Game/Player/States/PlayerIdleState.h
+        Game/Player/States/PlayerWalkingState.cpp
+        Game/Player/States/PlayerWalkingState.h
+        Game/Player/States/PlayerAttackState.cpp
+        Game/Player/States/PlayerAttackState.h
+        Game/Player/States/PlayerInflatingState.cpp
+        Game/Player/States/PlayerInflatingState.h
+
+        # Player Commands
+        Game/Player/Command/PlayerMoveCommand.cpp
+        Game/Player/Command/PlayerMoveCommand.h
+        Game/Player/Command/AttackCommand.cpp
+        Game/Player/Command/AttackCommand.h
+
+        # Pump
+        Game/Player/Pump/PumpBehaviour.cpp
+        Game/Player/Pump/PumpBehaviour.h
+        Game/Player/Pump/State/PumpIdleState.cpp
+        Game/Player/Pump/State/PumpIdleState.h
+        Game/Player/Pump/State/PumpAttackState.cpp
+        Game/Player/Pump/State/PumpAttackState.h
+
+        # Pooka
         Game/Enemies/Pooka/PookaBehaviour.cpp
         Game/Enemies/Pooka/PookaBehaviour.h
+        Game/Enemies/Pooka/Movement/PookaMovement.cpp
+        Game/Enemies/Pooka/Movement/PookaMovement.h
         Game/Enemies/Pooka/States/PookaNormalState.cpp
         Game/Enemies/Pooka/States/PookaNormalState.h
         Game/Enemies/Pooka/States/PookaGhostState.cpp
         Game/Enemies/Pooka/States/PookaGhostState.h
-        Game/TileMap/TilemapComponent.cpp
-        Game/TileMap/TilemapComponent.h
-        Minigin/States/State.cpp
-        Minigin/States/State.h
+        Game/Enemies/Pooka/States/PookaInflatedState.cpp
+        Game/Enemies/Pooka/States/PookaInflatedState.h
+        Game/Enemies/Pooka/States/PookaDeadState.cpp
+        Game/Enemies/Pooka/States/PookaDeadState.h
+
+        # Fygar
         Game/Enemies/Fygar/FygarBehaviour.cpp
         Game/Enemies/Fygar/FygarBehaviour.h
+        Game/Enemies/Fygar/Movement/FygarMovement.cpp
+        Game/Enemies/Fygar/Movement/FygarMovement.h
         Game/Enemies/Fygar/States/FygarNormalState.cpp
         Game/Enemies/Fygar/States/FygarNormalState.h
         Game/Enemies/Fygar/States/FygarGhostState.cpp
@@ -169,69 +207,53 @@ add_executable(${GAME_NAME}
         Game/Enemies/Fygar/States/FygarInflatedState.h
         Game/Enemies/Fygar/States/FygarDeadState.cpp
         Game/Enemies/Fygar/States/FygarDeadState.h
-        Game/Enemies/Pooka/States/PookaInflatedState.cpp
-        Game/Enemies/Pooka/States/PookaInflatedState.h
-        Game/Enemies/Pooka/States/PookaDeadState.cpp
-        Game/Enemies/Pooka/States/PookaDeadState.h
-        Game/Player/States/PlayerIdleState.cpp
-        Game/Player/States/PlayerIdleState.h
-        Game/Player/States/PlayerWalkingState.cpp
-        Game/Player/States/PlayerWalkingState.h
-        Game/Menu/MenuMarker.cpp
-        Game/Menu/MenuMarker.h
-        Game/Menu/Events/System/MenuNavigateCommand.cpp
-        Game/Menu/Events/System/MenuNavigateCommand.h
-        Game/Menu/Events/System/MenuNavigateSystem.cpp
-        Game/Menu/Events/System/MenuNavigateSystem.h
-        Game/Player/CollisionObserver/PlayerCollisionHandler.cpp
-        Game/Player/CollisionObserver/PlayerCollisionHandler.h
+
+        # Tilemap
+        Game/TileMap/TilemapComponent.cpp
+        Game/TileMap/TilemapComponent.h
         Game/TileMap/BaseTilemapLoader.cpp
         Game/TileMap/BaseTilemapLoader.h
         Game/TileMap/EnemySpawnerComponent.cpp
         Game/TileMap/EnemySpawnerComponent.h
         Game/TileMap/EnemyTraits.h
         Game/TileMap/Layers/GameLayers.h
+
+        # Blocks
         Game/Blocks/BlockBehaviour.cpp
         Game/Blocks/BlockBehaviour.h
         Game/Blocks/States/BlockDestroyedState.cpp
         Game/Blocks/States/BlockDestroyedState.h
         Game/Blocks/States/BlockSolidState.cpp
         Game/Blocks/States/BlockSolidState.h
-        Game/Player/Movement/PlayerMovement.cpp
-        Game/Player/Movement/PlayerMovement.h
-        Game/Components/ScoreComponent.cpp
-        Game/Components/ScoreComponent.h
-        Game/Commands/ConfirmedCommand.cpp
-        Game/Commands/ConfirmedCommand.h
-        Game/Enemies/Pooka/Movement/PookaMovement.cpp
-        Game/Enemies/Pooka/Movement/PookaMovement.h
-        Game/Menu/BackGround/Movement/MenuMovement.cpp
-        Game/Menu/BackGround/Movement/MenuMovement.h
-        Game/Enemies/Fygar/Movement/FygarMovement.cpp
-        Game/Enemies/Fygar/Movement/FygarMovement.h
-        Game/Player/Command/PlayerMoveCommand.cpp
-        Game/Player/Command/PlayerMoveCommand.h
-        Game/Player/Pump/PumpBehaviour.cpp
-        Game/Player/Pump/PumpBehaviour.h
-        Game/Player/Pump/State/PumpIdleState.cpp
-        Game/Player/Pump/State/PumpIdleState.h
-        Game/Player/Pump/State/PumpAttackState.cpp
-        Game/Player/Pump/State/PumpAttackState.h
-        Game/Player/States/PlayerAttackState.cpp
-        Game/Player/States/PlayerAttackState.h
-        Game/Player/States/PlayerInflatingState.cpp
-        Game/Player/States/PlayerInflatingState.h
-        Game/Player/Command/AttackCommand.h
-        Game/Player/Command/AttackCommand.cpp
+
+        # Level
         Game/Level/LevelComponent.cpp
         Game/Level/LevelComponent.h
         Game/Level/LevelStruct.h
-        Game/Components/HighScoreComponent.cpp
-        Game/Components/HighScoreComponent.h
         Game/Level/HighScore/HighScoreNavigatecommand.cpp
         Game/Level/HighScore/HighScoreNavigatecommand.h
         Game/Level/HighScore/HighScoreConfirmCommand.cpp
         Game/Level/HighScore/HighScoreConfirmCommand.h
+
+        # Menu
+        Game/Menu/MenuMarker.cpp
+        Game/Menu/MenuMarker.h
+        Game/Menu/BackGround/Movement/MenuMovement.cpp
+        Game/Menu/BackGround/Movement/MenuMovement.h
+        Game/Menu/Events/System/MenuNavigateCommand.cpp
+        Game/Menu/Events/System/MenuNavigateCommand.h
+        Game/Menu/Events/System/MenuNavigateSystem.cpp
+        Game/Menu/Events/System/MenuNavigateSystem.h
+
+        # Commands
+        Game/Commands/ConfirmedCommand.cpp
+        Game/Commands/ConfirmedCommand.h
+
+        # Components
+        Game/Components/ScoreComponent.cpp
+        Game/Components/ScoreComponent.h
+        Game/Components/HighScoreComponent.cpp
+        Game/Components/HighScoreComponent.h
 )
 
 target_include_directories(${GAME_NAME} PRIVATE
@@ -239,16 +261,34 @@ target_include_directories(${GAME_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/Game/Enemies
         ${CMAKE_SOURCE_DIR}/Game/Enemies/Pooka
         ${CMAKE_SOURCE_DIR}/Game/Enemies/Pooka/States
+        ${CMAKE_SOURCE_DIR}/Game/Enemies/Pooka/Movement
         ${CMAKE_SOURCE_DIR}/Game/Enemies/Fygar
         ${CMAKE_SOURCE_DIR}/Game/Enemies/Fygar/States
+        ${CMAKE_SOURCE_DIR}/Game/Enemies/Fygar/Movement
         ${CMAKE_SOURCE_DIR}/Game/Player/States
         ${CMAKE_SOURCE_DIR}/Game/Player/CollisionObserver
         ${CMAKE_SOURCE_DIR}/Game/Player
-        ${CMAKE_SOURCE_DIR}/Game/Level
+        ${CMAKE_SOURCE_DIR}/Game/Player/Command
+        ${CMAKE_SOURCE_DIR}/Game/Player/Movement
+        ${CMAKE_SOURCE_DIR}/Game/Player/Pump/
+        ${CMAKE_SOURCE_DIR}/Game/Player/Pump/State
+        ${CMAKE_SOURCE_DIR}/Game/Player/Pump/States
+        ${CMAKE_SOURCE_DIR}/Game/Level/
+        ${CMAKE_SOURCE_DIR}/Game/Level/HighScore
+        ${CMAKE_SOURCE_DIR}/Game/Menu/BackGround/
+        ${CMAKE_SOURCE_DIR}/Game/Menu/BackGround/Movement
+        ${CMAKE_SOURCE_DIR}/Game/Menu/Events/System
         ${CMAKE_SOURCE_DIR}/Game/TileMap
+        ${CMAKE_SOURCE_DIR}/Game/TileMap/Layers
         ${CMAKE_SOURCE_DIR}/Game/Menu/
         ${CMAKE_SOURCE_DIR}/Game/Menu/Events/
         ${CMAKE_SOURCE_DIR}/Game/Menu/Events/System
+        ${CMAKE_SOURCE_DIR}/Game/Blocks/
+        ${CMAKE_SOURCE_DIR}/Game/Blocks/States
+        ${CMAKE_SOURCE_DIR}/Game/Commands
+        ${CMAKE_SOURCE_DIR}/Game/Components
+        ${CMAKE_SOURCE_DIR}/Game/Highscore/
+
 )
 
 target_compile_features(${GAME_NAME} PUBLIC cxx_std_20)
