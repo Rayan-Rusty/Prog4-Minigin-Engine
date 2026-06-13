@@ -9,7 +9,7 @@
 #include "EventsIds.h"
 #include "PookaBehaviour.h"
 #include "SceneManager.h"
-#include "../../../../Minigin/Components/Sprites/SpriteAnimationComponent.h"
+#include "SpriteAnimationComponent.h"
 
 
 void DigDug::PookaDeadState::Enter(PookaBehaviour& Data )

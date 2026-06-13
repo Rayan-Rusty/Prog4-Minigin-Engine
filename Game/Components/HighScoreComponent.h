@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "../../Minigin/Components/BaseComp/Component.h"
+#include "Component.h"
 #include "IEventListener.h"
 
 namespace dae {

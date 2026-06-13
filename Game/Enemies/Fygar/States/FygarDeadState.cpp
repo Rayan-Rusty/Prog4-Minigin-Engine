@@ -7,7 +7,7 @@
 
 #include "CollisionComponent.h"
 #include "EventsIds.h"
-#include "../../../../Minigin/Components/Text/SpriteAnimationComponent.h"
+#include "SpriteAnimationComponent.h"
 #include "FygarBehaviour.h"
 #include "SceneManager.h"
 #include "GameObject/GameObject.h"

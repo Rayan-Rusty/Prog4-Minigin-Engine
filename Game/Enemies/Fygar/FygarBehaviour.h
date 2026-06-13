@@ -7,7 +7,7 @@
 #include <memory>
 #include <random>
 
-#include "../../../Minigin/Components/BaseComp/Component.h"
+#include "Component.h"
 #include "IObserver.h"
 #include "State.h"
 

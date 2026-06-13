@@ -8,9 +8,9 @@
 #include "GameObject.h"
 #include "SceneManager.h"
 #include "TilemapComponent.h"
-#include "Layers/GameLayers.h"
-#include "States/BlockDestroyedState.h"
-#include "States/BlockSolidState.h"
+#include "GameLayers.h"
+#include "BlockDestroyedState.h"
+#include "BlockSolidState.h"
 
 
 

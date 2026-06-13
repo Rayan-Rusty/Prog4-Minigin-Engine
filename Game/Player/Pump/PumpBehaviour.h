@@ -2,7 +2,7 @@
 #define MINIGIN_PUMPBEHAVIOUR_H
 #include <memory>
 
-#include "../../../Minigin/Components/BaseComp/Component.h"
+#include "Component.h"
 #include "IEventListener.h"
 #include <glm/glm.hpp>
 #include "State.h"

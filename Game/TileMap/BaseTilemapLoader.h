@@ -5,7 +5,7 @@
 #ifndef MINIGIN_BASETILEMAPLOADER_H
 #define MINIGIN_BASETILEMAPLOADER_H
 #include <string>
-#include "../../Minigin/Components/BaseComp/Component.h"
+#include "Component.h"
 
 
 namespace DigDug

@@ -1,6 +1,6 @@
 #ifndef MINIGIN_PLAYERMOVEMENT_H
 #define MINIGIN_PLAYERMOVEMENT_H
-#include "../../../Minigin/Components/BaseComp/Component.h"
+#include "Component.h"
 #include <glm/glm.hpp>
 
 

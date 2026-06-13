@@ -9,7 +9,7 @@
 
 #include "SceneManager.h"
 #include "GameObject.h"
-#include "../../../../Minigin/Components/Sprites/SpriteAnimationComponent.h"
+#include "SpriteAnimationComponent.h"
 #include "Layers/GameLayers.h"
 #include "TilemapComponent.h"
 

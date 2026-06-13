@@ -5,7 +5,7 @@
 #include "FygarInflatedState.h"
 
 #include "CollisionComponent.h"
-#include "../../../../Minigin/Components/Text/SpriteAnimationComponent.h"
+#include "SpriteAnimationComponent.h"
 #include "FygarBehaviour.h"
 #include "FygarDeadState.h"
 #include "GameObject.h"

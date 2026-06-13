@@ -6,7 +6,7 @@
 #include "GameObject.h"
 #include "PookaGhostState.h"
 #include "SceneManager.h"
-#include "../../../../Minigin/Components/Text/SpriteAnimationComponent.h"
+#include "SpriteAnimationComponent.h"
 #include "Layers/GameLayers.h"
 
 DigDug::FygarMovement::FygarMovement(dae::GameObject *parent)

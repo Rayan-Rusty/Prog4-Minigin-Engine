@@ -15,7 +15,7 @@
 #include "SceneManager.h"
 #include "Layers/GameLayers.h"
 
-#include "../../Minigin/Components/Sprites/SpriteAnimationComponent.h"
+#include "SpriteAnimationComponent.h"
 #include "Utils.h"
 #include "Blocks/BlockBehaviour.h"
 #include "Blocks/States/BlockDestroyedState.h"

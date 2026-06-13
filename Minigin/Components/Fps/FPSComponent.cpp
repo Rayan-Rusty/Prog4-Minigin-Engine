@@ -2,8 +2,8 @@
 // Created by omen on 14/02/2026.
 //
 //TODO's this can tbe component and needs to be somethign that can possibly given through the update
-#include "../FPSComponent.h"
-#include "../Text/TextComponent.h"
+#include "FPSComponent.h"
+#include "TextComponent.h"
 #include <format>
 dae::FPSComponent::FPSComponent(GameObject* pOwner)
     : Component(pOwner)

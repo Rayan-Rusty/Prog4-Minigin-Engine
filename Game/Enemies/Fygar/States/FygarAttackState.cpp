@@ -4,7 +4,7 @@
 
 #include "FygarAttackState.h"
 
-#include "../../../../Minigin/Components/Text/SpriteAnimationComponent.h"
+#include "SpriteAnimationComponent.h"
 #include "FygarBehaviour.h"
 #include "GameObject.h"
 

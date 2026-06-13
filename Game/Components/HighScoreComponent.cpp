@@ -3,7 +3,7 @@
 #include <fstream>
 #include "EventsIds.h"
 #include "SceneManager.h"
-#include "../../Minigin/Components/Text/TextComponent.h"
+#include "TextComponent.h"
 
 
 DigDug::HighScoreComponent::HighScoreComponent(dae::GameObject *pOwner,

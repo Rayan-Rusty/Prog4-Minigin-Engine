@@ -6,7 +6,7 @@
 #define MINIGIN_PLAYER_H
 #include <memory>
 
-#include "../../Minigin/Components/BaseComp/Component.h"
+#include "Component.h"
 #include "IEventListener.h"
 #include "State.h"
 

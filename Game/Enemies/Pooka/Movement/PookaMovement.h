@@ -1,6 +1,6 @@
 #ifndef MINIGIN_POOKAMOVEMENT_H
 #define MINIGIN_POOKAMOVEMENT_H
-#include "../../../../Minigin/Components/BaseComp/Component.h"
+#include "Component.h"
 #include "EnemyTraits.h"
 #include "TilemapComponent.h"
 #include "glm/vec2.hpp"

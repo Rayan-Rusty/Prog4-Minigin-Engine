@@ -4,7 +4,7 @@
 
 #ifndef MINIGIN_MENUMARKER_H
 #define MINIGIN_MENUMARKER_H
-#include "../../Minigin/Components/Collision/CollisionComponent.h"
+#include "CollisionComponent.h"
 
 namespace dae {
     class GameObject;

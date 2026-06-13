@@ -5,7 +5,7 @@
 #ifndef MINIGIN_PLAYERWALKINGSTATE_H
 #define MINIGIN_PLAYERWALKINGSTATE_H
 #include "IEventListener.h"
-#include "../../../Minigin/Components/Movement/MovementComponent.h"
+#include "MovementComponent.h"
 #include "State.h"
 
 

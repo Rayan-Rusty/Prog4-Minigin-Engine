@@ -9,7 +9,7 @@
 #include <vector>
 #include <glm/glm.hpp>
 #include "BaseTilemapLoader.h"
-#include "../../Minigin/Components/BaseComp/Component.h"
+#include "Component.h"
 #include "IObserver.h"
 
 #include "Texture2D.h"

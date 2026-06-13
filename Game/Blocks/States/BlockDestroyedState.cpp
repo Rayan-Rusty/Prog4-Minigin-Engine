@@ -6,9 +6,9 @@
 #include "CollisionManager.h"
 #include "GameObject.h"
 #include "SceneManager.h"
-#include "../../../Minigin/Components/Sprites/SpriteAnimationComponent.h"
+#include "SpriteAnimationComponent.h"
 #include "TilemapComponent.h"
-#include "Layers/GameLayers.h"
+
 
 namespace DigDug {
     void BlockDestroyedState::Enter(BlockBehaviour &owner)

@@ -2,7 +2,7 @@
 #define MINIGIN_SCORECOMPONENT_H
 #include <algorithm>
 
-#include "../../Minigin/Components/BaseComp/Component.h"
+#include "Component.h"
 #include "Event.h"
 #include "IObserver.h"
 

@@ -1,6 +1,6 @@
 #ifndef MINIGIN_SOLID_H
 #define MINIGIN_SOLID_H
-#include "Blocks/BlockBehaviour.h"
+#include "BlockBehaviour.h"
 
 namespace DigDug
 {
