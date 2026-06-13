@@ -37,6 +37,17 @@ namespace DigDug {
         static constexpr int Rows(){ return 8; }
     };
 
+
+    struct PlayerTraits
+    {
+        static std::unique_ptr<dae::GameObject> Create()
+        {
+            return Utils::CreatePlayer();
+        }
+        static constexpr const char* SpritePath() { return "Sprites/PlayerSprites.png"; }
+        static constexpr int Cols(){ return 3; }
+        static constexpr int Rows(){ return 8; }
+    };
 }
 
 #endif //MINIGIN_ENEMYTRAITS_H
