@@ -32,15 +32,6 @@ void DigDug::BaseTilemapLoader::LoadFromFile(const std::string& path)
         }
     }
 
-    for (int y = 0; y < m_HeightTiles; y++)
-    {
-        for (int x = 0; x < m_WidthTiles; x++)
-        {
-            int pixelIndex = (y * 16) * surface->pitch + (x * 16) * bytesPerPixel;
-
-        }
-
-    }
 
     SDL_DestroySurface(surface);
     OnAllTilesLoaded();
