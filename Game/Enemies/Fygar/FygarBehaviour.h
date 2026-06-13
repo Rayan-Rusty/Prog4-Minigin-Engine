@@ -15,13 +15,13 @@ class GameObject;
 
 namespace DigDug
 {
-    class FygarBehaviour : public dae::Component, public dae::IObserver
+    class FygarBehaviour final : public dae::Component, public dae::IObserver
     {
     public:
 
 
-        FygarBehaviour(dae::GameObject* owner);
-        ~FygarBehaviour() override;
+        explicit FygarBehaviour(dae::GameObject* owner);
+        ~FygarBehaviour() override = default;
 
         void Notify(dae::IObserver::Event event, dae::GameActor* actor) override;
         void Update(float dt) override;

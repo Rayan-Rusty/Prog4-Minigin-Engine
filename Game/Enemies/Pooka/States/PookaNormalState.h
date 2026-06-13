@@ -9,7 +9,7 @@
 namespace DigDug
 {
     class PookaBehaviour;
-    class PookaNormalState : public State<PookaBehaviour>
+    class PookaNormalState final : public State<PookaBehaviour>
     {
     public:
         ~PookaNormalState() override = default;

@@ -6,9 +6,10 @@
 namespace DigDug
 {
     class PookaBehaviour;
-    class PookaDeadState : public State<PookaBehaviour>
+    class PookaDeadState final : public State<PookaBehaviour>
     {
     public:
+        PookaDeadState() = default;
         ~PookaDeadState() override = default;
         void Enter(PookaBehaviour& Data) override;
         std::unique_ptr<State> Update(float DeltaTime, PookaBehaviour& Data) override;

@@ -13,14 +13,14 @@
 namespace dae { class GameObject; }
 namespace DigDug
 {
-    class PlayerBehaviour : public dae::Component,  public dae::IEventListener
+    class PlayerBehaviour final : public dae::Component,  public dae::IEventListener
     {
     public:
         void OnEvent(const dae::Event &e) override;
 
 
         PlayerBehaviour(dae::GameObject* owner);
-        ~PlayerBehaviour() = default;
+        ~PlayerBehaviour() override = default;
 
 
         void Update(float dt) override;

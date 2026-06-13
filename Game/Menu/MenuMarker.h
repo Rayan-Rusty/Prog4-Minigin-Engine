@@ -11,11 +11,11 @@ namespace dae {
 }
 namespace DigDug
 {
-    class MenuMarker : public dae::Component
+    class MenuMarker final : public dae::Component
     {
     public:
-        MenuMarker(dae::GameObject* owner);
-
+        explicit MenuMarker(dae::GameObject* owner);
+        ~MenuMarker() override = default;
         void AddPosition(const glm::vec3& position);
         void RemovePosition(const glm::vec3& position);
         void Move(int direction);

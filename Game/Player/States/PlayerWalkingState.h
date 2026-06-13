@@ -9,7 +9,7 @@ namespace DigDug {
     class PlayerBehaviour;
 
 
-    class PlayerWalkingState : public State<PlayerBehaviour>
+    class PlayerWalkingState final : public State<PlayerBehaviour>
     {
     public:
 

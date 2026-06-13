@@ -3,7 +3,7 @@
 #include "GameActorCommand.h"
 
 namespace DigDug {
-    class AttackCommand : public dae::GameActorCommand
+    class AttackCommand final : public dae::GameActorCommand
     {
     public:
         explicit AttackCommand(dae::GameObject *actor);

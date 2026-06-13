@@ -15,7 +15,6 @@ namespace DigDug {
         void Update(float deltaTime) override;
         std::type_index GetType() const override;
         void Move(float dt);
-        void SetGhost(bool Ghost);
         void SetSpeed(float speed);
 
 

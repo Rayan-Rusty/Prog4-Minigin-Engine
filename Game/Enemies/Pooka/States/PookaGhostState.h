@@ -12,9 +12,10 @@ namespace DigDug
 {
     class TilemapComponent;
     class PookaBehaviour;
-    class PookaGhostState :  public State<PookaBehaviour>
+    class PookaGhostState final :  public State<PookaBehaviour>
     {
     public:
+        PookaGhostState() = default;
         ~PookaGhostState() override = default;
         void Enter(PookaBehaviour& Data) override;
         std::unique_ptr<State> Update(float DeltaTime, PookaBehaviour& Data) override;

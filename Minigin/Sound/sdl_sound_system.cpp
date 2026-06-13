@@ -103,10 +103,7 @@ dae::sdl_sound_system::sdl_sound_system()
     m_Impl->init();
 }
 
-dae::sdl_sound_system::~sdl_sound_system()
-{
-
-}
+dae::sdl_sound_system::~sdl_sound_system() = default;
 
 void dae::sdl_sound_system::load_sound(sound_id id, const std::string& path)
 {

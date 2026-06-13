@@ -2,7 +2,7 @@
 #include "Component.h"
 
 dae::Component::Component(GameObject *owner)
-    :m_owner(owner)
+    :m_pOwner(owner)
 {
 }
 

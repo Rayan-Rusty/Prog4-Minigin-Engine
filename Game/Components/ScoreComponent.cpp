@@ -18,10 +18,6 @@ namespace DigDug {
             player->GetActor()->AddObserver(this);
     }
 
-    ScoreComponent::~ScoreComponent()
-    {
-
-    }
 
     void ScoreComponent::Notify( dae::IObserver::Event event, dae::GameActor *actor)
     {

@@ -13,13 +13,12 @@ namespace dae
     class RotationComponent final : public Component
     {
     public:
-        RotationComponent(GameObject* pOwner, float clockwiseDirection);
-
+        explicit RotationComponent(GameObject* pOwner, float clockwiseDirection);
+        ~RotationComponent() override  = default;
 
         void Update(float deltaTime) override;
 
         std::type_index GetType() const override;
-        ~RotationComponent() = default;
         RotationComponent(const RotationComponent& other) = delete;
         RotationComponent(RotationComponent&& other) = delete;
         RotationComponent& operator=(const RotationComponent& other) = delete;

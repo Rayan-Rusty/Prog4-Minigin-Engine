@@ -15,7 +15,7 @@ namespace dae
 
         //this is way I dont have to dynamic cast in GetComponent in GameObject
         //using type_index bc you cant compare two type_info
-        GameObject* GetOwner() const { return m_owner; }
+        GameObject* GetOwner() const { return m_pOwner; }
 
         virtual std::type_index GetType() const = 0;
         Component(const Component& other) = delete;
@@ -25,7 +25,7 @@ namespace dae
     protected:
         explicit Component(GameObject* owner);
     private:
-        GameObject* m_owner{nullptr};
+        GameObject* m_pOwner{nullptr};
     };
 
 }

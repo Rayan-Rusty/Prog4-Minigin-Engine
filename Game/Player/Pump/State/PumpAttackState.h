@@ -10,7 +10,7 @@ namespace DigDug {
     {
     public:
         void OnEvent(const dae::Event &e) override;
-
+        PumpAttackState() = default;
         ~PumpAttackState() override = default;
         void Enter(PumpBehaviour &owner) override;
         std::unique_ptr<State<PumpBehaviour>> Update(float DeltaTime, PumpBehaviour &Data) override;

@@ -8,12 +8,12 @@
 
 namespace dae
 {
-    class HealthComponent : public Component
+    class HealthComponent final : public Component
     {
     public:
-        HealthComponent(GameObject* pOwner, int maxhealth , int maxLives);
+        explicit HealthComponent(GameObject* pOwner, int maxhealth , int maxLives);
 
-        ~HealthComponent() = default;
+        ~HealthComponent() override = default;
 
         int GetCurrentHealth();
         int GetMaxHealth();

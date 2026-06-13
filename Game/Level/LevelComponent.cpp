@@ -28,9 +28,6 @@ DigDug::LevelComponent::LevelComponent(dae::GameObject *owner, std::vector<Level
 
 }
 
-DigDug::LevelComponent::~LevelComponent()
-{
-}
 
 void DigDug::LevelComponent::Update(float )
 {

@@ -17,10 +17,10 @@ namespace DigDug
     class TilemapComponent;
     class FygarBehaviour;
 
-    class FygarGhostState : public State<FygarBehaviour>
+    class FygarGhostState final : public State<FygarBehaviour>
     {
     public:
-
+        FygarGhostState() = default;
         ~FygarGhostState() override = default;
         void Enter(FygarBehaviour& Data) override;
         std::unique_ptr<State> Update(float DeltaTime, FygarBehaviour& Data) override;

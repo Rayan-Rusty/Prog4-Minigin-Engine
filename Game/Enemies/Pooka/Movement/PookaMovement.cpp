@@ -27,7 +27,7 @@ DigDug::PookaMovement::PookaMovement(dae::GameObject *parent)
     if (!col)
         return;
 
-    col->SetOnCollision([this](dae::CollisionComponent* other)
+    col->SetOnCollision([this](const dae::CollisionComponent* other)
     {
 
         if (other->GetOwner()->GetTag() != static_cast<int>(DigDug::GameTag::Tilemap))
@@ -55,9 +55,6 @@ DigDug::PookaMovement::PookaMovement(dae::GameObject *parent)
     });
 }
 
-DigDug::PookaMovement::~PookaMovement()
-{
-}
 
 void DigDug::PookaMovement::ChangeDirection(glm::ivec2 wallGrid)
 {
@@ -123,5 +120,4 @@ void DigDug::PookaMovement::SetSpeed(float speed)
     m_Speed = speed;
 }
 
-void DigDug::PookaMovement::CheckWallCollision() {
-}
+

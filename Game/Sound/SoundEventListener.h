@@ -9,7 +9,7 @@
 
 namespace dae
 {
-    class SoundEventListener : public IEventListener
+    class SoundEventListener final : public IEventListener
     {
     public:
         void OnEvent(const Event& e) override;

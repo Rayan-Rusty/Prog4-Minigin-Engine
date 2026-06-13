@@ -11,9 +11,6 @@ DigDug::MenuNavigateSystem::MenuNavigateSystem(dae::GameObject* Object)
 {
 }
 
-DigDug::MenuNavigateSystem::~MenuNavigateSystem()
-{
-}
 
 void DigDug::MenuNavigateSystem::OnEvent(const dae::Event &e)
 {

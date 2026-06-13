@@ -16,7 +16,7 @@ namespace DigDug
         void OnEvent(const dae::Event &e) override;
 
         PumpBehaviour(dae::GameObject* owner);
-        ~PumpBehaviour() = default;
+        ~PumpBehaviour() override = default;
 
 
 

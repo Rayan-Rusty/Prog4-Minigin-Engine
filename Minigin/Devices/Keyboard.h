@@ -14,7 +14,7 @@ namespace dae
     class Keyboard final : public InputDevice
     {
     public:
-        Keyboard();
+        explicit Keyboard();
         ~Keyboard() override;
         void Update() override;
         bool IsPressed(std::variant<GamepadButton, SDL_Scancode> keyOrButton) const override;

@@ -13,8 +13,8 @@ namespace DigDug
         void Notify(dae::IObserver::Event event, dae::GameActor* actor) override;
 
 
-        BlockBehaviour(dae::GameObject* owner);
-        ~BlockBehaviour() = default;
+        explicit BlockBehaviour(dae::GameObject* owner);
+        ~BlockBehaviour() override = default;
 
         void Update(float dt) override;
         void ChangeState(std::unique_ptr<State<BlockBehaviour>> newState);

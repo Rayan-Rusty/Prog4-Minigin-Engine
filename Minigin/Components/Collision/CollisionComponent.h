@@ -19,8 +19,8 @@ namespace dae
 
 
 
-        CollisionComponent(GameObject* owner);
-        ~CollisionComponent();
+        explicit CollisionComponent(GameObject* owner);
+        ~CollisionComponent() override;
 
         void Update(float deltaTime) override;
         void Render() const override;

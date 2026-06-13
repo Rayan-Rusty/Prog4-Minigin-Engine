@@ -21,7 +21,7 @@ namespace dae
         std::type_index GetType() const override;
 
         FPSComponent(const FPSComponent&) = delete;
-        ~FPSComponent() = default;
+        ~FPSComponent() override = default;
         FPSComponent(FPSComponent&& other) = delete;
         FPSComponent& operator=(const FPSComponent& other) = delete;
         FPSComponent& operator=(FPSComponent&& other) = delete;

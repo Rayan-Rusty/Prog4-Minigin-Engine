@@ -7,7 +7,7 @@
 
 namespace dae
 {
-    class EventBus
+    class EventBus final
     {
     public:
         void AddListener(IEventListener* listener);

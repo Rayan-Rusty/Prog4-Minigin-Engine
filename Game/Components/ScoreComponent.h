@@ -15,7 +15,7 @@ namespace DigDug
         void Notify(Event event, dae::GameActor *actor) override;
 
         explicit ScoreComponent(dae::GameObject* owner);
-        ~ScoreComponent();
+        ~ScoreComponent() override = default;
 
 
         int GetScore();

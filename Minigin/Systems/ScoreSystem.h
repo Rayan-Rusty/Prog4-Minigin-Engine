@@ -9,7 +9,7 @@
 
 namespace dae
 {
-    class ScoreSystem : public IEventListener
+    class ScoreSystem final : public IEventListener
     {
     public:
         void OnEvent(const Event& e) override;

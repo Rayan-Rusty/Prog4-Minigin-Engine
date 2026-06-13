@@ -3,7 +3,7 @@
 #include "GameActorCommand.h"
 #include <glm/glm.hpp>
 namespace DigDug {
-    class PlayerMoveCommand : public dae::GameActorCommand
+    class PlayerMoveCommand final : public dae::GameActorCommand
     {
     public:
         explicit PlayerMoveCommand(dae::GameObject *actor, const glm::ivec2& direction);

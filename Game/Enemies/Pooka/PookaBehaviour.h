@@ -23,7 +23,7 @@ namespace DigDug
     class PookaBehaviour final : public dae::Component , public dae::IObserver
     {
     public:
-        PookaBehaviour(dae::GameObject* owner);
+        explicit PookaBehaviour(dae::GameObject* owner);
         ~PookaBehaviour() override ;
 
 

@@ -8,10 +8,11 @@ namespace dae
 {
     class SpriteAnimationComponent;
     class Texture2D;
-    class RenderComponent : public Component
+    class RenderComponent final : public Component
     {
     public:
-        RenderComponent(GameObject* owner);
+        explicit RenderComponent(GameObject* owner);
+        ~RenderComponent() override = default;
         void SetTextureFilePath(const std::string& TextureFile);
         void SetTexture(std::shared_ptr<Texture2D> Texture);
         std::shared_ptr<Texture2D> GetTexture() const;

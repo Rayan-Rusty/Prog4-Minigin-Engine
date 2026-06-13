@@ -158,8 +158,6 @@ add_executable(${GAME_NAME}
         Game/Player/PlayerBehaviour.h
         Game/Player/Movement/PlayerMovement.cpp
         Game/Player/Movement/PlayerMovement.h
-        Game/Player/CollisionObserver/PlayerCollisionHandler.cpp
-        Game/Player/CollisionObserver/PlayerCollisionHandler.h
 
         # Player States
         Game/Player/States/PlayerIdleState.cpp
@@ -276,7 +274,7 @@ target_include_directories(${GAME_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/Game/Enemies/Fygar/States
         ${CMAKE_SOURCE_DIR}/Game/Enemies/Fygar/Movement
         ${CMAKE_SOURCE_DIR}/Game/Player/States
-        ${CMAKE_SOURCE_DIR}/Game/Player/CollisionObserver
+
         ${CMAKE_SOURCE_DIR}/Game/Player
         ${CMAKE_SOURCE_DIR}/Game/Player/Command
         ${CMAKE_SOURCE_DIR}/Game/Player/Movement

@@ -13,14 +13,11 @@ DigDug::MenuNavigateCommand::MenuNavigateCommand(dae::GameObject* actor , int di
 
 }
 
-DigDug::MenuNavigateCommand::~MenuNavigateCommand() {
-
-}
 
 void DigDug::MenuNavigateCommand::Execute()
 {
 
-    auto* marker = GetGameActor()->GetComponent<MenuMarker>();
 
-    if (marker) marker->Move(m_Direction);
+
+    if (auto* marker = GetGameActor()->GetComponent<MenuMarker>()) marker->Move(m_Direction);
 }

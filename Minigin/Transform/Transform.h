@@ -7,7 +7,8 @@ namespace dae
 	class Transform final : public Component
 	{
 	public:
-		Transform(GameObject* owner);
+		explicit Transform(GameObject* owner);
+		~Transform() override = default;
 		void SetLocalPosition(const glm::vec3& pos);
 		const glm::vec3& GetLocalPosition() const;
 		const glm::vec3& GetWorldPosition();

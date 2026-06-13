@@ -15,8 +15,6 @@ dae::SpriteAnimationComponent::SpriteAnimationComponent(GameObject *owner, int  
 
 }
 
-dae::SpriteAnimationComponent::~SpriteAnimationComponent() = default;
-
 void dae::SpriteAnimationComponent::Update(float deltaTime)
 {
     auto renderComp = GetOwner()->GetComponent<RenderComponent>();

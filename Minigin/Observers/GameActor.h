@@ -13,10 +13,11 @@ namespace dae
 {
 
     class GameObject;
-    class GameActor
+    class GameActor final
+
     {
     public:
-        GameActor(GameObject* pOwner);
+        explicit GameActor(GameObject* pOwner);
         ~GameActor();
         void AddObserver(IObserver* observer);
         void RemoveObserver(IObserver* observer);

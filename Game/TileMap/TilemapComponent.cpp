@@ -25,10 +25,7 @@ DigDug::TilemapComponent::TilemapComponent(dae::GameObject* pOwner)
 {
 }
 
-DigDug::TilemapComponent::~TilemapComponent()
-{
 
-}
 
 void DigDug::TilemapComponent::Notify(Event event, dae::GameActor *actor)
 {

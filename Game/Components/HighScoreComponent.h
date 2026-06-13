@@ -25,7 +25,7 @@ namespace DigDug
     public:
         void OnEvent(const dae::Event &e) override;
 
-        HighScoreComponent(dae::GameObject* pOwner, std::vector<dae::TextComponent*> HighscrTextComp,
+       explicit HighScoreComponent(dae::GameObject* pOwner, std::vector<dae::TextComponent*> HighscrTextComp,
                            std::vector<dae::TextComponent*> letterTextComps, std::vector<dae::GameObject*> arrws,
                            dae::TextComponent* scrTextComp);
 

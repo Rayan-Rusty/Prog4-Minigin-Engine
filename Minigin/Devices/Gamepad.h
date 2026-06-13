@@ -10,10 +10,10 @@
 #include "GamepadDataStructs.h"
 namespace dae
 {
-    class Gamepad : public InputDevice
+    class Gamepad final : public InputDevice
     {
     public:
-        Gamepad(int index);
+        explicit Gamepad(int index);
         ~Gamepad() override;
         bool IsConnected();
         void Update() override;

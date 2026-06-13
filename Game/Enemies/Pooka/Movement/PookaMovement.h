@@ -9,16 +9,15 @@ namespace dae {
 }
 namespace DigDug
 {
-    class PookaMovement : public dae::Component
+    class PookaMovement final : public dae::Component
     {
     public:
         explicit PookaMovement(dae::GameObject* parent);
-        ~PookaMovement() override;
+        ~PookaMovement() override = default;
 
         void Update(float deltaTime) override;
         std::type_index GetType() const override;
         void Move(float dt);
-        void SetGhost(bool Ghost);
         void SetSpeed(float speed);
 
     private:
@@ -28,7 +27,7 @@ namespace DigDug
         bool m_FacingLeft{false};
         bool m_IsGhost{false};
         void ChangeDirection(glm::ivec2 wallGrid);
-        void CheckWallCollision();
+
         TilemapComponent* m_pSceneTileMap{nullptr};
         dae::GameObject* m_pPlayer{nullptr};
     };

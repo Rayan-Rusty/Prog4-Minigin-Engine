@@ -18,7 +18,7 @@ namespace dae
 
 		TextComponent(GameObject* owner ,std::string  text, std::shared_ptr<Font> font, const SDL_Color& color = { 255, 255, 255, 255 });
 		explicit TextComponent(GameObject* owner);
-
+		~TextComponent() override = default;
 		void Update(float deltaTime) override;
 
 		void SetText(const std::string& text);

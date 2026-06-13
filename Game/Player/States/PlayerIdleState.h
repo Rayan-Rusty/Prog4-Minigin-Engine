@@ -10,7 +10,7 @@ namespace DigDug
 {
     class PlayerBehaviour;
 
-    class PlayerIdleState : public State<PlayerBehaviour>
+    class PlayerIdleState final : public State<PlayerBehaviour>
     {
     public:
         PlayerIdleState()  = default;

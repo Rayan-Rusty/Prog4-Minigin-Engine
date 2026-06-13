@@ -18,6 +18,7 @@
 class dae::Gamepad::ImplGamePad
 {
 public:
+    ~ImplGamePad();
     void SetIndex(int index) { m_index = index; }
     int Getindex() const { return m_index; }
     bool IsConnected() const { return m_isConnected; }
@@ -107,11 +108,9 @@ dae::Gamepad::Gamepad(int index) : pImpl(std::make_unique<ImplGamePad>()) {
     pImpl->SetIndex(index);
 }
 
-dae::Gamepad::~Gamepad() {
 
-}
-
-
+dae::Gamepad::ImplGamePad::~ImplGamePad() = default;
+dae::Gamepad::~Gamepad() = default;
 bool dae::Gamepad::IsConnected()
 {
     return pImpl->IsConnected();

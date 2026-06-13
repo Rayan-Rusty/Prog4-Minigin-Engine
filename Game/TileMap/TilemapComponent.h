@@ -32,12 +32,12 @@ namespace DigDug
     };
 
 
-    class TilemapComponent : public BaseTilemapLoader,  public dae::IObserver
+    class TilemapComponent final : public BaseTilemapLoader,  public dae::IObserver
     {
     public:
 
-        TilemapComponent(dae::GameObject* pOwner);
-        ~TilemapComponent() override;
+         explicit TilemapComponent(dae::GameObject* pOwner);
+        ~TilemapComponent() override = default;
 
         void Notify(Event event, dae::GameActor *actor) override;
 

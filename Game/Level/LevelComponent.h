@@ -16,9 +16,9 @@ namespace DigDug
 
         void OnEvent(const dae::Event& e) override;
 
-        LevelComponent(dae::GameObject* owner, std::vector<LevelData> levels );
+        explicit LevelComponent(dae::GameObject* owner, std::vector<LevelData> levels );
 
-        ~LevelComponent() override;
+        ~LevelComponent() override = default;
 
         void Update(float deltaTime) override;
 

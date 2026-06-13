@@ -14,8 +14,8 @@ namespace dae
     class MovementComponent final : public Component
     {
     public:
-        MovementComponent(GameObject* owner , float speed, bool gravity = false);
-
+        explicit MovementComponent(GameObject* owner , float speed, bool gravity = false);
+        ~MovementComponent() override = default;
         void Update(float deltaTime) override;
         std::type_index GetType() const override;
         void Move(const glm::vec3& direction);

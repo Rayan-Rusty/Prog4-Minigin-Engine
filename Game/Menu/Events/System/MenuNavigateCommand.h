@@ -13,8 +13,8 @@ namespace DigDug
     class MenuNavigateCommand final : public dae::GameActorCommand
     {
     public:
-        MenuNavigateCommand(dae::GameObject* actor , int dir);
-        ~MenuNavigateCommand();
+        explicit MenuNavigateCommand(dae::GameObject* actor , int dir);
+        ~MenuNavigateCommand() override = default;
 
         void Execute() override;
     private:

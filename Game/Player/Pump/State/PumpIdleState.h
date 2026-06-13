@@ -6,6 +6,7 @@
 namespace DigDug {
     class PumpIdleState final : public State<PumpBehaviour> {
     public:
+        PumpIdleState() = default;
         ~PumpIdleState() override = default;
         void Enter(PumpBehaviour &owner) override;
         std::unique_ptr<State<PumpBehaviour>> Update(float DeltaTime, PumpBehaviour &Data) override;

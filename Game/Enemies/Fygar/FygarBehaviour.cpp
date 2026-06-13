@@ -44,8 +44,6 @@ DigDug::FygarBehaviour::FygarBehaviour(dae::GameObject *owner)
     ChangeState(std::make_unique<FygarNormalState>());
 }
 
-DigDug::FygarBehaviour::~FygarBehaviour() {
-}
 
 
 void DigDug::FygarBehaviour::Notify(dae::IObserver::Event event, dae::GameActor *)

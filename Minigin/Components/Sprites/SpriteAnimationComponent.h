@@ -19,8 +19,8 @@ namespace dae
     class SpriteAnimationComponent final : public Component
     {
     public:
-        SpriteAnimationComponent(GameObject* owner,int rows, int columns);
-        ~SpriteAnimationComponent();
+        explicit SpriteAnimationComponent(GameObject* owner,int rows, int columns);
+        ~SpriteAnimationComponent() override = default;
 
         void Update(float deltaTime) override;
         const SDL_FRect& GetSourceRect() const;

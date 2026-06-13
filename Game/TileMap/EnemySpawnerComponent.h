@@ -29,10 +29,10 @@ namespace DigDug
 
 
 
-        EnemySpawnerComponent(dae::GameObject* pOwner , dae::Scene* scene)
+         explicit EnemySpawnerComponent(dae::GameObject* pOwner , dae::Scene* scene)
             : BaseTilemapLoader(pOwner) , m_pScene(scene)
         {}
-        ~EnemySpawnerComponent() = default;
+        ~EnemySpawnerComponent() override = default;
 
 
 

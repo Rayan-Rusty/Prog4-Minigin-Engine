@@ -9,7 +9,7 @@
 
 namespace dae
 {
-    class DebugSystem : public IEventListener
+    class DebugSystem final : public IEventListener
     {
     public:
         void OnEvent(const Event& e) override;

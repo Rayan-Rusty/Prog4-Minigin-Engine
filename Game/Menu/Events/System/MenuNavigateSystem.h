@@ -19,7 +19,7 @@ namespace DigDug
     public:
 
         explicit MenuNavigateSystem(dae::GameObject* Object);
-        ~MenuNavigateSystem();
+        ~MenuNavigateSystem() override = default;
 
         void OnEvent(const dae::Event& e) override;
 

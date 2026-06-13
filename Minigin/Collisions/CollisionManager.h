@@ -14,8 +14,8 @@ public:
 
 
     void ClearPair(dae::CollisionComponent* a, dae::CollisionComponent* b);
-    void Register(dae::CollisionComponent* col);
-    void Unregister(dae::CollisionComponent* col);
+    void Register(dae::CollisionComponent* pCol);
+    void Unregister(dae::CollisionComponent* pCol);
     void Clear();
     void Update();
 
@@ -23,7 +23,7 @@ private:
     friend class Singleton<CollisionManager>;
     CollisionManager() = default;
 
-    std::vector<dae::CollisionComponent*> m_cols;
+    std::vector<dae::CollisionComponent*> m_pCols;
     std::vector<std::pair<size_t, size_t>> m_activeOverlaps;
 };
 

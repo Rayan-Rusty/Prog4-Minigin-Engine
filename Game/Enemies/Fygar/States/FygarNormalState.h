@@ -10,7 +10,7 @@
 namespace DigDug
 {
     class FygarBehaviour;
-    class FygarNormalState  : public State<FygarBehaviour>
+    class FygarNormalState final  : public State<FygarBehaviour>
     {
     public:
         FygarNormalState() = default;

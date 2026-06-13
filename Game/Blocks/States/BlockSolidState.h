@@ -4,7 +4,7 @@
 
 namespace DigDug
 {
-    class BlockSolidState : public State<BlockBehaviour>
+    class BlockSolidState final : public State<BlockBehaviour>
     {
     public:
         BlockSolidState() = default;

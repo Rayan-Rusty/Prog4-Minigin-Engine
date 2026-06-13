@@ -13,8 +13,9 @@ namespace DigDug
     class BaseTilemapLoader : public dae::Component
     {
     public:
-        BaseTilemapLoader(dae::GameObject* pOwner);
-        virtual ~BaseTilemapLoader() = default;
+         explicit BaseTilemapLoader(dae::GameObject* pOwner);
+
+        ~BaseTilemapLoader() override = default;
         void LoadFromFile(const std::string& path);
 
         virtual void OnMapSizeKnown(int width, int height);

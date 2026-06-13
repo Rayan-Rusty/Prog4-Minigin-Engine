@@ -6,6 +6,9 @@ namespace DigDug {
     class PlayerAttackState final : public State<PlayerBehaviour>
     {
     public:
+
+        PlayerAttackState() = default;
+        ~PlayerAttackState() override = default;
         void Enter(PlayerBehaviour &owner) override;
 
         std::unique_ptr<State<PlayerBehaviour>> Update(float DeltaTime, PlayerBehaviour &Data) override;

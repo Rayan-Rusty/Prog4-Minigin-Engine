@@ -12,11 +12,11 @@ namespace dae
 {
     class IObserver;
 
-    class ObserverManager : public Singleton<ObserverManager>
+    class ObserverManager final : public Singleton<ObserverManager>
     {
     public:
-        ObserverManager();
-        ~ObserverManager();
+        ObserverManager() = default ;
+        ~ObserverManager() override = default;
     private:
 
     };

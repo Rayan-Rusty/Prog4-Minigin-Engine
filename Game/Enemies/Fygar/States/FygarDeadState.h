@@ -10,9 +10,10 @@ namespace DigDug
 {
     class FygarBehaviour;
 
-    class FygarDeadState: public State<FygarBehaviour>
+    class FygarDeadState final : public State<FygarBehaviour>
     {
     public:
+        FygarDeadState() = default;
         ~FygarDeadState() override = default;
         void Enter(FygarBehaviour& Data) override;
         std::unique_ptr<State> Update(float DeltaTime, FygarBehaviour& Data) override;
