@@ -20,6 +20,10 @@ namespace DigDug
         void Move(float dt);
         void SetSpeed(float speed);
 
+        PookaMovement(const PookaMovement& other) = delete;
+        PookaMovement(PookaMovement&& other) = delete;
+        PookaMovement& operator=(const PookaMovement& other) = delete;
+        PookaMovement& operator=(PookaMovement&& other) = delete;
     private:
         float m_Speed{80.f};
         glm::ivec2 m_lastGrid{ -1, -1 };
@@ -30,6 +34,9 @@ namespace DigDug
 
         TilemapComponent* m_pSceneTileMap{nullptr};
         dae::GameObject* m_pPlayer{nullptr};
+
+
+
     };
 } // DigDug
 

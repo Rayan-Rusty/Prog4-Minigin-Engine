@@ -21,6 +21,12 @@ namespace DigDug
         int GetScore();
         std::type_index GetType() const override;
         static inline int s_LastScore{0};
+
+        ScoreComponent(const ScoreComponent& other) = delete;
+        ScoreComponent(ScoreComponent&& other) = delete;
+        ScoreComponent& operator=(const ScoreComponent& other) = delete;
+        ScoreComponent& operator=(ScoreComponent&& other) = delete;
+
     private:
         int m_score{0};
 

@@ -37,6 +37,14 @@ namespace DigDug
         float m_GhostChance{ 0.1f };
         std::mt19937 m_Rng{ std::random_device{}() };
         std::uniform_real_distribution<float> m_dist{ 0.f, 1.f };
+
+
+        FygarBehaviour(const FygarBehaviour& other) = delete;
+        FygarBehaviour(FygarBehaviour&& other) = delete;
+        FygarBehaviour& operator=(const FygarBehaviour& other) = delete;
+        FygarBehaviour& operator=(FygarBehaviour&& other) = delete;
+
+
     };
 }
 

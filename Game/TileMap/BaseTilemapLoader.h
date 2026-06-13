@@ -20,6 +20,12 @@ namespace DigDug
 
         virtual void OnMapSizeKnown(int width, int height);
        virtual void OnAllTilesLoaded() = 0;
+
+        BaseTilemapLoader(const BaseTilemapLoader& other) = delete;
+        BaseTilemapLoader(BaseTilemapLoader&& other) = delete;
+        BaseTilemapLoader& operator=(const BaseTilemapLoader& other) = delete;
+        BaseTilemapLoader& operator=(BaseTilemapLoader&& other) = delete;
+
     protected:
         int m_WidthTiles{0};
         int m_HeightTiles{0};

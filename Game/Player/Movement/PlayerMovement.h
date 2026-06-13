@@ -19,6 +19,10 @@ namespace DigDug {
         void SetDirection(const glm::ivec2& dir);
         glm::ivec2 GetDirection() const { return m_InputDir; }
 
+        PlayerMovement(const PlayerMovement& other) = delete;
+        PlayerMovement(PlayerMovement&& other) = delete;
+        PlayerMovement& operator=(const PlayerMovement& other) = delete;
+        PlayerMovement& operator=(PlayerMovement&& other) = delete;
 
     private:
 

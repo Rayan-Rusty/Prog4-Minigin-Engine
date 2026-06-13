@@ -69,6 +69,12 @@ namespace DigDug
             m_positions.clear();
         }
 
+        EnemySpawnerComponent(const EnemySpawnerComponent& other) = delete;
+        EnemySpawnerComponent(EnemySpawnerComponent&& other) = delete;
+        EnemySpawnerComponent& operator=(const EnemySpawnerComponent& other) = delete;
+        EnemySpawnerComponent& operator=(EnemySpawnerComponent&& other) = delete;
+
+
         std::type_index GetType() const override { return typeid(EnemySpawnerComponent); }
     private:
 

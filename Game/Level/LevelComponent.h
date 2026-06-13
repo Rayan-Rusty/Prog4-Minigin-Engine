@@ -28,6 +28,13 @@ namespace DigDug
 
         void LoadCurrentLevel();
 
+
+        LevelComponent(const LevelComponent& other) = delete;
+        LevelComponent(LevelComponent&& other) = delete;
+        LevelComponent& operator=(const LevelComponent& other) = delete;
+        LevelComponent& operator=(LevelComponent&& other) = delete;
+
+
     private:
 
         std::vector<LevelData> m_Levels;

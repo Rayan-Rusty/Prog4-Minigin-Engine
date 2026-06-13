@@ -27,7 +27,10 @@ namespace DigDug
 
 
         std::type_index GetType() const override;
-
+        MenuMarker(const MenuMarker& other) = delete;
+        MenuMarker(MenuMarker&& other) = delete;
+        MenuMarker& operator=(const MenuMarker& other) = delete;
+        MenuMarker& operator=(MenuMarker&& other) = delete;
     private:
 
         std::vector<glm::vec3> m_MenuPositions;

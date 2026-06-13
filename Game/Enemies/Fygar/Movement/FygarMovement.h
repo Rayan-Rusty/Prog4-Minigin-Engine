@@ -18,6 +18,11 @@ namespace DigDug {
         void SetSpeed(float speed);
 
 
+
+        FygarMovement(const FygarMovement& other) = delete;
+        FygarMovement(FygarMovement&& other) = delete;
+        FygarMovement& operator=(const FygarMovement& other) = delete;
+        FygarMovement& operator=(FygarMovement&& other) = delete;
     private:
         float m_Speed{80.f};
         glm::ivec2 m_lastGrid{ -1, -1 };

@@ -58,7 +58,10 @@ namespace DigDug
 
         std::type_index GetType() const override { return typeid(TilemapComponent); }
 
-
+        TilemapComponent(const TilemapComponent& other) = delete;
+        TilemapComponent(TilemapComponent&& other) = delete;
+        TilemapComponent& operator=(const TilemapComponent& other) = delete;
+        TilemapComponent& operator=(TilemapComponent&& other) = delete;
         void OnMapSizeKnown(int width, int height) override;
 
 
