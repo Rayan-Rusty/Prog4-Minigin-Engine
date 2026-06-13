@@ -1,7 +1,3 @@
-//
-// Created by omen on 29/04/2026.
-//
-
 #ifndef MINIGIN_EVENTSIDS_H
 #define MINIGIN_EVENTSIDS_H
 
@@ -13,4 +9,10 @@ constexpr dae::EventId PLAYER_DIED   = make_sdbm_hash("PlayerDied");
 constexpr dae::EventId LEVEL_STARTED = make_sdbm_hash("LevelStarted");
 constexpr dae::EventId MOVED = make_sdbm_hash("Moved");
 constexpr dae::EventId MENU_NAVIGATE = make_sdbm_hash("MenuNavigate");
+constexpr dae::EventId Player_Moving = make_sdbm_hash("PlayerMoving");
+constexpr dae::EventId EnemyDied = make_sdbm_hash("EnemyDied");
+constexpr dae::EventId EnemySpawned = make_sdbm_hash("EnemySpawned");
+constexpr dae::EventId PressedForwardArrow = make_sdbm_hash("PressedForwardArrow");
+constexpr dae::EventId PressedPreviousArrow = make_sdbm_hash("PressedPreviousArrow");
+constexpr dae::EventId OnConfirmPressed = make_sdbm_hash("OnConfirmPressed");
 #endif //MINIGIN_EVENTSIDS_H

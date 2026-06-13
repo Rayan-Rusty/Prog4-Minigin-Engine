@@ -15,7 +15,7 @@ namespace dae
     public:
         void AddListener(IEventListener* listener);
         void QueueEvent(const Event& e);
-
+        void Clear();
         void ProcessEvents();
     private:
 

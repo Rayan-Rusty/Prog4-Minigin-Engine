@@ -15,6 +15,12 @@ void dae::EventBus::QueueEvent(const Event &e)
     m_events.push_back(e);
 }
 
+void dae::EventBus::Clear()
+{
+    m_listeners.clear();
+    m_events.clear();
+}
+
 void dae::EventBus::ProcessEvents()
 {
     for (const auto& e : m_events)
