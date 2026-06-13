@@ -17,16 +17,18 @@ dae::GameActor::GameActor(dae::GameObject *pOwner)
 
 dae::GameActor::~GameActor()
 {
-    for (auto observer : m_Observers)
-    {
-        if (observer)
-            observer->OnSubjectDestroy();
-    }
+
+    m_Observers.clear();
 }
 
 
 void dae::GameActor::AddObserver(IObserver* observer)
 {
+    if (reinterpret_cast<uintptr_t>(observer) == 0xffffffffffffffff)
+    {
+        std::cout << "[GameActor] WARNING: AddObserver called with corrupted pointer!\n";
+        return;
+    }
     if (observer)
         m_Observers.push_back(observer);
 }
