@@ -21,6 +21,17 @@ namespace dae {
 
 namespace DigDug
 {
+
+
+    struct TileData
+    {
+        int gridX;
+        int gridY;
+        bool isDestroyed;
+        dae::GameObject* ptr{nullptr};
+    };
+
+
     class TilemapComponent : public BaseTilemapLoader,  public dae::IObserver
     {
     public:
@@ -35,12 +46,14 @@ namespace DigDug
         bool isTileOpen(int x, int y) const;
         float GetTileWidth()  const { return m_TileWidth; }
         float GetTileHeight() const { return m_TileHeight; }
-
+        int GetWidthTiles()  const { return m_WidthTiles; }
+        int GetHeightTiles() const { return m_HeightTiles; }
 
         void OnAllTilesLoaded() override;
         void AddTexture(const std::string& path);
 
         void Update(float deltaTime) override;
+
 
 
         std::type_index GetType() const override { return typeid(TilemapComponent); }
@@ -49,29 +62,16 @@ namespace DigDug
         void OnMapSizeKnown(int width, int height) override;
 
 
-
-        struct TileData
-        {
-            int gridX;
-            int gridY;
-            bool isDestroyed;
-            dae::GameObject* ptr{nullptr};
-        };
-
-
         int GetLayerForWorldPos(const glm::vec3& worldPos) const;
-
-
         uint8_t GetRawValue(int x , int y)const ;
 
-
+        void Clear();
     private:
 
 
-        int GetBitmask(int x ,int y);
-        int BitmaskToFrame(int mask);
+
         void OnTileFound(uint8_t value, int x, int y) override;
-        void CheckNeighbours(int x , int  y);
+
 
         std::vector<uint8_t> m_Tiles;
 
