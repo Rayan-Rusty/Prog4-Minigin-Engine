@@ -7,12 +7,13 @@
 
 dae::GameObject::~GameObject()
 {
-
 	for (auto* child : m_Children)
 	{
 		child->SetParent(nullptr, true);
 	}
 
+	if (m_parent)
+		m_parent->RemoveChild(this);
 
 };
 
@@ -29,7 +30,6 @@ void dae::GameObject::Render() const
 {
 	for (auto& component : m_components)
 		component->Render();
-
 
 }
 
