@@ -3,7 +3,7 @@
 namespace DigDug
 {
 
-    enum class GameTag { None = 0, Player, Enemy, Tilemap, TilemapComponent };
-    enum class Layer{  Background, Foreground};
+    enum class GameTag { None = 0, Player, Enemy, Tilemap, Pump , TilemapComponent, UI , Spawner };
+    enum class Layer{  Background = 0, Foreground = 1 , UI = 3};
 }
 #endif //MINIGIN_GAMELAYERS_H
