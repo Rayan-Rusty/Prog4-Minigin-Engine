@@ -4,6 +4,7 @@
 
 #include "CollisionComponent.h"
 
+#include "CollisionManager.h"
 #include "GameObject.h"
 #include "Renderer.h"
 #include "Utils.h"
@@ -17,6 +18,7 @@ dae::CollisionComponent::CollisionComponent(GameObject* owner)
 
 dae::CollisionComponent::~CollisionComponent()
 {
+    CollisionManager::GetInstance().Unregister(this);
 }
 
 void dae::CollisionComponent::Update(float)

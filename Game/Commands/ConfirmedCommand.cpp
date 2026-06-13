@@ -17,11 +17,13 @@ void DigDug::ConfirmedCommand::Execute()
 
     int selection = marker->GetCurrentSelection();
 
+    auto* scene = dae::SceneManager::GetInstance().GetActiveScene();
+    scene->Clear();
     switch (selection)
     {
-        case 0: dae::SceneManager::GetInstance().SetActiveScene(1); break;
-        case 1: dae::SceneManager::GetInstance().SetActiveScene(2); break;
-        case 2: dae::SceneManager::GetInstance().SetActiveScene(3); break;
+        case 0: dae::SceneManager::GetInstance().SetPendingScene(1); break;
+        case 1: dae::SceneManager::GetInstance().SetPendingScene(2); break;
+        case 2: dae::SceneManager::GetInstance().SetPendingScene(3); break;
         default: break;
     }
 }
