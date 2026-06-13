@@ -1,35 +1,72 @@
-﻿# Minigin
+﻿# Minigin Game Engine - DigDug Project 
 
-Minigin is a very small project using [SDL3](https://www.libsdl.org/) and [glm](https://github.com/g-truc/glm) for 2D c++ game projects. It is in no way a game engine, only a barebone start project where everything sdl related has been set up. It contains glm for vector math, to aleviate the need to write custom vector and matrix classes.
+## OverView
 
-[![Build Status](https://github.com/avadae/minigin/actions/workflows/cmake.yml/badge.svg)](https://github.com/avadae/cmake/actions)
-[![Build Status](https://github.com/avadae/minigin/actions/workflows/emscripten.yml/badge.svg)](https://github.com/avadae/emscripten/actions)
-[![GitHub Release](https://img.shields.io/github/v/release/avadae/minigin?logo=github&sort=semver)](https://github.com/avadae/minigin/releases/latest)
 
-# Goal
+This project is built on top of a custom C++ game engine **Minigin**, used as part of my programming coursework.
+The engine is designed with a component-based architecture (ecs-like system) and is used to run a remake of ***DigDug***
 
-Minigin can/may be used as a start project for the exam assignment in the course [Programming 4](https://youtu.be/j96Oh6vzhmg) at DAE. In that assignment students need to recreate a popular 80's arcade game with a game engine they need to program themselves. During the course we discuss several game programming patterns, using the book '[Game Programming Patterns](https://gameprogrammingpatterns.com/)' by [Robert Nystrom](https://github.com/munificent) as reading material. 
+The game features tile-based movement, enemy AI behaviors , custom rendering pipeline and animations.
 
-# Disclaimer
 
-Minigin is, despite perhaps the suggestion in its name, **not** a game engine. It is just a very simple SDL3 ready project with some of the scaffolding in place to get started. None of the patterns discussed in the course are used yet (except singleton which use we challenge during the course). It is up to the students to implement their own vision for their engine, apply patterns as they see fit, create their game as efficient as possible.
 
-# Use
+## Engine Architecture
 
-Get the source from this project, or since students need to have their work on github too, they can use this repository as a template. Hit the "Use this template" button on the top right corner of the github page of this project.
+### Component - based Design
 
-## Windows version
+The engine uses a ***Component over inheritance** approach:
 
-Either
-- Open the root folder in Visual Studio 2026; this will be recognized as a cmake project.
+- GameObjects behave as containers
+- Behavior is implemented through `Component subclasses`
+- Components communicate through events and observers as much as possible
+
+This allows flexible gameplay systems without deep inheritance chains.
+
+
+## Finite State Machine System 
+
+Enemies and player behaviors are implemented using a **Finite state machine system** for example:
+
+- Pookas have multiple states that go through the `PookaBehaviour`:
+  - Normal
+  - Ghost
+  - Inflated
+  - Dead
+
   
-Or
-- Install CMake 
-- Install CMake and CMake Tools extensions in Visual Code
-- Open the root folder in Visual Code,  this will be recognized as a cmake project.
+each state has its own Enter, update & exit.
 
-Or
-- Use whatever editor you like :)
 
-## Emscripten (web) version
+### Observer/Event System
 
+An event-driven system is used for gameplay interactions:
+
+- Enemy hit detection
+- Pump interactions
+- Score updates
+
+this causes less hard coupling between components or objects
+
+### Rendering System:
+
+The `SpriteComponent` can store little animations into structs that are then sent to the `rendererComponent`.
+The rendering uses layers so that when we add objects to the scene we can sort it after wards.
+
+
+#### Tilemap System (Aseprite Pipeline)
+
+using bitmaps or hardcoded values into a txt file seemed rather not efficient to use with a game like DigDug,
+so I used an indexed image and take the values out of it. that way I can place enemies, players, rocks or tiles wherever necessary.
+This also makes it easy to layer it, find where players are and how much an enemy is worth.
+
+### Input system
+SUpports:
+
+- Keyboard Input
+- Gamepad Input
+- Command-based input mapping
+
+
+## Repository 
+
+- https://github.com/Rayan-Rusty/Prog4-Minigin-Engine
