@@ -20,6 +20,8 @@ namespace DigDug {
         std::type_index GetType() const override;
 
     private:
+        float m_timer{0.f};
+        float m_DeflateTime{1.f};
     };
 } // game
 

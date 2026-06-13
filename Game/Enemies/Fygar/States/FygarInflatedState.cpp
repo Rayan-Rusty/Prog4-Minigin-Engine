@@ -4,9 +4,12 @@
 
 #include "FygarInflatedState.h"
 
+#include "CollisionComponent.h"
 #include "SpriteAnimationComponent.h"
 #include "FygarBehaviour.h"
+#include "FygarDeadState.h"
 #include "GameObject.h"
+
 
 void DigDug::FygarInflatedState::Enter(FygarBehaviour& Data)
 {
@@ -18,19 +21,28 @@ void DigDug::FygarInflatedState::Enter(FygarBehaviour& Data)
     {
         std::vector<SDL_FRect> InflateFrames =
         {
-            {0, 32, 16, 16},
-            {16 , 32, 32, 32},
-            {32 , 32, 32, 32},
-            {48 , 32, 32, 32}
+            {0, 64, 16, 16},
+            {16 , 64, 32, 32},
+            {32 , 64, 32, 32},
+            {48 , 64, 32, 32}
         };
 
         spriteComp->SetAnimation( InflateFrames, 0.2f , true);
     }
+    auto col = obj->GetComponent<dae::CollisionComponent>();
 
+    col->SetEnabled(false);
 }
 
-std::unique_ptr<State<DigDug::FygarBehaviour>> DigDug::FygarInflatedState::Update(float , FygarBehaviour &)
+std::unique_ptr<State<DigDug::FygarBehaviour>> DigDug::FygarInflatedState::Update(float dt, FygarBehaviour &)
 {
+    m_timer += dt;
+
+    if (m_timer >= m_DeflateTime)
+    {
+
+        return std::make_unique<FygarDeadState>();
+    }
     return nullptr;
 }
 
