@@ -30,13 +30,14 @@ void Scene::RemoveAll()
 
 void Scene::Update(float deltaTime)
 {
-	for(auto& object : m_objects)
-	{
-		object->Update(deltaTime);
-	}
-
+	// use index loop so mid-frame Add() calls don't invalidate the iterator
+	const size_t count = m_objects.size();
+	for (size_t i = 0; i < count; ++i)
+		m_objects[i]->Update(deltaTime);
+	RemoveGameObject();
 	CollisionManager::GetInstance().Update();
 	m_eventBus.ProcessEvents();
+
 }
 
 void Scene::RemoveGameObject()
@@ -83,8 +84,8 @@ void Scene::Clear()
 {
 	m_objects.clear();
 	m_listeners.clear();
+	m_eventBus.Clear();
 
-    //m_eventBus.Clear();
 }
 
 std::vector<GameObject *> Scene::GetObjectByTag(int tag)

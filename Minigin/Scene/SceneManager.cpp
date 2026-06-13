@@ -4,9 +4,14 @@
 #include "InputManager.h"
 #include "Scene.h"
 
-void dae::SceneManager::Update(float deltaTime) const
+void dae::SceneManager::Update(float deltaTime)
 {
 	GetActiveScene()->Update(deltaTime);
+	if (m_PendingSceneChange)
+	{
+		m_PendingSceneChange = false;
+		SetActiveScene(m_PendingSceneIndex);
+	}
 }
 
 void dae::SceneManager::Render()
@@ -33,13 +38,20 @@ void dae::SceneManager::SetActiveScene(size_t index)
 
 	size_t previousIndex = m_activeSceneIndex;
 
+
+
 	m_activeSceneIndex = index;
 	if (m_SceneInitialization[index])
 		m_SceneInitialization[index]();
 
-
 	if (previousIndex != index)
 		m_scenes[previousIndex]->Clear();
+}
+
+void dae::SceneManager::SetPendingScene(size_t index)
+{
+	m_PendingSceneIndex = index;
+	m_PendingSceneChange = true;
 }
 
 dae::Scene* dae::SceneManager::GetActiveScene() const
@@ -47,6 +59,12 @@ dae::Scene* dae::SceneManager::GetActiveScene() const
 	return m_scenes[m_activeSceneIndex].get();
 }
 
+void dae::SceneManager::ClearScene(size_t index)
+{
+	if (index >= m_scenes.size())
+		return;
+	m_scenes[index]->Clear();
+}
 dae::EventBus &dae::SceneManager::GetEventBus()
 {
 	return GetActiveScene()->GetEventBus();
