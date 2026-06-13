@@ -15,4 +15,5 @@ constexpr dae::EventId EnemySpawned = make_sdbm_hash("EnemySpawned");
 constexpr dae::EventId PressedForwardArrow = make_sdbm_hash("PressedForwardArrow");
 constexpr dae::EventId PressedPreviousArrow = make_sdbm_hash("PressedPreviousArrow");
 constexpr dae::EventId OnConfirmPressed = make_sdbm_hash("OnConfirmPressed");
+constexpr dae::EventId Victory = make_sdbm_hash("Victory");
 #endif //MINIGIN_EVENTSIDS_H

@@ -6,7 +6,7 @@
 #include "FygarBehaviour.h"
 #include "GameObject.h"
 #include "SpriteAnimationComponent.h"
-#include "Movement/FygarMovement.h"
+#include "FygarMovement.h"
 
 void DigDug::FygarNormalState::Enter(FygarBehaviour &Data)
 {

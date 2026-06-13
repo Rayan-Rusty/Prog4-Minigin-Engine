@@ -1,7 +1,7 @@
 #ifndef MINIGIN_PUMPIDLESTATE_H
 #define MINIGIN_PUMPIDLESTATE_H
 #include "State.h"
-#include "Pump/PumpBehaviour.h"
+#include "PumpBehaviour.h"
 
 namespace DigDug {
     class PumpIdleState final : public State<PumpBehaviour> {

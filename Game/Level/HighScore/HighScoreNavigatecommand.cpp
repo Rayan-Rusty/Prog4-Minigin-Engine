@@ -1,7 +1,7 @@
 #include "HighScoreNavigatecommand.h"
 
 #include "EventsIds.h"
-#include "GameObject.h"
+
 #include "SceneManager.h"
 
 

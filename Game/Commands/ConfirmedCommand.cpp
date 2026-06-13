@@ -2,7 +2,7 @@
 
 #include "GameObject.h"
 #include "SceneManager.h"
-#include "Menu/MenuMarker.h"
+#include "MenuMarker.h"
 
 DigDug::ConfirmedCommand::ConfirmedCommand(dae::GameObject *gameObject)
     :GameActorCommand(gameObject)

@@ -1,15 +1,13 @@
-//
-// Created by omen on 06/05/2026.
-//
+
 
 #include "PookaBehaviour.h"
 #include "PookaGhostState.h"
 #include "PookaInflatedState.h"
 #include "PookaNormalState.h"
 #include "SceneManager.h"
-#include "Components/ScoreComponent.h"
+#include "ScoreComponent.h"
 #include "Layers/GameLayers.h"
-#include "Movement/PookaMovement.h"
+#include "PookaMovement.h"
 
 
 DigDug::PookaBehaviour::PookaBehaviour(dae::GameObject* owner)

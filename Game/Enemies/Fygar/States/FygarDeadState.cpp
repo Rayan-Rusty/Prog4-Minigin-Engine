@@ -10,7 +10,7 @@
 #include "SpriteAnimationComponent.h"
 #include "FygarBehaviour.h"
 #include "SceneManager.h"
-#include "GameObject/GameObject.h"
+#include "GameObject.h"
 
 void DigDug::FygarDeadState::Enter(FygarBehaviour& Data )
 {

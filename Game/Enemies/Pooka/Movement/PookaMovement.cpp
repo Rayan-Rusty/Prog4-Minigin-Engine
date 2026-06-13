@@ -1,12 +1,12 @@
 #include "PookaMovement.h"
 
 #include "CollisionComponent.h"
-#include "CollisionManager.h"
+
 #include "GameObject.h"
 #include "PookaGhostState.h"
 #include "SceneManager.h"
 #include "SpriteAnimationComponent.h"
-#include "Layers/GameLayers.h"
+#include "GameLayers.h"
 
 DigDug::PookaMovement::PookaMovement(dae::GameObject *parent)
     : Component(parent)

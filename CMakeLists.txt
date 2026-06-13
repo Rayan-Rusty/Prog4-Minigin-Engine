@@ -88,7 +88,7 @@ add_library(${ENGINE_NAME} STATIC
         Minigin/Sound/ServiceLocator.cpp
         Minigin/Sound/null_sound_system.cpp
         Minigin/Sound/Decorator.cpp
-        Minigin/Sound/SoundEventListener.cpp
+
 
         # Game interface
         Minigin/IGame.cpp
@@ -261,10 +261,13 @@ add_executable(${GAME_NAME}
         Game/Components/ScoreComponent.h
         Game/Components/HighScoreComponent.cpp
         Game/Components/HighScoreComponent.h
+        # sound
+        Game/Sound/SoundEventListener.cpp
 )
 
 target_include_directories(${GAME_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/Game
+        ${CMAKE_SOURCE_DIR}/Game/Sound
         ${CMAKE_SOURCE_DIR}/Game/Enemies
         ${CMAKE_SOURCE_DIR}/Game/Enemies/Pooka
         ${CMAKE_SOURCE_DIR}/Game/Enemies/Pooka/States
@@ -295,6 +298,7 @@ target_include_directories(${GAME_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/Game/Commands
         ${CMAKE_SOURCE_DIR}/Game/Components
         ${CMAKE_SOURCE_DIR}/Game/Highscore/
+
 
 )
 

@@ -8,8 +8,8 @@
 #include <vector>
 #include <SDL3/SDL.h>
 
-#include "../BaseComp/Component.h"
-#include "Texture2D.h"
+#include "Component.h"
+
 
 namespace dae
 {

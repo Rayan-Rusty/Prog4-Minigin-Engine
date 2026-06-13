@@ -8,8 +8,8 @@
 #include "PookaBehaviour.h"
 #include "SceneManager.h"
 #include "SpriteAnimationComponent.h"
-#include "Layers/GameLayers.h"
-#include "Movement/PookaMovement.h"
+#include "GameLayers.h"
+#include "PookaMovement.h"
 
 
 void DigDug::PookaGhostState::Enter(PookaBehaviour& Data )

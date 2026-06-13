@@ -4,7 +4,7 @@
 
 #ifndef MINIGIN_ROTATIONCOMPONENT_H
 #define MINIGIN_ROTATIONCOMPONENT_H
-#include "../BaseComp/Component.h"
+#include "Component.h"
 
 
 namespace dae

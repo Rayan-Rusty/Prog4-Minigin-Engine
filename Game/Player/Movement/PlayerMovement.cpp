@@ -4,7 +4,7 @@
 #include "SceneManager.h"
 #include "SpriteAnimationComponent.h"
 #include "TilemapComponent.h"
-#include "Layers/GameLayers.h"
+#include "GameLayers.h"
 
 DigDug::PlayerMovement::PlayerMovement(dae::GameObject* gameObject)
     :  Component(gameObject)

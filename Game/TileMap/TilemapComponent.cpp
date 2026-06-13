@@ -4,21 +4,21 @@
 
 #include "TilemapComponent.h"
 
-#include <iostream>
+
 #include <SDL3/SDL.h>
 
 #include "CollisionComponent.h"
 #include "IObserver.h"
 #include "GameObject.h"
-#include "Renderer.h"
+
 #include "ResourceManager.h"
 #include "SceneManager.h"
-#include "Layers/GameLayers.h"
+#include "GameLayers.h"
 
 #include "SpriteAnimationComponent.h"
 #include "Utils.h"
-#include "Blocks/BlockBehaviour.h"
-#include "Blocks/States/BlockDestroyedState.h"
+#include "BlockBehaviour.h"
+#include "BlockDestroyedState.h"
 
 DigDug::TilemapComponent::TilemapComponent(dae::GameObject* pOwner)
     :BaseTilemapLoader(pOwner)

@@ -1,6 +1,3 @@
-//
-// Created by omen on 08/05/2026.
-//
 
 #ifndef MINIGIN_POOKADEADSTATE_H
 #define MINIGIN_POOKADEADSTATE_H

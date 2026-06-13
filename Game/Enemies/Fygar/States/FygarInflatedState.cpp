@@ -23,8 +23,8 @@ void DigDug::FygarInflatedState::Enter(FygarBehaviour& Data)
         {
             {0, 64, 16, 16},
             {16 , 64, 32, 32},
-            {32 , 64, 32, 32},
-            {48 , 64, 32, 32}
+            {48 , 64, 32, 32},
+            {70+16 , 64, 32, 32}
         };
 
         spriteComp->SetAnimation( InflateFrames, 0.2f , true);

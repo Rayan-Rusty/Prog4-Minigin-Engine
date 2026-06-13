@@ -3,7 +3,7 @@
 #include "IObserver.h"
 #include "SceneManager.h"
 #include "TilemapComponent.h"
-#include "Layers/GameLayers.h"
+#include "GameLayers.h"
 #include "GameObject.h"
 #include "TextComponent.h"
 

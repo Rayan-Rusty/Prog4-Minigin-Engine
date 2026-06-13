@@ -1,6 +1,3 @@
-//
-// Created by omen on 29/04/2026.
-//
 
 #ifndef MINIGIN_EVENTHASH_H
 #define MINIGIN_EVENTHASH_H

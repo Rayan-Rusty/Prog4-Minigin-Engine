@@ -1,5 +1,5 @@
 
-#include "../BaseComp/Component.h"
+#include "Component.h"
 
 #include "Renderer.h"
 #include "ResourceManager.h"

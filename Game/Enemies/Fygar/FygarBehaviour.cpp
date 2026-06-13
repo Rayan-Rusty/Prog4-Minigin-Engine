@@ -1,19 +1,17 @@
-//
-// Created by omen on 08/05/2026.
-//
+
 
 #include "FygarBehaviour.h"
 
 #include "FygarAttackState.h"
-#include "FygarDeadState.h"
+
 #include "FygarGhostState.h"
 #include "FygarInflatedState.h"
 #include "FygarNormalState.h"
 #include "SceneManager.h"
-#include "Components/ScoreComponent.h"
-#include "Layers/GameLayers.h"
+#include "ScoreComponent.h"
+#include "GameLayers.h"
 
-#include "Movement/FygarMovement.h"
+#include "FygarMovement.h"
 
 
 DigDug::FygarBehaviour::FygarBehaviour(dae::GameObject *owner)

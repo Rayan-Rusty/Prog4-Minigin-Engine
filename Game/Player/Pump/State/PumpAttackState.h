@@ -3,7 +3,7 @@
 #include "IEventListener.h"
 #include "State.h"
 #include "glm/glm.hpp"
-#include "Pump/PumpBehaviour.h"
+#include "PumpBehaviour.h"
 
 namespace DigDug {
     class PumpAttackState final : public State<PumpBehaviour>, public dae::IEventListener

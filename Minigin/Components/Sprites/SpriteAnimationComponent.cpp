@@ -1,10 +1,8 @@
-//
-// Created by omen on 23/04/2026.
-//
+
 
 #include "SpriteAnimationComponent.h"
 
-#include "../Rendering/RenderComponent.h"
+#include "RenderComponent.h"
 #include "Renderer.h"
 #include "GameObject.h"
 

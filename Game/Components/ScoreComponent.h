@@ -3,7 +3,7 @@
 #include <algorithm>
 
 #include "Component.h"
-#include "Event.h"
+
 #include "IObserver.h"
 
 namespace DigDug

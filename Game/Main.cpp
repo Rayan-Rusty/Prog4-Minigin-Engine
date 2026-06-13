@@ -12,7 +12,7 @@
 #include "IGame.h"
 #include "DigDug.h"
 #include <filesystem>
-#include "Decorator.h"
+
 #include "sdl_sound_system.h"
 #include "ServiceLocator.h"
 namespace fs = std::filesystem;
@@ -31,8 +31,7 @@ int main(int, char*[]) {
 	dae::Minigin engine(data_location);
 
 #if _DEBUG
-	dae::ServiceLocator::register_sound_system(
-	std::make_unique<dae::logging_sound_system>(std::make_unique<dae::sdl_sound_system>()));
+	dae::ServiceLocator::register_sound_system(std::make_unique<dae::sdl_sound_system>());
 #else
 	dae::ServiceLocator::register_sound_system(std::make_unique<dae::sdl_sound_system>());
 #endif
@@ -41,7 +40,10 @@ int main(int, char*[]) {
 
 
 	auto& ss = dae::ServiceLocator::get_sound_system();
-
+	ss.load_sound(1, "Data/Sounds/walkmusic.wav");
+	ss.load_sound(2, "Data/Sounds/PumpShoot.wav");
+	ss.load_sound(3, "Data/Sounds/Victory.wav");
+	ss.load_sound(4, "Data/Sounds/EnemyDeath.wav");
 
 
 

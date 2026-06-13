@@ -13,6 +13,8 @@ namespace dae
     {
     public:
         void OnEvent(const Event& e) override;
+    private:
+        bool m_isWalking{false};
     };
 }
 

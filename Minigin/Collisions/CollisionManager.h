@@ -4,7 +4,7 @@
 
 #ifndef MINIGIN_COLLISIONMANAGER_H
 #define MINIGIN_COLLISIONMANAGER_H
-#include "../Components/Collision/CollisionComponent.h"
+#include "CollisionComponent.h"
 #include "Singleton.h"
 
 

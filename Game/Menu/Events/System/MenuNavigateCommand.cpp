@@ -4,7 +4,7 @@
 
 #include "MenuNavigateCommand.h"
 #include "Scene.h"
-#include "Menu/MenuMarker.h"
+#include "MenuMarker.h"
 
 
 DigDug::MenuNavigateCommand::MenuNavigateCommand(dae::GameObject* actor , int dir)

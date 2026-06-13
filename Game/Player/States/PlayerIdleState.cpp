@@ -1,11 +1,7 @@
-//
-// Created by omen on 09/05/2026.
-//
 
 #include "PlayerIdleState.h"
 #include "PlayerBehaviour.h"
 #include "GameObject.h"
-#include "RenderComponent.h"
 #include "SpriteAnimationComponent.h"
 
 #include "PlayerWalkingState.h"

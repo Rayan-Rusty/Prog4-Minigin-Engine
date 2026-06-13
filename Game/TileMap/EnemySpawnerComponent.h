@@ -13,7 +13,7 @@
 #include "Utils.h"
 #include "glm/vec2.hpp"
 #include "Scene.h"
-#include "Layers/GameLayers.h"
+#include "GameLayers.h"
 
 
 namespace dae {

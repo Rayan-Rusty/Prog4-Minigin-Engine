@@ -1,17 +1,14 @@
-//
-// Created by omen on 06/05/2026.
-//
 
 #include "PookaNormalState.h"
 
 
 #include "CollisionComponent.h"
 #include "PookaBehaviour.h"
-#include "PookaInflatedState.h"
+
 #include "SceneManager.h"
 #include "SpriteAnimationComponent.h"
-#include "Layers/GameLayers.h"
-#include "Movement/PookaMovement.h"
+#include "GameLayers.h"
+#include "PookaMovement.h"
 
 
 void DigDug::PookaNormalState::Enter(PookaBehaviour& Data )

@@ -1,6 +1,4 @@
-//
-// Created by omen on 29/04/2026.
-//
+
 #include "sdl_sound_system.h"
 
 #include <iostream>

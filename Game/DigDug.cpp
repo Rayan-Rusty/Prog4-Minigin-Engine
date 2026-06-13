@@ -5,15 +5,14 @@
 #include "GameObject.h"
 #include "Scene.h"
 #include "EnemySpawnerComponent.h"
-#include "EnemyTraits.h"
 #include "LevelComponent.h"
 #include "PlayerBehaviour.h"
 
-#include "TilemapComponent.h"
 #include "Utils.h"
 
-#include "Components/ScoreComponent.h"
-#include "Pump/PumpBehaviour.h"
+#include "ScoreComponent.h"
+#include "PumpBehaviour.h"
+#include "SoundEventListener.h"
 
 
 //TODO ASYNC noise
@@ -61,10 +60,11 @@ void DigDug::Game::InitFirstLevel()
 
     auto* Scene = dae::SceneManager::GetInstance().GetActiveScene();
     Scene->Clear();
-
     CollisionManager::GetInstance().Clear();
     Scene->Clear();
 
+    auto soundListener = std::make_unique<dae::SoundEventListener>();
+    Scene->StoreSystem(std::move(soundListener));
     auto Tilemap = Utils::CreateTilemap("Sprites/Blocks.png", "");
     Tilemap->GetTransform().SetWorldPosition(glm::vec3{0, 0, 0});
     Scene->Add(std::move(Tilemap));

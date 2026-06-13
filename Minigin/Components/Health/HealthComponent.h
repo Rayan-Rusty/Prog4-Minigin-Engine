@@ -4,7 +4,7 @@
 
 #ifndef MINIGIN_HEALTHCOMPONENT_H
 #define MINIGIN_HEALTHCOMPONENT_H
-#include "../BaseComp/Component.h"
+#include "Component.h"
 
 namespace dae
 {

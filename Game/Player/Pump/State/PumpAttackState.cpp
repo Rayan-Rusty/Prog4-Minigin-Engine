@@ -7,10 +7,10 @@
 #include "IObserver.h"
 #include "PumpIdleState.h"
 #include "RenderComponent.h"
-#include "SceneManager.h"
+
 #include "SpriteAnimationComponent.h"
-#include "Layers/GameLayers.h"
-#include "Movement/PlayerMovement.h"
+#include "GameLayers.h"
+#include "PlayerMovement.h"
 
 void DigDug::PumpAttackState::OnEvent(const dae::Event &e)
 {

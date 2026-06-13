@@ -2,7 +2,7 @@
 #include <string>
 #include <memory>
 #include "Transform.h"
-#include "../Components/BaseComp/Component.h"
+#include "Component.h"
 #include <format>
 #include <iostream>
 #include <type_traits>

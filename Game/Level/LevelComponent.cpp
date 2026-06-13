@@ -5,19 +5,18 @@
 #include "EventsIds.h"
 #include "SceneManager.h"
 #include "TilemapComponent.h"
-#include "Layers/GameLayers.h"
+#include "GameLayers.h"
 
 void DigDug::LevelComponent::OnEvent(const dae::Event &e)
 {
     if (e.id == EnemySpawned)
     {
         ++m_EnemiesAlive;
-        std::cout << "DigDug::LevelComponent::OnEvent() alive" << m_EnemiesAlive << std::endl;
     }
     else if (e.id == EnemyDied)
     {
         --m_EnemiesAlive;
-        std::cout << "DigDug::LevelComponent::OnEvent() lefr" << m_EnemiesAlive << std::endl;
+
         if (m_EnemiesAlive <= 0 && !m_IsLoading)
             m_PendingAdvance = true;
     }
@@ -61,6 +60,8 @@ std::type_index DigDug::LevelComponent::GetType() const
 
 void DigDug::LevelComponent::AdvanceLevel()
 {
+    dae::Event e(Victory);
+    dae::SceneManager::GetInstance().GetActiveScene()->GetEventBus().QueueEvent(e);
     ++m_CurrentLevel;
     if (m_CurrentLevel >= static_cast<int>(m_Levels.size()))
     {

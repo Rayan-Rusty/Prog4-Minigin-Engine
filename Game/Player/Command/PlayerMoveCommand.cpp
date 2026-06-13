@@ -3,7 +3,7 @@
 #include "EventsIds.h"
 #include "GameObject.h"
 #include "SceneManager.h"
-#include "Movement/PlayerMovement.h"
+#include "PlayerMovement.h"
 
 DigDug::PlayerMoveCommand::PlayerMoveCommand(dae::GameObject *actor, const glm::ivec2& direction)
 : GameActorCommand(actor), m_Direction(direction)

@@ -1,6 +1,3 @@
-//
-// Created by omen on 29/04/2026.
-//
 
 #include "ScoreSystem.h"
 #include "EventsIds.h"

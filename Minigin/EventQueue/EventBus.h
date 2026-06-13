@@ -1,6 +1,3 @@
-//
-// Created by omen on 29/04/2026.
-//
 
 #ifndef MINIGIN_EVENTBUS_H
 #define MINIGIN_EVENTBUS_H

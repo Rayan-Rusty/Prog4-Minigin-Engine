@@ -1,13 +1,13 @@
 #include "FygarMovement.h"
 
 #include "CollisionComponent.h"
-#include "CollisionManager.h"
+
 #include "FygarGhostState.h"
 #include "GameObject.h"
-#include "PookaGhostState.h"
+
 #include "SceneManager.h"
 #include "SpriteAnimationComponent.h"
-#include "Layers/GameLayers.h"
+#include "GameLayers.h"
 
 DigDug::FygarMovement::FygarMovement(dae::GameObject *parent)
     : Component(parent)

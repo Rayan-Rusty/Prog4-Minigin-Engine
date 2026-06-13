@@ -1,6 +1,6 @@
 #ifndef MINIGIN_LEVELCOMPONENT_H
 #define MINIGIN_LEVELCOMPONENT_H
-#include <string>
+
 #include <vector>
 #include "LevelStruct.h"
 #include "Component.h"

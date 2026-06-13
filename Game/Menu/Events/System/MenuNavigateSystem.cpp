@@ -1,12 +1,9 @@
-//
-// Created by omen on 15/05/2026.
-//
 
 #include "MenuNavigateSystem.h"
-#include "Menu/MenuMarker.h"
+#include "MenuMarker.h"
 #include "GameObject.h"
 #include "EventsIds.h"
-#include "MenuNavigateCommand.h"
+
 
 
 DigDug::MenuNavigateSystem::MenuNavigateSystem(dae::GameObject* Object)

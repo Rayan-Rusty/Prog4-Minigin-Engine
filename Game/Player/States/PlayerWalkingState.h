@@ -1,11 +1,7 @@
-//
-// Created by omen on 09/05/2026.
-//
 
 #ifndef MINIGIN_PLAYERWALKINGSTATE_H
 #define MINIGIN_PLAYERWALKINGSTATE_H
-#include "IEventListener.h"
-#include "MovementComponent.h"
+
 #include "State.h"
 
 

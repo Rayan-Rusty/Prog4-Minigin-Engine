@@ -6,7 +6,7 @@
 #define MINIGIN_MOVEMENTCOMPONENT_H
 #include <typeindex>
 
-#include "../BaseComp/Component.h"
+#include "Component.h"
 #include <glm/glm.hpp>
 
 namespace dae

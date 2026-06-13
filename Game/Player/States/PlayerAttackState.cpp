@@ -2,8 +2,8 @@
 
 #include "CollisionComponent.h"
 #include "GameObject.h"
-#include "Pump/PumpBehaviour.h"
-#include "Pump/State/PumpAttackState.h"
+#include "PumpBehaviour.h"
+#include "PumpAttackState.h"
 
 void DigDug::PlayerAttackState::Enter(PlayerBehaviour &Data)
 {

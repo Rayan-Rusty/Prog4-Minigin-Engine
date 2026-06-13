@@ -21,7 +21,7 @@ namespace DigDug {
 
     private:
         float m_timer{0.f};
-        float m_DeflateTime{1.f};
+        float m_DeflateTime{0.8f};
     };
 } // game
 
