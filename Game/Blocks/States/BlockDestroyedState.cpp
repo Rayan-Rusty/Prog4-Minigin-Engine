@@ -20,7 +20,7 @@ namespace DigDug {
         CollisionManager::GetInstance().Unregister(col);
 
         if (auto* spriteComp = gameObject->GetComponent<dae::SpriteAnimationComponent>())
-            spriteComp->SetAnimation({{ 13 * 16, 0, 16, 16 }}, 0.f, false);
+            spriteComp->SetAnimation({{ 32, 0, 16, 16 }}, 0.f, false);
 
         gameObject->GetActor()->NotifyObservers(dae::IObserver::Event::TileDestroyed);
 
