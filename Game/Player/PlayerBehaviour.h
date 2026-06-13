@@ -7,14 +7,16 @@
 #include <memory>
 
 #include "Component.h"
+#include "IEventListener.h"
 #include "State.h"
 
 namespace dae { class GameObject; }
 namespace DigDug
 {
-    class PlayerBehaviour : public dae::Component
+    class PlayerBehaviour : public dae::Component,  public dae::IEventListener
     {
     public:
+        void OnEvent(const dae::Event &e) override;
 
 
         PlayerBehaviour(dae::GameObject* owner);
@@ -25,7 +27,7 @@ namespace DigDug
         void ChangeState(std::unique_ptr<State<PlayerBehaviour>> newState);
         std::type_index GetType() const override;
 
-
+        bool GetIsMoving() const;
 
         PlayerBehaviour(const PlayerBehaviour& other) = delete;
         PlayerBehaviour(PlayerBehaviour&& other) = delete;
@@ -35,6 +37,8 @@ namespace DigDug
 
     private:
         std::unique_ptr<State<PlayerBehaviour>> m_state;
+        bool m_IsMoving{false};
+
     };
 }
 
